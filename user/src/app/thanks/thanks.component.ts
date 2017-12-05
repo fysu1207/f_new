@@ -36,6 +36,9 @@ export class ThanksComponent implements OnInit {
     this.title.setTitle('Thanks ! - Fysu');
     localStorage.removeItem('order_id');
 
+    if (this.order_id === undefined || this.order_id === null) {
+        this.router.navigate(['/home']);
+    }
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
     // tslint:disable-next-line:radix
     this.basket_num = parseInt(localStorage.getItem('basket_number'));

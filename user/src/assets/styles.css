@@ -855,16 +855,19 @@ input:active {
   }
   .location-input-div {
     flex-direction: column;
-    width: 130%;
+    width: 100%;
     margin: 30px auto 5px auto;
   }
   .location-input-div .location-enter-div,.location-input-div .see-menu-btn{
-    width: 100%;
+    width: 95%;
     letter-spacing: 1px;
     font-size: 100%;
   }
   .location-input-div .see-menu-btn{
     margin-top: 8px;
+  }
+  .see-menu-btn{
+    margin-left: 0px !important;
   }
 }
 /* Small Devices, .visible-sm-* */

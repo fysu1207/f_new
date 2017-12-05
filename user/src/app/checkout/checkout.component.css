@@ -566,6 +566,20 @@ h6 {
   .delivery-on-statement span{
     display: block;
   }
+  .db{
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  .wb{
+    height: 300px;
+    width: 300px;
+    border-radius: 4px;
+    background-color: #fff;
+  }
 }
 
 

@@ -221,6 +221,14 @@
   background-repeat: repeat;
 }
 
+.heading h4{
+  font-size: 120%;
+  position: absolute;
+  top: 20%;
+  left: 45%;
+  
+}
+
 .main-container .container {
   width: 90%;
 }
@@ -1012,11 +1020,11 @@ label{
 }
 .sch-mob-basket-div{
   position: absolute;
-  right: 5%;
+  right: 10%;
 }
 .sch-mob-basket-div .mob-basket-num{
-  height: 20px;
-  width: 20px;
+  height: 17px;
+  width: 17px;
   left: 100%;
 }
 /* Extra Small Devices, .visible-xs-* */
@@ -1062,6 +1070,9 @@ label{
   }
   body{
     padding-bottom: 50px !important;
+  }
+  .heading{
+    display: none;
   }
 }
 

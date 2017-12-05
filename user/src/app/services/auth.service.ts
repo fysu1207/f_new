@@ -127,7 +127,7 @@ export class AuthService {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
         // return this.http.post('http://localhost:3700/users/capture-payment', payment, { headers: header }).map(res => res.json());
-        return this.http.post('users/capture-payment', payment , { headers: header }).map(res => res.json());
+        // return this.http.post('users/capture-payment', payment , { headers: header }).map(res => res.json());
     }
 }
 

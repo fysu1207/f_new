@@ -902,5 +902,19 @@ a {
     text-align: center;
     font-size: 15px;
   }
+  .container .in-container {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    width: 90%;
+    overflow: auto;
+  }
+  .vp {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 110vh;
+    height: auto;
+  }
 }
 

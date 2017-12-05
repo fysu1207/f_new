@@ -326,13 +326,13 @@ export class MenuComponent implements OnInit {
     // Getting current date and time
     $(document).ready(function(){
       const tdown_time = moment('11:59am', 'h:mma');
-      const mm_cur_time = moment(new Date());
-      if (mm_cur_time.isBefore(tdown_time)) {
-          this.getMenuItems.postTabStatus('tab_one', event).subscribe(res => {
-            if (res.success) {
-            }
-          });
-      }
+      // const mm_cur_time = moment(new Date());
+      // if (mm_cur_time.isBefore(tdown_time)) {
+      //     this.getMenuItems.postTabStatus('tab_one', event).subscribe(res => {
+      //       if (res.success) {
+      //       }
+      //     });
+      // }
 
 
       setInterval(function(){
@@ -764,10 +764,6 @@ export class MenuComponent implements OnInit {
       }
     });
     // Date li
-    // $(document).on('click', '.calender-li', function(){
-    //   $('.calender-li').removeClass('selected-date-li');
-    //   $(this).addClass('selected-date-li');
-    // });
     this.getMenuItems.getRotiItems().subscribe(rotiis => {
       if (rotiis.success) {
         this.rotiItems = rotiis.msg;
@@ -3951,7 +3947,6 @@ export class MenuComponent implements OnInit {
         break;
     }
   }
-
   // Today slot select
   todayMenuSlotSelect(event) {
     $('#t-menu-select-slot').css({'border-color': 'rgba(0,0,0,.2)'});
@@ -4063,7 +4058,7 @@ export class MenuComponent implements OnInit {
           this.today_tab_three_slot = null;
         }else {
           // Do nothing
-          this.today_tab_one_books = null;
+          this.today_tab_one_books = undefined;
           $('.today-core #t-menu-select-slot').css({'border-color': '#fa0000'});
         }
         break;
@@ -4105,7 +4100,7 @@ export class MenuComponent implements OnInit {
 
         }else {
           // Do nothing
-          this.today_tab_two_books = null;
+          this.today_tab_two_books = undefined;
           $('#t-menu-select-slot').css({'border-color': '#fa0000'});
         }
         break;
@@ -4145,7 +4140,7 @@ export class MenuComponent implements OnInit {
           this.today_tab_three_slot = null;
         }else {
           // Do nothing
-          this.today_tab_three_books = null;
+          this.today_tab_three_books = undefined;
           $('#t-menu-select-slot').css({'border-color': '#fa0000'});
         }
         break;

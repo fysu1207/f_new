@@ -25,8 +25,12 @@ export class CheckoutComponent implements OnInit {
   // Razorpay variables
   rzp1: any;
   options: any;
-  p_key = 'rzp_live_qNI6V5maLBak44';
+  // p_key = 'rzp_live_qNI6V5maLBak44';
+  p_key = 'rzp_test_w2CGfBqrpGcF5o';
+  // p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
   p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
+
+  kevv = 'kevv';
 
   addresses= [];
   userId: string;
@@ -523,7 +527,6 @@ export class CheckoutComponent implements OnInit {
           today: this.today_orders,
           // next days orders
           next_days: this.orders
-
         };
         // Whole order in one place
         const main_order = {
@@ -545,27 +548,9 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
-              'handler': function (response){
-                if (response.razorpay_payment_id) {
-                  // Place order
-                  this.authService.postOrder(json).subscribe(res => {
-                    if (res.success) {
-                      // post date and item array
-                      const dIjson = { dateItem: this.date_and_item_array };
-                        // console.log(res.msg);
-                        // Save order id to local storage
-                        localStorage.setItem('order_id', order_id);
-                        localStorage.removeItem('all_orders');
-                        localStorage.removeItem('today_orders');
-                        localStorage.removeItem('basket_number');
-                        // redirect to thanks page
-                        this.router.navigate(['/thanks']);
-                    }else {
-                      $('.err').html('Something went wrong. please try again later');
-                    }
-                  });
-                }
-              },
+              'handler':  (response) => {
+                this.postOrder(response, json, order_id);
+            },
               'prefill': {
                   'name': this.userName,
                   'email': this.userEmail,
@@ -586,26 +571,8 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
-              'handler': function (response){
-                if (response.razorpay_payment_id) {
-                  // Place order
-                  this.authService.postOrder(json).subscribe(res => {
-                    if (res.success) {
-                      // post date and item array
-                      const dIjson = { dateItem: this.date_and_item_array };
-                        // console.log(res.msg);
-                        // Save order id to local storage
-                        localStorage.setItem('order_id', order_id);
-                        localStorage.removeItem('all_orders');
-                        localStorage.removeItem('today_orders');
-                        localStorage.removeItem('basket_number');
-                        // redirect to thanks page
-                        this.router.navigate(['/thanks']);
-                    }else {
-                      $('.err').html('Something went wrong. please try again later');
-                    }
-                  });
-                }
+              'handler': (response) => {
+                  this.postOrder(response, json, order_id);
               },
               'prefill': {
                   'name': this.userName,
@@ -623,29 +590,27 @@ export class CheckoutComponent implements OnInit {
         this.rzp1 = new this.winRef.nativeWindow.Razorpay(this.options);
         this.rzp1.open();
         }else {
+          this.postOrder('Cash On Delivery', json, order_id);
           // Place order
-          this.authService.postOrder(json).subscribe(res => {
-            if (res.success) {
-              // post date and item array
-              const dIjson = { dateItem: this.date_and_item_array };
-                // console.log(res.msg);
-                // Save order id to local storage
-                localStorage.setItem('order_id', order_id);
-                localStorage.removeItem('all_orders');
-                localStorage.removeItem('today_orders');
-                localStorage.removeItem('basket_number');
-                // redirect to thanks page
-                this.router.navigate(['/thanks']);
-            }else {
-              $('.err').html('Something went wrong. please try again later');
-            }
-          });
+          // this.authService.postOrder(json).subscribe(res => {
+          //   if (res.success) {
+          //     // post date and item array
+          //     const dIjson = { dateItem: this.date_and_item_array };
+          //       // console.log(res.msg);
+          //       // Save order id to local storage
+          //       localStorage.setItem('order_id', order_id);
+          //       localStorage.removeItem('all_orders');
+          //       localStorage.removeItem('today_orders');
+          //       localStorage.removeItem('basket_number');
+          //       // redirect to thanks page
+          //       this.router.navigate(['/thanks']);
+          //   }else {
+          //     $('.err').html('Something went wrong. please try again later');
+          //   }
+          // });
         }
       }
     }
-    // Get payment type
-    // alert(this.payment_method+' AND '+this.deliveryInst+ ' AND ' +order_id);
-    // Make order
   }
 
   getSlotValue(slot) {
@@ -666,7 +631,30 @@ export class CheckoutComponent implements OnInit {
         break;
     }
   }
+  postOrder(resp, json, order_id) {
+    // save orderid and payment id
+    this.authService.postOrder(json).subscribe(res => {
+      if (res.success) {
+        // post date and item array
+        const dIjson = { dateItem: this.date_and_item_array };
+          // console.log(res.msg);
+          // Rewards
+          // Add rewards
 
+          // Save order id to local storage
+          localStorage.setItem('order_id', order_id);
+          localStorage.removeItem('all_orders');
+          localStorage.removeItem('today_orders');
+          localStorage.removeItem('basket_number');
+          // redirect to thanks page
+          setTimeout(() => {
+            this.router.navigate(['/thanks']);
+          }, 500);
+      }else {
+        $('.err').html('Something went wrong. please try again later');
+      }
+    });
+  }
   editAddress(i, address) {
     this.original_address = address;
     this.placeholder_address = address;
