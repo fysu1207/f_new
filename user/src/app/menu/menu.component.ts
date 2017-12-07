@@ -2664,7 +2664,7 @@ export class MenuComponent implements OnInit {
     switch (true) {
       case this.day_one_status:
         if (this.day_one_c_books.length < 5) {
-          this.hover_alert = 'Please select atleast 5 items';
+          this.hover_alert = 'Please choose at least four';
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
@@ -2673,7 +2673,7 @@ export class MenuComponent implements OnInit {
           if (this.day_one_slot === undefined || this.day_one_slot === null) {
             //  Show error
             $('.slot-select').css({'border-color': '#fa0000'});
-            this.hover_alert = 'Please select a Delivery Slot';
+            this.hover_alert = 'Please Select Delivery Slot';
             $('.added-db').css({'display': 'flex'});
             setTimeout(function() {
               $('.added-db').css({'display': 'none'});
@@ -2858,22 +2858,27 @@ export class MenuComponent implements OnInit {
                       case this.day_one_status:
                         this.basketNumber++;
                         this.appComponent.basket_num = this.basketNumber;
+                        localStorage.setItem('basket_number', this.basketNumber.toString());
                         break;
                       case this.day_two_status:
                         this.basketNumber++;
                         this.appComponent.basket_num = this.basketNumber;
+                        localStorage.setItem('basket_number', this.basketNumber.toString());
                         break;
                       case this.day_three_status:
                         this.basketNumber++;
                         this.appComponent.basket_num = this.basketNumber;
+                        localStorage.setItem('basket_number', this.basketNumber.toString());
                         break;
                       case this.day_four_status:
                         this.basketNumber++;
                         this.appComponent.basket_num = this.basketNumber;
+                        localStorage.setItem('basket_number', this.basketNumber.toString());
                         break;
                       case this.day_five_status:
                         this.basketNumber++;
                         this.appComponent.basket_num = this.basketNumber;
+                        localStorage.setItem('basket_number', this.basketNumber.toString());
                         break;
                       default:
                         break;
@@ -2903,7 +2908,7 @@ export class MenuComponent implements OnInit {
       break;
       case this.day_two_status:
         if (this.day_two_c_books.length < 5) {
-          this.hover_alert = 'Please select atleast 5 items';
+          this.hover_alert = 'Please choose at least four';
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
@@ -2912,7 +2917,7 @@ export class MenuComponent implements OnInit {
         if (this.day_two_slot === undefined || this.day_two_slot === null) {
           //  Show error
           $('.slot-select').css({'border-color': '#fa0000'});
-          this.hover_alert = 'Please select a Delivery Slot';
+          this.hover_alert = 'Please Select Delivery Slot';
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
@@ -3099,26 +3104,32 @@ export class MenuComponent implements OnInit {
                   case this.today_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   case this.day_one_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   case this.day_two_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   case this.day_three_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   case this.day_four_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   case this.day_five_status:
                     this.basketNumber++;
                     this.appComponent.basket_num = this.basketNumber;
+                    localStorage.setItem('basket_number', this.basketNumber.toString());
                     break;
                   default:
                     break;
@@ -3148,7 +3159,7 @@ export class MenuComponent implements OnInit {
       break;
       case this.day_three_status:
             if (this.day_three_c_books.length < 5) {
-              this.hover_alert = 'Please select atleast 5 items';
+              this.hover_alert = 'Please choose at least four';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -3157,7 +3168,7 @@ export class MenuComponent implements OnInit {
               if (this.day_three_slot === undefined || this.day_three_slot === null) {
                 //  Show error
                 $('.slot-select').css({'border-color': '#fa0000'});
-                this.hover_alert = 'Please select a Delivery Slot';
+                this.hover_alert = 'Please Select Delivery Slot';
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
@@ -3342,26 +3353,32 @@ export class MenuComponent implements OnInit {
                         case this.today_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_one_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_two_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_three_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_four_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_five_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         default:
                           break;
@@ -3391,7 +3408,7 @@ export class MenuComponent implements OnInit {
         break;
       case this.day_four_status:
             if (this.day_four_c_books.length < 5) {
-              this.hover_alert = 'Please select atleast 5 items';
+              this.hover_alert = 'Please choose at least four';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -3400,7 +3417,7 @@ export class MenuComponent implements OnInit {
               if (this.day_four_slot === undefined || this.day_four_slot === null) {
                 //  Show error
                 $('.slot-select').css({'border-color': '#fa0000'});
-                this.hover_alert = 'Please select a Delivery Slot';
+                this.hover_alert = 'Please Select Delivery Slot';
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
@@ -3585,30 +3602,32 @@ export class MenuComponent implements OnInit {
                         case this.today_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_one_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_two_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_three_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_four_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_five_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
-                          break;
-                        case this.day_six_status:
-                          this.basketNumber++;
-                          this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         default:
                           break;
@@ -3639,7 +3658,7 @@ export class MenuComponent implements OnInit {
         break;
       case this.day_five_status:
             if (this.day_five_c_books.length < 5) {
-              this.hover_alert = 'Please select atleast 5 items';
+              this.hover_alert = 'Please choose at least four';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -3648,7 +3667,7 @@ export class MenuComponent implements OnInit {
               if (this.day_five_slot === undefined || this.day_five_slot === null) {
                 //  Show error
                 $('.slot-select').css({'border-color': '#fa0000'});
-                this.hover_alert = 'Please select a Delivery Slot';
+                this.hover_alert = 'Please Select Delivery Slot';
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
@@ -3834,26 +3853,32 @@ export class MenuComponent implements OnInit {
                         case this.today_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_one_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_two_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_three_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_four_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         case this.day_five_status:
                           this.basketNumber++;
                           this.appComponent.basket_num = this.basketNumber;
+                          localStorage.setItem('basket_number', this.basketNumber.toString());
                           break;
                         default:
                           break;
@@ -4037,6 +4062,7 @@ export class MenuComponent implements OnInit {
           if (previous_tab_status === undefined) {
             this.basketNumber++;
             this.appComponent.basket_num = this.basketNumber;
+            localStorage.setItem('basket_number', this.basketNumber.toString());
           }
           // add announcement
           // Update tab_one_text and display
@@ -4079,6 +4105,7 @@ export class MenuComponent implements OnInit {
           if (previous_tab_status === undefined) {
             this.basketNumber++;
             this.appComponent.basket_num = this.basketNumber;
+            localStorage.setItem('basket_number', this.basketNumber.toString());
           }
           // Update tab_two_text and display
           this.num_tab_two = this.num_tab_two_items;
@@ -4120,6 +4147,7 @@ export class MenuComponent implements OnInit {
           if (previous_tab_status === undefined) {
             this.basketNumber++;
             this.appComponent.basket_num = this.basketNumber;
+            localStorage.setItem('basket_number', this.basketNumber.toString());
           }
           // Update tab three text and display band
           this.num_tab_three = this.num_tab_three_items;
@@ -4161,6 +4189,7 @@ export class MenuComponent implements OnInit {
         // basket number decrement
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
+        localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
       case 'tab_two':
         // Remove from today_orders
@@ -4173,6 +4202,7 @@ export class MenuComponent implements OnInit {
          // basket number decrement
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
+        localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
       case 'tab_three':
         // Remove from today_orders
@@ -4184,6 +4214,7 @@ export class MenuComponent implements OnInit {
         // basket number decrement
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
+        localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
 
       default:

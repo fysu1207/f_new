@@ -145,7 +145,7 @@ export class HomeComponent implements OnInit {
               // ********** VERY IMPORTANT DELETE AFTER TESTING IS DONE **************
               // Delete after testing is done
               // this.give_menu_permission = true;
-              this.router.navigate(['/menu']);
+              // this.router.navigate(['/menu']);
               localStorage.setItem('home_address', this.address);
               // Add to user's address if he is logged in
               if (this.authService.loggedIn()) {
@@ -233,7 +233,7 @@ export class HomeComponent implements OnInit {
         this.display_error = 'Please enter your delivery location to view menu.';
         $('.location-warning-div').show();
         // Remove later
-        this.router.navigate(['/menu']);
+        // this.router.navigate(['/menu']);
       }
     }else {
       if (this.locationEntry !== undefined && this.locationEntry !== null && this.locationEntry !== '') {

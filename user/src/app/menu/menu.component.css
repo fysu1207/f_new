@@ -114,6 +114,7 @@
 }
 .added-wb h3{
   font-size: 200%;
+  margin: 0;
 }
 
 .main-header .container {
@@ -802,6 +803,10 @@ label{
   font-weight: bold;
   margin: 5px auto;
 }
+.sc-ch-mid-heads span{
+  font-style: italic;
+  font-size: 90%;
+}
 .sc-ch-four-heads {
   font-weight: bold;
   margin: 5px auto;
@@ -1021,6 +1026,7 @@ label{
 .sch-mob-basket-div{
   position: absolute;
   right: 10%;
+  font-size: 120%;
 }
 .sch-mob-basket-div .mob-basket-num{
   height: 17px;
@@ -1030,6 +1036,9 @@ label{
 /* Extra Small Devices, .visible-xs-* */
 /* @media (max-width: 480px) {} */
 @media (max-width: 767px) {
+  .sch-close-btn{
+    left: 90%;
+  }
   .menu-title {
     font-size: 120%;
   }
@@ -1074,6 +1083,20 @@ label{
   .heading{
     display: none;
   }
+  .sc-ch-top .pull-left{
+    position: absolute !important;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+  }
+  .sc-ch-top .pull-right{
+    position: absolute !important;
+    top:50%;
+    left:60%;
+    padding-left: 0 !important;
+    transform: translate(0%,-50%);
+  }
+  
 }
 
 

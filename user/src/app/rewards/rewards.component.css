@@ -1,3 +1,7 @@
+.rew-ann{
+  margin-bottom: 20px;
+  margin-top: 0;
+}
 .db{
   position: absolute;
   display: block;
@@ -15,6 +19,7 @@
   background-size: auto;
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
+  /* font-weight: 200; */
 }
 
 .main-container>.container {
@@ -36,7 +41,7 @@
   justify-content: center;
   -webkit-justify-content: center;
   flex-direction: column;
-  background-image: url('../../assets/img/gift.jpg');
+  background-image: url('../../assets/img/gift2.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -59,7 +64,7 @@
 }
 
 .right-rew-section ul{
-  font-size: 90%;
+  font-size: 100%;
 }
 .right-rew-section ul li{
   margin: 0;
