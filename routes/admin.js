@@ -200,6 +200,38 @@ router.get('/post-rewards/:email/:points', (req, res, next) => {
 
     
 });
+router.get('/rep-rewards/:email/:points', (req, res, next) => {
+
+    email = req.params.email;
+    points = req.params.points;
+    user.find({ email: email }, (err, us) => {
+
+        if (err) {
+            res.json({ success: false, msg: err });
+        } else {
+            var point;
+            if (isNaN(us[0].rewardPoints)){
+                point = 0;
+            }else{
+                point = us[0].rewardPoints;
+            }
+            // point = parseInt(point);
+            // points = parseInt();
+            var t_points = parseInt(points);
+            var t_points = parseInt(t_points);
+            user.findOneAndUpdate({ email: email }, { $set: { rewardPoints: t_points } }).exec((err, u) => {
+                if (err) {
+                    res.json({ success: false, msg: err });
+                } else {
+                    res.json({ success: true, msg: u });
+                }
+            });
+        }
+
+    });
+
+    
+});
 
 // Get User from user id
 router.get('/get-user-orders/:user_id', (req, res, next) => {

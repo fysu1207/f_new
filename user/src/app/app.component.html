@@ -24,7 +24,7 @@
     <i class="fa fa-times" aria-hidden="true" (click)="mainClose()"></i>
     <h4>Let's get started!</h4>
     <!-- <label for="email" id="email-label">Email or Mobile</label><br> -->
-    <input type="text" name="email" id="email" class="initial-login-input" [(ngModel)]='initialLoginInput' placeholder="Email or Mobile" (keydown)='keyupped($event)'>
+    <input type="text" name="email" id="email" class="initial-login-input" [(ngModel)]='initialLoginInput' placeholder="Email or Mobile" (keydown)='keyupped($event)' lowercase>
     <p class="err"></p>
     <div class="ls-btns-div">
       <div class="ls-btns-core-div">

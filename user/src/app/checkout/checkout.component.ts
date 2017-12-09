@@ -132,6 +132,7 @@ export class CheckoutComponent implements OnInit {
   payment_method: string;
   deliveryInst = '';
   rewardPoints: number;
+  fixedRewardPoints: number;
 
   basket_num: number;
 
@@ -200,27 +201,32 @@ export class CheckoutComponent implements OnInit {
     this.authService.getUserRewards(this.userId).subscribe(res => {
       if (res.success) {
         this.rewardPoints = res.msg;
+        this.fixedRewardPoints = res.msg;
         // Conditions
-        if (this.rewardPoints > 100) {
+        if (this.rewardPoints >= 100) {
           this.rewardPointsPermissions = true;
-          if (this.rewardPoints < 189) {
+          if (this.rewardPoints <= 190) {
             // Number of redeemable points are 100
             this.redeemable = 100;
             // Cost deductable
             this.discount = 10;
           }
-          if (this.rewardPoints > 191 && this.rewardPoints < 259) {
+          if (this.rewardPoints > 191 && this.rewardPoints < 360) {
             // Number of redeemable points are 190
             this.redeemable = 190;
             // Cost deductable
             this.discount = 20;
           }
-          if (this.rewardPoints > 360) {
+          if (this.rewardPoints >= 360) {
             // Number of redeemable points
+            this.redeemable = 360;
+            // Cost deductable
+            this.discount = 40;
           }
         }
       }else {
         this.rewardPoints = 0;
+        this.fixedRewardPoints = 0;
         // Can't do anything
       }
     });
@@ -459,6 +465,7 @@ export class CheckoutComponent implements OnInit {
 
   // if redeem is clicked
   redeemClicked() {
+    // alert(this.redeemable);
     // Show discount points
     this.showDiscount = true;
     // Get total points
@@ -476,7 +483,9 @@ export class CheckoutComponent implements OnInit {
   }
   addRewardPoints() {
     // alert(this.points);
-    this.getMenu.postRewards(this.userName, this.deduct_points).subscribe(res => {
+    // this.deduct_points = this.rewardPoints + this.points_earned;
+    this.deduct_points = this.remainingPoints + this.points_earned;
+    this.getMenu.repRewards(this.userEmail, this.deduct_points).subscribe(res => {
       if (res.success) {
       }
     });
@@ -632,15 +641,15 @@ export class CheckoutComponent implements OnInit {
     }
   }
   postOrder(resp, json, order_id) {
+    this.addRewardPoints();
     // save orderid and payment id
     this.authService.postOrder(json).subscribe(res => {
       if (res.success) {
         // post date and item array
         const dIjson = { dateItem: this.date_and_item_array };
-          // console.log(res.msg);
           // Rewards
           // Add rewards
-
+          this.addRewardPoints();
           // Save order id to local storage
           localStorage.setItem('order_id', order_id);
           localStorage.removeItem('all_orders');

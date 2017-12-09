@@ -82,7 +82,7 @@
                                 
                             </div>
                             <div class="item-conts-div">
-                                <h5>3 Roti, Dry Curry, Wet Curry, Sweet</h5>
+                                <h5>3 Roti, Dal, Dry Curry, Wet Curry, Sweet</h5>
                             </div>
                             <div class="item-dets">
                                 <div class="pull-left">
@@ -247,8 +247,7 @@
                                 </div> -->
                                 <!-- <h5 class="slot">Select Delivery Slot : </h5>  -->
                                 <div class="sch-slot-select-div">
-                                    
-                                    <select (change)=slotSelected($event) class="slot-select" id="sch-slot-select">
+                                <select (change)=slotSelected($event) class="slot-select visible-xs visible-sm" id="sch-slot-select">
                                     <option default selected disabled>Choose Time Slot</option>
                                     <option value="slot_one">12:00 PM - 12:45 PM</option>
                                     <option value="slot_two">12:45 PM - 01:30 PM</option>
@@ -1177,6 +1176,15 @@
 
                         <!-- Schedule menu bottom -->
                         <div class="sc-ch-btm">
+                                <div class="sch-btm-slot-select-div visible-md visible-lg">
+                                        <select (change)=slotSelected($event) class="slot-select" id="sch-slot-select">
+                                            <option default selected disabled>Choose Time Slot</option>
+                                            <option value="slot_one">12:00 PM - 12:45 PM</option>
+                                            <option value="slot_two">12:45 PM - 01:30 PM</option>
+                                            <option value="slot_three">01:30 PM - 02:15 PM</option>
+                                            <option value="slot_four">02:15 PM - 03:00 PM</option>
+                                        </select>
+                                </div>
                             <button type="button" class="sc-ch-add-btn" (click)="addCartClicked()">ADD TO BASKET</button>
                             <div class="sc-hover-basket-div visible-md visible-lg" (click)='navToChekout()'>
                                 <span class="span">

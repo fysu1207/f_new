@@ -221,13 +221,18 @@
   /* filter: sepia(10%); */
   background-repeat: repeat;
 }
-
+.heading{
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
 .heading h4{
   font-size: 120%;
-  position: absolute;
+  /* position: absolute;
   top: 20%;
-  left: 45%;
-  
+  left: 45%; */
 }
 
 .main-container .container {
@@ -881,6 +886,13 @@ label{
   align-items: center;
   padding: 0 40px;
   overflow: hidden;
+}
+.sc-ch-btm .sch-btm-slot-select-div{
+  position: absolute;
+  display: block;
+  top: 50%;
+  left: 5%;
+  transform: translate(0%,-50%);
 }
 .sc-ch-btm .sc-ch-add-btn{
   position: absolute;

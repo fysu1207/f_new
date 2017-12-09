@@ -29,6 +29,8 @@ export class ProfileComponent implements OnInit {
     this.userId = user_parsed.id;
   }
   profileUpdate(userEmail, userName, userMobile) {
+    userEmail = userEmail.toLowerCase();
+    this.userEmail = this.userEmail.toLowerCase();
 
     if (this.validate.validateInput(userEmail) && this.validate.validateInput(userName) && this.validate.validateInput(userMobile)) {
       if (this.validate.validateEmail(userEmail)) {

@@ -195,6 +195,7 @@ export class AppComponent implements OnInit {
 
   // On clicking continue in first login/signup slide
   public firstConClick(input: string) {
+    input = input.toLowerCase();
     $('.err').html('');
     // Validate input
     if (this.validate.validateInput(input)) {
@@ -300,6 +301,8 @@ export class AppComponent implements OnInit {
 
   public LoginSubmit(loginEmailInput: string, loginPasswordInput: string) {
     $('.fixed-dark-cover input').css({'border-color': '#b2b2b2'});
+    loginEmailInput = loginEmailInput.toLowerCase();
+    this.loginEmailInput = this.loginEmailInput.toLowerCase();
 
     this.isInputEmail = false;
     this.isInputMobile = false;
@@ -397,6 +400,7 @@ export class AppComponent implements OnInit {
       this.validate.validateInput(this.regMobileInput) &&
       this.validate.validateInput(this.regPwdInput)
     ) {
+      this.regEmailInput = this.regEmailInput.toLowerCase();
       // Validate Email and Mobile
       if (this.validate.validateEmail(this.regEmailInput)) {
         if (this.validate.validateMobile(this.regMobileInput)) {
@@ -478,7 +482,8 @@ export class AppComponent implements OnInit {
     $('.fixed-dark-cover input').css({'border-color': 'rgba(0, 0, 0, 0.2)'});
     // validate and signup
     this.regNameInput = regNameInput;
-    this.regEmailInput = regEmailInput;
+    this.regEmailInput = regEmailInput.toLowerCase();
+    regEmailInput = regEmailInput.toLowerCase();
     this.regMobileInput = regMobileInput;
     this.regPwdInput = regPwdInput;
     this.regOTPInput = regOTPInput;

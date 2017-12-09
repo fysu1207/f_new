@@ -177,6 +177,10 @@ export class HomeComponent implements OnInit {
               this.locationEntry = this.address;
               this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
               $('.location-warning-div').show();
+              $('#scroll-head-err').css({'display' : 'flex'});
+              setTimeout(() => {
+                $('#scroll-head-err').hide();
+              }, 3000);
             }
           });
         }
@@ -232,6 +236,10 @@ export class HomeComponent implements OnInit {
         this.locationEntry = this.address;
         this.display_error = 'Please enter your delivery location to view menu.';
         $('.location-warning-div').show();
+        $('#scroll-head-err').css({'display' : 'flex'});
+        setTimeout(() => {
+          $('#scroll-head-err').hide();
+        }, 3000);
         // Remove later
         // this.router.navigate(['/menu']);
       }
@@ -272,6 +280,10 @@ export class HomeComponent implements OnInit {
           this.locationEntry = this.address;
           this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
           $('.location-warning-div').show();
+          $('#scroll-head-err').css({'display' : 'flex'});
+          setTimeout(() => {
+            $('#scroll-head-err').hide();
+          }, 3000);
 
           // Remove later
           this.router.navigate(['/menu']);
@@ -281,6 +293,10 @@ export class HomeComponent implements OnInit {
             // Show Error
             this.display_error = 'Please enter your delivery location to view menu.';
             $('.location-warning-div').show();
+            $('#scroll-head-err').css({'display' : 'flex'});
+            setTimeout(() => {
+              $('#scroll-head-err').hide();
+            }, 3000);
           }
           // this.appComponent.loginSignupTrigger();
       }
