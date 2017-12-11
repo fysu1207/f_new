@@ -302,7 +302,7 @@ export class AppComponent implements OnInit {
   public LoginSubmit(loginEmailInput: string, loginPasswordInput: string) {
     $('.fixed-dark-cover input').css({'border-color': '#b2b2b2'});
     loginEmailInput = loginEmailInput.toLowerCase();
-    this.loginEmailInput = this.loginEmailInput.toLowerCase();
+    // this.loginEmailInput = this.loginEmailInput.toLowerCase();
 
     this.isInputEmail = false;
     this.isInputMobile = false;
@@ -415,6 +415,11 @@ export class AppComponent implements OnInit {
                 $('.err').html('The mobile number is already registered with us.');
               } else {
                 // Send otp
+                this.authService.sendOtp(this.regMobileInput).subscribe(ress => {
+                  setTimeout(() => {
+                    this.resendotptrig('signup');
+                  }, 10000);
+                });
                 $('.otp-span').show('slow');
                 $('#otp-btn').hide();
                 $('#signup-btn').css({ 'display': 'block' });
@@ -878,6 +883,5 @@ export class AppComponent implements OnInit {
    $(event.target).css({'border-color' : '#b2b2b2'});
    $('.err').html('');
   }
-
 
 }

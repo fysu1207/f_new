@@ -135,45 +135,13 @@ export class HomeComponent implements OnInit {
                 });
               } else {
                 // Not logged in
-                // this.give_menu_permission = true;
               }
               // Add to input box
               // $('.location-search-input').val(this.address);
               this.locationEntry = this.address;
-              this.router.navigate(['/menu']);
-            } else {
-              // ********** VERY IMPORTANT DELETE AFTER TESTING IS DONE **************
-              // Delete after testing is done
-              // this.give_menu_permission = true;
               // this.router.navigate(['/menu']);
-              localStorage.setItem('home_address', this.address);
+            } else {
               // Add to user's address if he is logged in
-              if (this.authService.loggedIn()) {
-                // console.log('user is logged in');
-                // User is logged in
-                // send this address to save
-                const address = {
-                  user_id: this.userId,
-                  address: this.address
-                };
-                // console.log(address);
-                this.authService.saveAddress(address).subscribe(rees => {
-                  if (rees.success) {
-                    // Address saved
-                    console.log(rees.msg);
-                  } else {
-                    // Address not saved
-                    if (rees.msg === 'exists') {
-                      // address already exists
-                      console.log('exists');
-                    } else {
-                      console.log(rees.msg);
-                    }
-                  }
-                });
-              } else {
-                // console.log('not logged in');
-              }
               this.locationEntry = this.address;
               this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
               $('.location-warning-div').show();

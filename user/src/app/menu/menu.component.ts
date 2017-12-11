@@ -911,7 +911,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               const pdate = this.datePipe.transform(date, 'fullDate');
               if (pdate.includes('Sunday')) {
@@ -1132,7 +1132,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               const pdate = this.datePipe.transform(date, 'fullDate');
               if (pdate.includes('Sunday')) {
@@ -1354,7 +1354,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               const pdate = this.datePipe.transform(date, 'fullDate');
               if (pdate.includes('Sunday')) {
@@ -1559,7 +1559,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               const pdate = this.datePipe.transform(date, 'fullDate');
               if (pdate.includes('Sunday')) {
@@ -1764,7 +1764,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               const pdate = this.datePipe.transform(date, 'fullDate');
               if (pdate.includes('Sunday')) {
@@ -2202,7 +2202,6 @@ export class MenuComponent implements OnInit {
         break;
     }
   }
-
 
   letterCheck(e) {
     console.log(e.target.checked);
@@ -2668,7 +2667,7 @@ export class MenuComponent implements OnInit {
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
-          }, 1500);
+          }, 3000);
         }else {
           if (this.day_one_slot === undefined || this.day_one_slot === null) {
             //  Show error
@@ -2677,7 +2676,7 @@ export class MenuComponent implements OnInit {
             $('.added-db').css({'display': 'flex'});
             setTimeout(function() {
               $('.added-db').css({'display': 'none'});
-            }, 1500);
+            }, 3000);
           }else {
             let day_one_check = false;
             this.day_one_c_books.forEach(element => {
@@ -2901,7 +2900,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 2000);
+                }, 3000);
               }
           }
         }
@@ -2912,7 +2911,7 @@ export class MenuComponent implements OnInit {
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
-          }, 1500);
+          }, 3000);
         }else {
         if (this.day_two_slot === undefined || this.day_two_slot === null) {
           //  Show error
@@ -2921,7 +2920,7 @@ export class MenuComponent implements OnInit {
           $('.added-db').css({'display': 'flex'});
           setTimeout(function() {
             $('.added-db').css({'display': 'none'});
-          }, 1500);
+          }, 3000);
         }else {
           let day_two_check = false;
           this.day_two_c_books.forEach(element => {
@@ -3152,7 +3151,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 1500);
+                }, 3000);
               }
             }
           }
@@ -3163,7 +3162,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               if (this.day_three_slot === undefined || this.day_three_slot === null) {
                 //  Show error
@@ -3172,7 +3171,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 1500);
+                }, 3000);
               }else {
                 let day_three_check = false;
                 this.day_three_c_books.forEach(element => {
@@ -3401,7 +3400,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1500);
+                      }, 3000);
                     }
             }
           }
@@ -3412,7 +3411,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               if (this.day_four_slot === undefined || this.day_four_slot === null) {
                 //  Show error
@@ -3421,7 +3420,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 1500);
+                }, 3000);
               }else {
               let day_four_check = false;
               this.day_four_c_books.forEach(element => {
@@ -3651,7 +3650,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1500);
+                      }, 3000);
                   }
             }
           }
@@ -3662,7 +3661,7 @@ export class MenuComponent implements OnInit {
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
-              }, 1500);
+              }, 3000);
             }else {
               if (this.day_five_slot === undefined || this.day_five_slot === null) {
                 //  Show error
@@ -3671,7 +3670,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 1500);
+                }, 3000);
               }else {
                 let day_five_check = false;
                 this.day_five_c_books.forEach(element => {
@@ -3902,7 +3901,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1500);
+                      }, 3000);
                   }
             }
           }

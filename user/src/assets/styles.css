@@ -55,7 +55,7 @@ input:active {
   left: 0;
   height: 30px;
   width: 100%;
-  background-color: #fa0000;
+  background-color: #000;
   color: #fff;
   text-align: center;
 }
@@ -737,6 +737,8 @@ input:active {
   left: 50%;
   transform: translate(-50%,-50%);
   /* line-height: 1; */
+  font-size: 100%;
+  white-space: nowrap;
   text-align: center;
 }
 .mob-menu .reward-pts-trig-btn {

@@ -2,6 +2,9 @@
   margin-bottom: 20px;
   margin-top: 0;
 }
+.intro-ul{
+  padding-left: 16px;
+}
 .db{
   position: absolute;
   display: block;
@@ -41,7 +44,7 @@
   justify-content: center;
   -webkit-justify-content: center;
   flex-direction: column;
-  background-image: url('../../assets/img/gift2.png');
+  background-image: url('../../assets/img/rew.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

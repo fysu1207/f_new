@@ -21,14 +21,14 @@ declare var $: any;
 export class CheckoutComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private authService: AuthService, private title: Title, private router: Router, private getMenu: AdminServicesService, private datePipe: DatePipe, private winRef: WindowRef) {}
+  constructor(private authService: AuthService, private title: Title, private router: Router, private getMenu: AdminServicesService, private datePipe: DatePipe, private winRef: WindowRef, private appComponent: AppComponent) {}
   // Razorpay variables
   rzp1: any;
   options: any;
-  // p_key = 'rzp_live_qNI6V5maLBak44';
-  p_key = 'rzp_test_w2CGfBqrpGcF5o';
-  // p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
+  p_key = 'rzp_live_qNI6V5maLBak44';
+  // p_key = 'rzp_test_w2CGfBqrpGcF5o';
   p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
+  // p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
 
   kevv = 'kevv';
 
@@ -170,11 +170,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     // Getting orders
     this.title.setTitle('Fysu - Checkout');
-
-
-
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
-
     // Get basketnumber from localstorage
     // tslint:disable-next-line:radix
     this.basket_num = parseInt(localStorage.getItem('basket_number'));
@@ -190,13 +186,11 @@ export class CheckoutComponent implements OnInit {
     this.userMobile = user_parsed.mobile;
     this.userId = user_parsed.id;
     const fLength = this.fullName.split(' ');
-
     if (fLength.length > 1) {
       this.userName = this.fullName.split(' ').slice(0, -(this.fullName.split(' ').length - 1)).join(' ');
     }else {
       this.userName = this.fullName;
     }
-
     // Getting user reward points
     this.authService.getUserRewards(this.userId).subscribe(res => {
       if (res.success) {
@@ -233,7 +227,6 @@ export class CheckoutComponent implements OnInit {
 
     // Get if letter is added from localstorage
     this.letter_added = localStorage.getItem('letter_added');
-
     if (this.letter_added === 'true') {
       this.letter_price = 5;
     }else {
@@ -557,6 +550,7 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
+              'order_id' : order_id,
               'handler':  (response) => {
                 this.postOrder(response, json, order_id);
             },
@@ -580,6 +574,7 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
+              'order_id' : order_id,
               'handler': (response) => {
                   this.postOrder(response, json, order_id);
               },
@@ -655,6 +650,8 @@ export class CheckoutComponent implements OnInit {
           localStorage.removeItem('all_orders');
           localStorage.removeItem('today_orders');
           localStorage.removeItem('basket_number');
+          this.basket_num = 0;
+          this.appComponent.basket_num = 0;
           // redirect to thanks page
           setTimeout(() => {
             this.router.navigate(['/thanks']);

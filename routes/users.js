@@ -85,44 +85,33 @@ router.post('/register', (req, res, next) => {
         address: req.body.address,
         rewardPoints: req.body.rewardPoints
     });
-
-    User.addUser(newUser, (er, user) => {
-        if (er) {
-            res.json({ success: false, msg: er });
-        } else {
-            res.json({ success: true, msg: user });
-
-        }
-    });
-
     // Verify OTP
+    sendOtp.verify(input,otp, function (error, data, response) {
+        // console.log(data); // data object with keys 'message' and 'type'
+        if(data.type == 'success') {
+            // res.json({success:true,msg:"success"});
+            let newUser = new User({
+                email: req.body.email,
+                mobile: req.body.mobile,
+                name: req.body.name,
+                password: req.body.password,
+                address: req.body.address,
+                rewardPoints: req.body.rewardPoints
+            });
 
-    // sendOtp.verify(input,otp, function (error, data, response) {
-    //     // console.log(data); // data object with keys 'message' and 'type'
-    //     if(data.type == 'success') {
-    //         // res.json({success:true,msg:"success"});
-    //         let newUser = new User({
-    //             email: req.body.email,
-    //             mobile: req.body.mobile,
-    //             name: req.body.name,
-    //             password: req.body.password,
-    //             address: req.body.address,
-    //             rewardPoints: req.body.rewardPoints
-    //         });
+            User.addUser(newUser, (er, user) => {
+                if (er) {
+                    res.json({ success: false, msg: 'Failed to Register' })
+                } else {
+                    res.json({ success: true, msg: user });
 
-    //         User.addUser(newUser, (er, user) => {
-    //             if (er) {
-    //                 res.json({ success: false, msg: 'Failed to Register' })
-    //             } else {
-    //                 res.json({ success: true, msg: user });
-
-    //             }
-    //         });
-    //     }
-    //     if(data.type == 'error') {
-    //         res.json({success:false,msg:data});
-    //     }
-    //   });
+                }
+            });
+        }
+        if(data.type == 'error') {
+            res.json({success:false,msg:data});
+        }
+      });
 
     
 });
