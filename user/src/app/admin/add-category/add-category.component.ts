@@ -19,6 +19,7 @@ declare var $: any;
 export class AddCategoryComponent implements OnInit {
 
   categories: Category[] = [];
+  catName;
   res;
 
   constructor(private getMenu: AdminServicesService, private router: Router, private title: Title) { }

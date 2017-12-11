@@ -1,14 +1,1 @@
-const mongoose = require('mongoose');
-
-const DatesSchema = mongoose.Schema({
-    date: {
-        type: String,
-        required: true
-    },
-    item_id: {
-        type: String,
-        required: true
-    }
-});
-
-const dates = module.exports = mongoose.model('Dates', DatesSchema);
+const mongoose=require("mongoose"),DatesSchema=mongoose.Schema({date:{type:String,required:!0},item_id:{type:String,required:!0}}),dates=module.exports=mongoose.model("Dates",DatesSchema);

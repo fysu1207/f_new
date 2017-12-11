@@ -27,7 +27,7 @@ export class SettingsComponent implements OnInit {
   dateForHeader: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private title: Title, private authService: AuthService, private userService: UserService, private datePipe: DatePipe) { }
+  constructor(private router: Router, private title: Title, public authService: AuthService, private userService: UserService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.title.setTitle('Settings');

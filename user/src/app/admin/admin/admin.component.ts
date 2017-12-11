@@ -12,7 +12,7 @@ declare var $: any;
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private authService: AdminAuthService,
+  constructor(public authService: AdminAuthService,
     private router: Router, private title: Title, private flash: FlashMessagesService) { }
 
   ngOnInit() {
@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit {
     this.title.setTitle('Admin');
     // Mobile menu on menu click
     $('.mob-menu-trig-btn').click(function () {
-      $('.mob-menu').css({'left':'-40vw'});
+      $('.mob-menu').css({'left': '-40vw'});
       const mob_menu_offest = $('.mob-menu-admin').offset().left;
       if (mob_menu_offest < 0) {
         $('.main-container').animate({

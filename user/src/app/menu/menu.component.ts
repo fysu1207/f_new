@@ -225,11 +225,12 @@ export class MenuComponent implements OnInit {
   day_three_sweets = [];
   day_four_sweets = [];
   day_five_sweets = [];
+  curtime;
 
   hover_alert: string;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private title: Title, private appComponent: AppComponent, private authService: AuthService, private getMenuItems: GetMenuService, private datePipe: DatePipe) {}
+  constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService, private getMenuItems: GetMenuService, private datePipe: DatePipe) {}
 
   ngOnInit() {
 

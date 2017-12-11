@@ -50,15 +50,11 @@ export class AddressComponent implements OnInit {
         console.log('err');
       }
     });
-    // Mobile Menu
     $('.mob-menu-trig-btn').click(function(){
-      // alert('al');
       const mob_menu_offest = $('.mob-menu').offset().left;
       if (mob_menu_offest < 0) {
-          // $('.fvp, .svp, .main-footer,.checkout-main-container').animate({'margin-left':'50vw' },200);
           $('.mob-menu').animate({'left': '0vw'}, 200);
       }else {
-          // $('.fvp, .svp, .main-footer,.checkout-main-container').animate({'margin-left':'0vw' },200);
           $('.mob-menu').animate({'left': '-50vw' }, 200);
       }
     });
@@ -75,12 +71,10 @@ export class AddressComponent implements OnInit {
   }
 
   addressDelete(event, ad) {
-
     const address = {
       user_id: this.userId,
       address: ad
     };
-    // delete the respective address
     this.authService.deleteAddress(address).subscribe(res => {
         if (res.success) {
           window.location.reload();
@@ -90,7 +84,7 @@ export class AddressComponent implements OnInit {
     });
   }
 
-  geoLocate(callback) {
+  geoLocate() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.location = position.coords;
@@ -100,27 +94,20 @@ export class AddressComponent implements OnInit {
         } else {
           this.authService.getLocation(this.lat, this.long).subscribe(res => {
             this.address = res.results[0].formatted_address;
-            // if (this.address.includes('Madhapur')) {
-                // send this address to save
                 const address = {
                   user_id: this.userId,
                   address: this.address
                 };
                 this.authService.saveAddress(address).subscribe(ress => {
                   if (ress.success) {
-                    // Address saved
-                    // console.log(res);
                     window.location.reload();
                   } else {
-                    // Address not saved
                     if (ress.msg = 'exists') {
-                      // address already exists
                     } else {
                       console.log(ress);
                     }
                   }
                 });
-            // }
           });
         }
       });

@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
   display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
 
 
-  constructor(private router: Router, private title: Title, private appComponent: AppComponent, private authService: AuthService) { }
+  constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService) { }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
@@ -111,12 +111,8 @@ export class HomeComponent implements OnInit {
             this.address = res.results[0].formatted_address;
             this.locationEntry = this.address;
             if (this.address.includes('Madhapur')) {
-              // this.give_menu_permission = true;
               localStorage.setItem('home_address', this.address);
-              // Add to user's address if he is logged in
               if (this.authService.loggedIn()) {
-                // User is logged in
-                // send this address to save
                 const address = {
                   user_id: this.userId,
                   address: this.address
@@ -126,20 +122,14 @@ export class HomeComponent implements OnInit {
                     // Address saved
                     console.log(rres);
                   } else {
-                    // Address not saved
                     if (rres.msg = 'exists') {
-                      // address already exists
                     } else {
                     }
                   }
                 });
               } else {
-                // Not logged in
               }
-              // Add to input box
-              // $('.location-search-input').val(this.address);
               this.locationEntry = this.address;
-              // this.router.navigate(['/menu']);
             } else {
               // Add to user's address if he is logged in
               this.locationEntry = this.address;

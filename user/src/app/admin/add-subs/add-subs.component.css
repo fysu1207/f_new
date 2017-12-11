@@ -1,16 +1,1 @@
-.view-sub-table td {
-  padding: 20px 20px;
-  font-size: 130%;
-}
-
-.cat-close-btn {
-  cursor: pointer;
-  font-size: 100%;
-  color: #888;
-}
-.orders-list-section input{
-  border: 1px solid #888888;
-}
-select option{
-  border: 1px solid #888888;
-}
+.view-sub-table td{padding:20px;font-size:130%}.cat-close-btn{cursor:pointer;font-size:100%;color:#888}.orders-list-section input,select option{border:1px solid #888}

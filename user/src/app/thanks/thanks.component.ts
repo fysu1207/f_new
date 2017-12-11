@@ -15,7 +15,7 @@ declare var $: any;
 })
 export class ThanksComponent implements OnInit {
 
-  constructor(private authService: AuthService, private title: Title, private router: Router, private datePipe: DatePipe) { }
+  constructor(public authService: AuthService, private title: Title, private router: Router, private datePipe: DatePipe) { }
 
   order_id: string;
   userEmail: string;

@@ -56,7 +56,7 @@ export class AppComponent implements OnInit {
   fpretryOtp;
 
   // tslint:disable-next-line:max-line-length
-  constructor(private title: Title, private router: Router, private validate: ValidateService, private authService: AuthService, private http: Http, private datePipe: DatePipe) { }
+  constructor(private title: Title, private router: Router, private validate: ValidateService, public authService: AuthService, private http: Http, private datePipe: DatePipe) { }
   ngOnInit() {
 
     // Set title

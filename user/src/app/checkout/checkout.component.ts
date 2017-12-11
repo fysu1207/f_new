@@ -21,7 +21,7 @@ declare var $: any;
 export class CheckoutComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private authService: AuthService, private title: Title, private router: Router, private getMenu: AdminServicesService, private datePipe: DatePipe, private winRef: WindowRef, private appComponent: AppComponent) {}
+  constructor(public authService: AuthService, private title: Title, private router: Router, private getMenu: AdminServicesService, private datePipe: DatePipe, private winRef: WindowRef, private appComponent: AppComponent) {}
   // Razorpay variables
   rzp1: any;
   options: any;
@@ -171,7 +171,6 @@ export class CheckoutComponent implements OnInit {
     // Getting orders
     this.title.setTitle('Fysu - Checkout');
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
-    // Get basketnumber from localstorage
     // tslint:disable-next-line:radix
     this.basket_num = parseInt(localStorage.getItem('basket_number'));
     if (this.basket_num === undefined || this.basket_num === null || this.basket_num === 0 || isNaN(this.basket_num) === true) {
@@ -595,23 +594,6 @@ export class CheckoutComponent implements OnInit {
         this.rzp1.open();
         }else {
           this.postOrder('Cash On Delivery', json, order_id);
-          // Place order
-          // this.authService.postOrder(json).subscribe(res => {
-          //   if (res.success) {
-          //     // post date and item array
-          //     const dIjson = { dateItem: this.date_and_item_array };
-          //       // console.log(res.msg);
-          //       // Save order id to local storage
-          //       localStorage.setItem('order_id', order_id);
-          //       localStorage.removeItem('all_orders');
-          //       localStorage.removeItem('today_orders');
-          //       localStorage.removeItem('basket_number');
-          //       // redirect to thanks page
-          //       this.router.navigate(['/thanks']);
-          //   }else {
-          //     $('.err').html('Something went wrong. please try again later');
-          //   }
-          // });
         }
       }
     }

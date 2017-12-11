@@ -26,7 +26,7 @@ export class RewardsComponent implements OnInit {
 
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private title: Title, private appComponent: AppComponent, private authService: AuthService, private datePipe: DatePipe) { }
+  constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.router.events.subscribe((evt) => {
