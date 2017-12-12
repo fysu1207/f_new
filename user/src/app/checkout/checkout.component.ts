@@ -549,7 +549,6 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
-              'order_id' : order_id,
               'handler':  (response) => {
                 this.postOrder(response, json, order_id);
             },
@@ -573,7 +572,6 @@ export class CheckoutComponent implements OnInit {
               'name': 'Fysu',
               'description': 'Purchase Description',
               'image': '../../assets/logo/logo_black.png',
-              'order_id' : order_id,
               'handler': (response) => {
                   this.postOrder(response, json, order_id);
               },
