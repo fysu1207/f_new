@@ -23,17 +23,13 @@ export class OrdersComponent implements OnInit {
   userMobile: string;
   userId: string;
   orders_exist = false;
-  // user_items= [];
   user_day= [];
   orders = [];
   rorders = [];
-
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private adminAuth: AdminAuthService , private title: Title, private getadMenu: AdminServicesService, private authService: AuthService) { }
-
   ngOnInit() {
     this.title.setTitle('Settings: Orders');
-
     const user = this.authService.getUserFromLocal();
     const user_parsed = JSON.parse(user);
     this.userEmail = user_parsed.email;
@@ -41,14 +37,12 @@ export class OrdersComponent implements OnInit {
     this.companyName = user_parsed.company_name;
     this.userMobile = user_parsed.mobile;
     this.userId = user_parsed.id;
-
     this.getadMenu.getUserOrders(this.userId).subscribe(res => {
+      console.log(res.msg);
       if (res.success) {
         if (res.msg.length > 0) {
           this.orders_exist = true;
           this.all_user_orders = res.msg.orders;
-          // console.log(this.all_user_orders);
-          // console.log(res.msg);
           res.msg.forEach(element => {
             const user_items = [];
             if (element.order.order.today !== null && element.order.order.today !== undefined) {

@@ -1,1 +1,210 @@
-<div class="orders-section"> <h3>Reports</h3><div class="orders-list-section table-responsive"> <div class="c-filer-div"> <div class="pull-left"> <form #myForm="ngForm" novalidate> <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker><br><my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker> <button type="button" class="c-btns" (click)='datesUpdated()'>Show</button> </form> </div><div class="pull-right"> <button type="button" class="c-btns" id="generate-pdf-btn">Generate PDF</button> </div><div class="clearfix"></div></div><div *ngFor='let item of un_items'>{{item.item_name}}:{{item.num_of_times}}</div></div>
+<div class="orders-section"> 
+    <h3>Reports</h3>
+    <div class="orders-list-section table-responsive"> 
+        <div class="c-filer-div"> 
+            <div class="pull-left"> 
+                <form #myForm="ngForm" novalidate> 
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="fromDate" required></my-date-picker><br>
+                    <my-date-picker name="mydate" [options]="myDatePickerOptions" [(ngModel)]="toDate" required></my-date-picker> 
+                    <button type="button" class="c-btns" (click)='datesUpdated()'>Show</button> 
+                </form> 
+            </div>
+            <div class="pull-right"> 
+                <button type="button" class="c-btns" id="generate-pdf-btn">Generate PDF</button> 
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="days-div">
+                <table class="table table-striped">
+                  <tr>
+                    <th>
+                      Order id
+                    </th>
+                    <th>
+                      Order Time
+                    </th>
+                    <th>
+                      Delivery Address
+                    </th>
+                    <th>
+                      Payment Type
+                    </th>
+                    <th>
+                      User name
+                    </th>
+                    <th>
+                      User Mobile
+                    </th>
+                    <th>
+                      User Email
+                    </th>
+                    <th>
+                      Details
+                    </th>
+                  </tr>
+                  
+                  <tr *ngFor='let today of display_today_orders'>
+                    <td>
+                       {{today.order_id}}
+                    </td>
+                    <td>
+                      {{today.order_time}}
+                    </td>
+                    <td>
+                       {{today.delivery_address}}
+                    </td>
+                    <td>
+                      {{today.payment_type}}
+                    </td>
+                    <td>
+                       {{today.user_name}}
+                    </td>
+                    <td>
+                       {{today.user_mobile}}
+                    </td>
+                    <td>
+                       {{today.user_email}}
+                    </td>
+                    <td>
+                      <span (click)='ViewDetails("today",today.order_id,p_today_one)'>View</span>
+                    </td>
+                  </tr>
+                </table>
+                <table class="table table-striped">
+                  <tr>
+                    <th>
+                      Order id
+                    </th>
+                    <th>
+                      Order Time
+                    </th>
+                    <th>
+                      Delivery Address
+                    </th>
+                    <th>
+                      Payment Type
+                    </th>
+                    <th>
+                      User name
+                    </th>
+                    <th>
+                      User Mobile
+                    </th>
+                    <th>
+                      User Email
+                    </th>
+                    <th>
+                      Details
+                    </th>
+                  </tr>
+                  <tr *ngFor='let order of display_next_orders'>
+                    <td>
+                      {{order.order_id}}
+                    </td>
+                    <td>
+                      {{order.order_time}}
+                    </td>
+                    <td>
+                      {{order.delivery_address}}
+                    </td>
+                    <td>
+                      {{order.payment_type}}
+                    </td>
+                    <td>
+                      {{order.user_name}}
+                    </td>
+                    <td>
+                      {{order.user_mobile}}
+                    </td>
+                    <td>
+                      {{order.user_email}}
+                    </td>
+                    <td>
+                      <span (click)='ViewDetails("day_three",order.order_id)'>View</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+    </div>
+    <div class="db">
+      <span (click)='closedb()' class="det-close">X</span>
+      <div class="dets-div">
+        <table class="table table-striped">
+          <tr>
+            <th>
+              Order Id
+            </th>
+            <th>
+              User Name
+            </th>
+            <th>
+              User Mobile
+            </th>
+            <th>
+              User Email
+            </th>
+            <th class="address-cell">
+              User Address
+            </th>
+            <th>
+              Ordered Items
+            </th>
+            <th>
+              Time slot
+            </th>
+            <th>
+              Number of orders
+            </th>
+          </tr>
+          <tr>
+            <td>
+               {{p_h_order_id}}
+            </td>
+            <td>
+               {{p_h_user_name}}
+            </td>
+            <td>
+               {{p_h_user_mobile}}
+            </td>
+            <td>
+               {{p_h_user_email}}
+            </td>
+            <td class="address-cell">
+               {{p_h_address}}
+            </td>
+            <td>
+              <span *ngIf="today_active == true">
+                <div *ngFor='let order of p_h_order'>
+                  {{order}}
+                </div>
+              </span>
+              <span *ngIf="today_active == false">
+                <div *ngFor='let order of p_h_order'>
+                  {{order.item_name}}
+                </div>
+              </span>
+            </td>
+            <td>
+              <span *ngIf="today_active == true">
+                {{  p_h_one_time_slot }}
+                {{  p_h_two_time_slot }}
+                {{  p_h_three_time_slot }}
+              </span>
+              <span *ngIf="today_active == false">
+                  {{  p_h_time_slot }}
+              </span>
+            </td>
+            <td>
+              <span *ngIf="today_active == true">
+                {{p_h_tab_one_times}}<br>
+                {{p_h_tab_two_times}}<br>
+                {{p_h_tab_three_times}}<br>
+              </span>
+              <span *ngIf="today_active == false">
+                {{p_h_num_times}}
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>

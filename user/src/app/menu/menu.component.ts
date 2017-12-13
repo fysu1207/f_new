@@ -157,7 +157,6 @@ export class MenuComponent implements OnInit {
   companyName: string;
   userMobile: string;
   userId: string;
-  // allOrders : any;
   allOrders = {
     day_one: null,
     day_two: null,
@@ -179,8 +178,8 @@ export class MenuComponent implements OnInit {
   curd_r_img = '../assets/menu-icons/curd_r.png';
   fry_img = '../assets/menu-icons/fry_b.png';
   fry_r_img = '../assets/menu-icons/fry_r.png';
-  sweets_img = '../assets/menu-icons/sweets_b.png';
-  sweets_r_img = '../assets/menu-icons/sweets_r.png';
+  desserts_img = '../assets/menu-icons/sweets_b.png';
+  desserts_r_img = '../assets/menu-icons/sweets_r.png';
   time_slot_one_status = true;
   time_slot_two_status = true;
   time_slot_three_status = true;
@@ -188,7 +187,6 @@ export class MenuComponent implements OnInit {
   dateForHeader: string;
   letter_added = false;
   letter_price = 0;
-
   // Base
   day_one_base_items= [];
   day_two_base_items= [];
@@ -219,21 +217,16 @@ export class MenuComponent implements OnInit {
   day_three_curd = [];
   day_four_curd = [];
   day_five_curd = [];
-  // sweet
   day_one_sweets = [];
   day_two_sweets = [];
   day_three_sweets = [];
   day_four_sweets = [];
   day_five_sweets = [];
   curtime;
-
   hover_alert: string;
-
   // tslint:disable-next-line:max-line-length
   constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService, private getMenuItems: GetMenuService, private datePipe: DatePipe) {}
-
   ngOnInit() {
-
     this.getMenuItems.getTabStatus('tab_one').subscribe(res => {
       if (res.success) {
         this.tab_one_sold_out = true;
@@ -270,30 +263,22 @@ export class MenuComponent implements OnInit {
       }
       window.scrollTo(0, 0);
     });
-
-
-    // Mobile Menu
     $('.mob-menu-trig-btn').click(function(){
-      // alert('al');
       const mob_menu_offest = $('.mob-menu').offset().left;
       if (mob_menu_offest < 0) {
-          // $('.fvp, .svp, .main-footer,.checkout-main-container').animate({'margin-left':'50vw' },200);
           $('.mob-menu').animate({'left': '0vw' }, 200);
       }else {
-          // $('.fvp, .svp, .main-footer,.checkout-main-container').animate({'margin-left':'0vw' },200);
           $('.mob-menu').animate({'left': '-50vw' }, 200);
       }
     });
     $('.mob-menu li').click(function() {
       $('.mob-menu').animate({'left': '-50vw' }, 200);
     });
-
     const om_cur_time = moment(new Date());
     const last_time = moment('2:14pm', 'h:mma');
     const slot_three_end_time = moment('1:29pm', 'h:mma');
     const slot_two_end_time = moment('12:44pm', 'h:mma');
     const slot_one_end_time = moment('11:59am', 'h:mma');
-
     if (om_cur_time.isAfter(last_time)) {
       // Disable all today slots
       $('#slot_one_option').prop('disabled', true);
@@ -314,7 +299,6 @@ export class MenuComponent implements OnInit {
       // Diable first slot
       $('#slot_one_option').prop('disabled', true);
     }
-
     $(document).keydown(function(e) {
       if (e === 27) {
         this.tdClose();
@@ -322,59 +306,35 @@ export class MenuComponent implements OnInit {
         this.scClose();
       }
     });
-
-
-    // Getting current date and time
     $(document).ready(function(){
       const tdown_time = moment('11:59am', 'h:mma');
-      // const mm_cur_time = moment(new Date());
-      // if (mm_cur_time.isBefore(tdown_time)) {
-      //     this.getMenuItems.postTabStatus('tab_one', event).subscribe(res => {
-      //       if (res.success) {
-      //       }
-      //     });
-      // }
-
-
       setInterval(function(){
         const m_cur_time = moment(new Date());
-        // Time validations
-        // Check if current time is past 02:14P
         const tup_time = moment('12:00am', 'h:mma');
         if (m_cur_time.isAfter(tup_time)) {
-          // $('.time-up-db').hide();
         }
         if (m_cur_time.isAfter(last_time)) {
-          // Show time up div
-          // $('.time-up-db').css({'display':'flex'});
-          // Disable all today slots
           $('#slot_one_option').prop('disabled', true);
           $('#slot_two_option').prop('disabled', true);
           $('#slot_three_option').prop('disabled', true);
           $('#slot_four_option').prop('disabled', true);
           $('#today-add-btn').prop('disabled', true);
         }else if (m_cur_time.isAfter(slot_three_end_time)) {
-          // Diable first three slots
           $('#slot_one_option').prop('disabled', true);
           $('#slot_two_option').prop('disabled', true);
           $('#slot_three_option').prop('disabled', true);
         }else if (m_cur_time.isAfter(slot_two_end_time)) {
-          // Diable first two slots
           $('#slot_one_option').prop('disabled', true);
           $('#slot_two_option').prop('disabled', true);
         }else if (m_cur_time.isAfter(slot_one_end_time)) {
-          // Diable first slot
           $('#slot_one_option').prop('disabled', true);
         }
-
-      }, 1000);
+      }, 2000);
     });
-    // clear localStorage
     localStorage.removeItem('all_orders');
     localStorage.removeItem('today_orders');
     localStorage.removeItem('basket_number');
     localStorage.removeItem('letter_added');
-    // Set title
     this.title.setTitle('Fysu - Menu');
     if (this.authService.loggedIn() === true) {
       const user = this.authService.getUserFromLocal();
@@ -399,7 +359,6 @@ export class MenuComponent implements OnInit {
     this.p_day_four = this.datePipe.transform(this.day_four, 'fullDate');
     this.p_day_five = this.datePipe.transform(this.day_five, 'fullDate');
     this.p_day_six = this.datePipe.transform(this.day_six, 'fullDate');
-
     this.p_last_today_one = this.datePipe.transform(this.last_today_one, 'fullDate');
     this.p_last_day_one = this.datePipe.transform(this.last_day_one, 'fullDate');
     this.p_last_day_two = this.datePipe.transform(this.last_day_two, 'fullDate');
@@ -407,17 +366,12 @@ export class MenuComponent implements OnInit {
     this.p_last_day_four = this.datePipe.transform(this.last_day_four, 'fullDate');
     this.p_last_day_five = this.datePipe.transform(this.last_day_five, 'fullDate');
     this.p_last_day_six = this.datePipe.transform(this.last_day_six, 'fullDate');
-
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
-
     $(document).keyup(function (e) {
       if (e.keyCode === 27) {
         $('.schedule-menu-back').css({ 'display': 'none' });
       }
     });
-
-
-
     this.getMenuItems.getCats().subscribe(res => {
       if (res.success) {
         this.categories = res.msg;
@@ -425,8 +379,6 @@ export class MenuComponent implements OnInit {
         window.location.reload();
       }
     });
-
-    // Get day one menu
     this.getMenuItems.getDatesMenu(this.p_day_one, this.p_last_day_one).subscribe(do_res => {
       if (do_res.success) {
         this.day_one_menu = do_res.msg;
@@ -492,7 +444,6 @@ export class MenuComponent implements OnInit {
         }
       }
     });
-    // Get day two menu
     this.getMenuItems.getDatesMenu(this.p_day_two, this.p_last_day_two).subscribe(dt_res => {
       if (dt_res.success) {
         this.day_two_menu = dt_res.msg;
@@ -559,8 +510,6 @@ export class MenuComponent implements OnInit {
       }else {
       }
     });
-
-    // Get day three menu
     this.getMenuItems.getDatesMenu(this.p_day_three, this.p_last_day_three).subscribe(dth_res => {
       if (dth_res.success) {
         this.day_three_menu = dth_res.msg;
@@ -627,8 +576,6 @@ export class MenuComponent implements OnInit {
         }
       }
     });
-
-    // Get day four menu
     this.getMenuItems.getDatesMenu(this.p_day_four, this.p_last_day_four).subscribe(df_res => {
       if (df_res.success) {
         // console.log(df_res);
@@ -693,8 +640,6 @@ export class MenuComponent implements OnInit {
         }
       }
     });
-
-    // Get day five menu
     this.getMenuItems.getDatesMenu(this.p_day_five, this.p_last_day_five).subscribe(dfi_res => {
       if (dfi_res.success) {
         // console.log(dfi_res.msg[0]);
@@ -764,7 +709,6 @@ export class MenuComponent implements OnInit {
         }
       }
     });
-    // Date li
     this.getMenuItems.getRotiItems().subscribe(rotiis => {
       if (rotiis.success) {
         this.rotiItems = rotiis.msg;
@@ -772,7 +716,6 @@ export class MenuComponent implements OnInit {
       }
     });
   }
-
   postMenuAvailable() {
     this.getMenuItems.postTabStatus('tab_one', event).subscribe(res => {
       if (res.success) {
@@ -787,8 +730,6 @@ export class MenuComponent implements OnInit {
       }
     });
   }
-
-  // Load menu
   loadDay(date, origin) {
     if (origin === 'btn_clicked') {
       const pdate = this.datePipe.transform(date, 'fullDate');
@@ -797,18 +738,15 @@ export class MenuComponent implements OnInit {
       }else {
         $('.sc-ch-db').css({'display': 'none'});
       }
-      $('#sch-slot-select option:eq(0)').prop('selected', true);
       $('.calender-li').removeClass('selected-date-li');
       switch (this.datePipe.transform(date, 'fullDate')) {
         case this.p_day_one:
-          // Day one menu
           $('#top-calender-li').addClass('selected-date-li');
           this.menu_to_be_loaded = this.day_one_books;
           $('.sc-ch-mid').hide();
           $('#day-one-div').show();
           this.numberOfItems = this.num_day_one_items;
           this.place_holder_price = this.total_day_one_price;
-          // Update active day status
           this.day_one_status = true;
           this.day_two_status = false;
           this.day_three_status = false;
@@ -818,14 +756,11 @@ export class MenuComponent implements OnInit {
           break;
         case this.p_day_two:
           $('#calender-two').addClass('selected-date-li');
-          // Day two menu
           this.menu_to_be_loaded = this.day_two_books;
-          // Experiment
           $('.sc-ch-mid').hide();
           $('#day-two-div').show();
           this.numberOfItems = this.num_day_two_items;
           this.place_holder_price = this.total_day_two_price;
-          // Update active day status
           this.day_one_status = false;
           this.day_two_status = true;
           this.day_three_status = false;
@@ -835,14 +770,11 @@ export class MenuComponent implements OnInit {
           break;
         case this.p_day_three:
           $('#calender-three').addClass('selected-date-li');
-          // Day three menu
           this.menu_to_be_loaded = this.day_three_books;
-          // Experiment
           $('.sc-ch-mid').hide();
           $('#day-three-div').show();
           this.numberOfItems = this.num_day_three_items;
           this.place_holder_price = this.total_day_three_price;
-          // Update active day status
           this.day_one_status = false;
           this.day_two_status = false;
           this.day_three_status = true;
@@ -852,14 +784,11 @@ export class MenuComponent implements OnInit {
           break;
         case this.p_day_four:
           $('#calender-four').addClass('selected-date-li');
-          // Day four menu
             this.menu_to_be_loaded = this.day_four_books;
-            // Experiment
             $('.sc-ch-mid').hide();
             $('#day-four-div').show();
             this.numberOfItems = this.num_day_four_items;
             this.place_holder_price = this.total_day_four_price;
-          // Update active day status
           this.day_one_status = false;
           this.day_two_status = false;
           this.day_three_status = false;
@@ -869,36 +798,16 @@ export class MenuComponent implements OnInit {
           break;
         case this.p_day_five:
           $('#calender-five').addClass('selected-date-li');
-          // Day five menu
-          // this.menu_to_be_loaded = this.day_five_books;
-           // Experiment
            $('.sc-ch-mid').hide();
            $('#day-five-div').show();
           this.numberOfItems = this.num_day_five_items;
           this.place_holder_price = this.total_day_five_price;
-          // Update active day status
           this.day_one_status = false;
           this.day_two_status = false;
           this.day_three_status = false;
           this.day_four_status = false;
           this.day_five_status = true;
           this.day_six_status = false;
-          break;
-        case this.p_day_six:
-          // Day six menu
-          this.menu_to_be_loaded = this.day_six_books;
-           // Experiment
-           $('.sc-ch-mid').hide();
-           $('#day-six-div').show();
-          this.numberOfItems = this.num_day_six_items;
-          this.place_holder_price = this.total_day_six_price;
-          // Update active day status
-          this.day_one_status = false;
-          this.day_two_status = false;
-          this.day_three_status = false;
-          this.day_four_status = false;
-          this.day_five_status = false;
-          this.day_six_status = true;
           break;
         default:
           break;
@@ -908,7 +817,7 @@ export class MenuComponent implements OnInit {
         case this.day_one_status:
           if (this.day_one_c_books.length > 1) {
             if (this.allOrders['day_one'] == null) {
-              this.hover_alert = 'You have\'t added to cart';
+              this.hover_alert = 'You have\'t added to basket';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -920,7 +829,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1034,7 +942,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1106,14 +1013,10 @@ export class MenuComponent implements OnInit {
                   break;
                 case this.p_day_five:
                   $('#calender-five').addClass('selected-date-li');
-                  // Day five menu
-                  // this.menu_to_be_loaded = this.day_five_books;
-                   // Experiment
                    $('.sc-ch-mid').hide();
                    $('#day-five-div').show();
                   this.numberOfItems = this.num_day_five_items;
                   this.place_holder_price = this.total_day_five_price;
-                  // Update active day status
                   this.day_one_status = false;
                   this.day_two_status = false;
                   this.day_three_status = false;
@@ -1129,7 +1032,7 @@ export class MenuComponent implements OnInit {
         case this.day_two_status:
           if (this.day_two_c_books.length > 1) {
             if (this.allOrders['day_two'] == null) {
-              this.hover_alert = 'You have\'t added to cart';
+              this.hover_alert = 'You have\'t added to basket';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -1141,7 +1044,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1213,9 +1115,6 @@ export class MenuComponent implements OnInit {
                   break;
                 case this.p_day_five:
                   $('#calender-five').addClass('selected-date-li');
-                  // Day five menu
-                  // this.menu_to_be_loaded = this.day_five_books;
-                   // Experiment
                    $('.sc-ch-mid').hide();
                    $('#day-five-div').show();
                   this.numberOfItems = this.num_day_five_items;
@@ -1256,7 +1155,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1351,7 +1249,7 @@ export class MenuComponent implements OnInit {
         case this.day_three_status:
           if (this.day_three_c_books.length > 1) {
             if (this.allOrders['day_three'] == null) {
-              this.hover_alert = 'You have\'t added to cart';
+              this.hover_alert = 'You have\'t added to basket';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -1363,7 +1261,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1461,7 +1358,6 @@ export class MenuComponent implements OnInit {
             }else {
               $('.sc-ch-db').css({'display': 'none'});
             }
-            $('#sch-slot-select option:eq(0)').prop('selected', true);
             $('.calender-li').removeClass('selected-date-li');
             switch (this.datePipe.transform(date, 'fullDate')) {
               case this.p_day_one:
@@ -1556,7 +1452,7 @@ export class MenuComponent implements OnInit {
         case this.day_four_status:
           if (this.day_four_c_books.length > 1) {
             if (this.allOrders['day_four'] == null) {
-              this.hover_alert = 'You have\'t added to cart';
+              this.hover_alert = 'You have\'t added to basket';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -1568,7 +1464,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1666,7 +1561,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1761,7 +1655,7 @@ export class MenuComponent implements OnInit {
         case this.day_five_status:
           if (this.day_five_c_books.length > 1) {
             if (this.allOrders['day_five'] == null) {
-              this.hover_alert = 'You have\'t added to cart';
+              this.hover_alert = 'You have\'t added to basket';
               $('.added-db').css({'display': 'flex'});
               setTimeout(function() {
                 $('.added-db').css({'display': 'none'});
@@ -1773,7 +1667,6 @@ export class MenuComponent implements OnInit {
               }else {
                 $('.sc-ch-db').css({'display': 'none'});
               }
-              $('#sch-slot-select option:eq(0)').prop('selected', true);
               $('.calender-li').removeClass('selected-date-li');
               switch (this.datePipe.transform(date, 'fullDate')) {
                 case this.p_day_one:
@@ -1871,18 +1764,15 @@ export class MenuComponent implements OnInit {
             }else {
               $('.sc-ch-db').css({'display': 'none'});
             }
-            $('#sch-slot-select option:eq(0)').prop('selected', true);
             $('.calender-li').removeClass('selected-date-li');
             switch (this.datePipe.transform(date, 'fullDate')) {
               case this.p_day_one:
                 $('#top-calender-li').addClass('selected-date-li');
-                // Day one menu
                 this.menu_to_be_loaded = this.day_one_books;
                 $('.sc-ch-mid').hide();
                 $('#day-one-div').show();
                 this.numberOfItems = this.num_day_one_items;
                 this.place_holder_price = this.total_day_one_price;
-                // Update active day status
                 this.day_one_status = true;
                 this.day_two_status = false;
                 this.day_three_status = false;
@@ -1969,7 +1859,6 @@ export class MenuComponent implements OnInit {
       }
     }
   }
-
   decNumberOfItems() {
     switch (true) {
       case this.today_status:
@@ -2111,7 +2000,6 @@ export class MenuComponent implements OnInit {
         break;
       }
   }
-
   incNumberOfItems() {
 
     switch (true) {
@@ -2203,7 +2091,6 @@ export class MenuComponent implements OnInit {
         break;
     }
   }
-
   letterCheck(e) {
     console.log(e.target.checked);
     switch (e.target.checked) {
@@ -2224,21 +2111,14 @@ export class MenuComponent implements OnInit {
     }
   }
   onCheckChange(menu, event, mevent) {
-
     menu.checked = event;
-    // console.log(menu);
-
     const tar = mevent.target;
     if (event === true) {
-      // b_img
-      // Handling Base images
-
       if ($(tar).parent().find('img').hasClass('roti-cl')) {
         $(tar).parent().find('img').attr('src', this.roti_r_img);
         $(tar).parent().parent().parent().parent().parent().find('img.rice-roti-cl').attr('src', this.rice_roti_img);
         $(tar).parent().parent().parent().parent().parent().find('img.rice-cl').attr('src', this.rice_img);
       }
-
       if ($(tar).parent().find('img').hasClass('rice-roti-cl')) {
         $(tar).parent().parent().parent().parent().parent().find('img.rice-roti-cl').attr('src', this.rice_roti_img);
         $(tar).parent().parent().parent().parent().parent().find('img.roti-cl').attr('src', this.roti_img);
@@ -2250,48 +2130,37 @@ export class MenuComponent implements OnInit {
         $(tar).parent().parent().parent().parent().parent().find('img.rice-roti-cl').attr('src', this.rice_roti_img);
         $(tar).parent().parent().parent().parent().parent().find('img.roti-cl').attr('src', this.roti_img);
       }
-
       if ($(tar).parent().find('img').hasClass('curry-cl')) {
         $(tar).parent().find('img').attr('src', this.curry_r_img);
       }
-
       if ($(tar).parent().find('img').hasClass('dal-cl')) {
         $(tar).parent().find('img').attr('src', this.dal_r_img);
       }
-
       if ($(tar).parent().find('img').hasClass('curd-cl')) {
         $(tar).parent().find('img').attr('src', this.curd_r_img);
       }
-
       if ($(tar).parent().find('img').hasClass('fry-cl')) {
         $(tar).parent().find('img').attr('src', this.fry_r_img);
       }
-      if ($(tar).parent().find('img').hasClass('sweet-cl')) {
-        $(tar).parent().find('img').attr('src', this.sweets_r_img);
+      if ($(tar).parent().find('img').hasClass('dessert-cl')) {
+        $(tar).parent().find('img').attr('src', this.desserts_r_img);
       }
-
     }else {
-      // r_img
       if ($(tar).parent().find('img').hasClass('roti-cl')) {
         $(tar).parent().find('img').attr('src', this.roti_img);
       }
-
       if ($(tar).parent().find('img').hasClass('rice-roti-cl')) {
         $(tar).parent().find('img').attr('src', this.rice_roti_img);
       }
-
       if ($(tar).parent().find('img').hasClass('curry-cl')) {
         $(tar).parent().find('img').attr('src', this.curry_img);
       }
-
       if ($(tar).parent().find('img').hasClass('dal-cl')) {
         $(tar).parent().find('img').attr('src', this.dal_img);
       }
-
       if ($(tar).parent().find('img').hasClass('rice-cl')) {
         $(tar).parent().find('img').attr('src', this.rice_img);
       }
-
       if ($(tar).parent().find('img').hasClass('curd-cl')) {
         $(tar).parent().find('img').attr('src', this.curd_img);
       }
@@ -2300,14 +2169,12 @@ export class MenuComponent implements OnInit {
         $(tar).parent().find('img').attr('src', this.fry_img);
       }
 
-      if ($(tar).parent().find('img').hasClass('sweet-cl')) {
-        $(tar).parent().find('img').attr('src', this.sweets_img);
+      if ($(tar).parent().find('img').hasClass('dessert-cl')) {
+        $(tar).parent().find('img').attr('src', this.desserts_img);
       }
     }
     switch (true) {
       case this.day_one_status:
-        // this.day_one_books = this.menu_to_be_loaded;
-
         if (menu.sub_name === 'Base') {
           this.day_one_c_books.forEach(element => {
             if (element.sub_name === menu.sub_name && element.date === menu.date) {
@@ -2375,9 +2242,7 @@ export class MenuComponent implements OnInit {
 
         break;
       case this.day_two_status:
-        // this.day_two_books = this.menu_to_be_loaded;
         if (menu.sub_name === 'Base') {
-          // Removing other base items from basket
           this.day_two_c_books.forEach(element => {
             if (element.sub_name === menu.sub_name && element.date === menu.date) {
               const ind = this.day_two_c_books.indexOf(element, 0);
@@ -2390,9 +2255,7 @@ export class MenuComponent implements OnInit {
               }
             }
           });
-          // Adding current one to basket
           this.day_two_c_books.push(menu);
-          // Update prices
           if (this.num_day_two_items === 0) {
             this.num_day_two_items++;
             this.numberOfItems = this.num_day_two_items;
@@ -2408,10 +2271,7 @@ export class MenuComponent implements OnInit {
           }
         }else {
           if (event) {
-            // checked
-            // Add to added items
             this.day_two_c_books.push(menu);
-            // Update prices
             if (this.num_day_two_items === 0) {
               this.num_day_two_items++;
               this.numberOfItems = this.num_day_two_items;
@@ -2427,7 +2287,6 @@ export class MenuComponent implements OnInit {
             }
 
           } else {
-            // must remove from added items if exists
             this.day_two_c_books.forEach(element => {
               if (element._id === menu._id && element.date === menu.date) {
                 const ind = this.day_two_c_books.indexOf(element, 0);
@@ -2445,9 +2304,7 @@ export class MenuComponent implements OnInit {
         break;
       case this.day_three_status:
         this.day_three_books = this.menu_to_be_loaded;
-
         if (menu.sub_name === 'Base') {
-          // Removing other base items from basket
           this.day_three_c_books.forEach(element => {
             if (element.sub_name === menu.sub_name && element.date === menu.date) {
               const ind = this.day_three_c_books.indexOf(element, 0);
@@ -2460,9 +2317,7 @@ export class MenuComponent implements OnInit {
               }
             }
           });
-          // Adding current one to basket
           this.day_three_c_books.push(menu);
-          // Update prices
           if (this.num_day_three_items === 0) {
             this.num_day_three_items++;
             this.numberOfItems = this.num_day_three_items;
@@ -2478,10 +2333,7 @@ export class MenuComponent implements OnInit {
           }
         }else {
           if (event) {
-            // checked
-            // Add to added items
             this.day_three_c_books.push(menu);
-            // Update prices
             if (this.num_day_three_items === 0) {
               this.num_day_three_items++;
               this.numberOfItems = this.num_day_three_items;
@@ -2496,7 +2348,6 @@ export class MenuComponent implements OnInit {
               this.place_holder_price = this.total_day_three_price;
             }
           } else {
-            // must remove from added items if exists
             this.day_three_c_books.forEach(element => {
               if (element._id === menu._id && element.date === menu.date) {
                 const ind = this.day_three_c_books.indexOf(element, 0);
@@ -2509,16 +2360,12 @@ export class MenuComponent implements OnInit {
                   this.place_holder_price = this.total_day_three_price;
                 }
               }
-              // console.log(this.day_three_c_books);
             });
           }
         }
-
         break;
       case this.day_four_status:
-        // this.day_four_books = this.menu_to_be_loaded;
         if (menu.sub_name === 'Base') {
-          // Removing other base items from basket
           this.day_four_c_books.forEach(element => {
             if (element.sub_name === menu.sub_name && element.date === menu.date) {
               const ind = this.day_four_c_books.indexOf(element, 0);
@@ -2531,9 +2378,7 @@ export class MenuComponent implements OnInit {
               }
             }
           });
-          // Adding current one to basket
           this.day_four_c_books.push(menu);
-          // Update prices
           if (this.num_day_four_items === 0) {
             this.num_day_four_items++;
             this.numberOfItems = this.num_day_four_items;
@@ -2549,10 +2394,7 @@ export class MenuComponent implements OnInit {
           }
         }else {
           if (event) {
-            // checked
-            // Add to added items
             this.day_four_c_books.push(menu);
-            // Update prices
             if (this.num_day_four_items === 0) {
               this.num_day_four_items++;
               this.numberOfItems = this.num_day_four_items;
@@ -2567,7 +2409,6 @@ export class MenuComponent implements OnInit {
               this.place_holder_price = this.total_day_four_price;
             }
           }else {
-            // must remove from added items if exists
             this.day_four_c_books.forEach(element => {
               if (element._id === menu._id && element.date === menu.date) {
                 const ind = this.day_four_c_books.indexOf(element, 0);
@@ -2585,9 +2426,7 @@ export class MenuComponent implements OnInit {
 
         break;
       case this.day_five_status:
-
       if (menu.sub_name === 'Base') {
-        // Removing other base items from basket
         this.day_five_c_books.forEach(element => {
           if (element.sub_name === menu.sub_name && element.date === menu.date) {
             const ind = this.day_five_c_books.indexOf(element, 0);
@@ -2600,9 +2439,7 @@ export class MenuComponent implements OnInit {
             }
           }
         });
-        // Adding current one to basket
         this.day_five_c_books.push(menu);
-        // Update prices
         if (this.num_day_five_items === 0) {
           this.num_day_five_items++;
           this.numberOfItems = this.num_day_five_items;
@@ -2618,10 +2455,7 @@ export class MenuComponent implements OnInit {
         }
       }else {
         if (event) {
-          // checked
-          // Add to added items
           this.day_five_c_books.push(menu);
-          // Update prices
           if (this.num_day_five_items === 0) {
             this.num_day_five_items++;
             this.numberOfItems = this.num_day_five_items;
@@ -2636,7 +2470,6 @@ export class MenuComponent implements OnInit {
             this.place_holder_price = this.total_day_five_price;
           }
         } else {
-          // must remove from added items if exists
           this.day_five_c_books.forEach(element => {
             if (element._id === menu._id && element.date === menu.date) {
               const ind = this.day_five_c_books.indexOf(element, 0);
@@ -2651,15 +2484,11 @@ export class MenuComponent implements OnInit {
           });
         }
       }
-
         break;
-
       default:
         break;
     }
   }
-
-  // Add to cart button clicked
   addCartClicked() {
     switch (true) {
       case this.day_one_status:
@@ -2671,7 +2500,6 @@ export class MenuComponent implements OnInit {
           }, 3000);
         }else {
           if (this.day_one_slot === undefined || this.day_one_slot === null) {
-            //  Show error
             $('.slot-select').css({'border-color': '#fa0000'});
             this.hover_alert = 'Please Select Delivery Slot';
             $('.added-db').css({'display': 'flex'});
@@ -2686,26 +2514,17 @@ export class MenuComponent implements OnInit {
               }
             });
             if (day_one_check) {
-            $('.slot-select').selectedIndex = 1;
             $('.slot-select').css({'border-color': '#666'});
             let day_one: object, day_two: object, day_three: object, day_four: object, day_five: object;
-                    // If day one's items are active
                     if (this.num_day_one_items > 0) {
                       if (this.day_one_c_books.length > 4) {
                         day_one = {
-                          // Get Date
                           date: this.p_day_one,
-                          // Raw date for reports
                           rawDate : this.day_one,
-                          // Get the booked menu
                           menu: this.day_one_c_books,
-                          // Get the number of times menu has been booked
                           numOfTimes: this.num_day_one_items,
-                          // Price per portion
                           perPortionPrice: this.day_one_price,
-                          // Time slot
                           timeSlot: this.day_one_slot,
-                          // Total price
                           totalPrice: this.total_day_one_price
                         };
                       }else {
@@ -2722,23 +2541,15 @@ export class MenuComponent implements OnInit {
                         day_one = null;
                       }
                     }
-                    // If day two's items are active
                     if (this.num_day_two_items > 0) {
                       if (this.day_two_c_books.length > 4) {
                         day_two = {
-                          // Get Date
                           date: this.p_day_two,
-                          // Raw date for reports
                           rawDate: this.day_two,
-                          // Get the booked menu
                           menu: this.day_two_c_books,
-                          // Get the number of times menu has been booked
                           numOfTimes: this.num_day_two_items,
-                          // Price per portion
                           perPortionPrice: this.day_two_price,
-                          // Time slot
                           timeSlot: this.day_two_slot,
-                          // Total price
                           totalPrice: this.total_day_two_price
                         };
                       }else {
@@ -2755,23 +2566,15 @@ export class MenuComponent implements OnInit {
                         day_two = null;
                       }
                     }
-                    // If day three's items are active
                     if (this.num_day_three_items > 0) {
                       if (this.day_three_c_books.length > 4) {
                         day_three = {
-                          // Get Date
                           date: this.p_day_three,
-                          // Raw date for reports
                           rawDate: this.day_three,
-                          // Get the booked menu
                           menu: this.day_three_c_books,
-                          // Get the number of times menu has been booked
                           numOfTimes: this.num_day_three_items,
-                          // Price per portion
                           perPortionPrice: this.day_three_price,
-                          // Time slot
                           timeSlot: this.day_three_slot,
-                          // Total price
                           totalPrice: this.total_day_three_price
                         };
                       } else {
@@ -2788,23 +2591,15 @@ export class MenuComponent implements OnInit {
                         day_three = null;
                       }
                     }
-                    // If day four's items are active
                     if (this.num_day_four_items > 0) {
                       if (this.day_four_c_books.length > 4) {
                         day_four = {
-                          // Get Date
                           date: this.p_day_four,
-                          // Raw date for reports
                           rawDate: this.day_four,
-                          // Get the booked menu
                           menu: this.day_four_c_books,
-                          // Get the number of times menu has been booked
                           numOfTimes: this.num_day_four_items,
-                          // Price per portion
                           perPortionPrice: this.day_four_price,
-                          // Time slot
                           timeSlot: this.day_four_slot,
-                          // Total price
                           totalPrice: this.total_day_four_price
                         };
                       }else {
@@ -2821,23 +2616,15 @@ export class MenuComponent implements OnInit {
                         day_four = this.allOrders['day_four'];
                       }
                     }
-                    // If day five's items are active
                     if (this.num_day_five_items > 0) {
                       if (this.day_five_c_books.length > 4) {
                         day_five = {
-                          // Get Date
                           date: this.p_day_five,
-                          // Raw date for reports
                           rawDate : this.day_five,
-                          // Get the booked menu
                           menu: this.day_five_c_books,
-                          // Get the number of times menu has been booked
                           numOfTimes: this.num_day_five_items,
-                          // Price per portion
                           perPortionPrice: this.day_five_price,
-                          // Time slot
                           timeSlot: this.day_five_slot,
-                          // Total price
                           totalPrice: this.total_day_five_price
                         };
                       }else {
@@ -2895,7 +2682,7 @@ export class MenuComponent implements OnInit {
                     $('.added-db').css({'display': 'flex'});
                     setTimeout(function() {
                       $('.added-db').css({'display': 'none'});
-                    }, 1000);
+                    }, 3000);
               }else {
                 this.hover_alert = 'Please select one Base item';
                 $('.added-db').css({'display': 'flex'});
@@ -2930,7 +2717,6 @@ export class MenuComponent implements OnInit {
             }
           });
           if (day_two_check) {
-            $('.slot-select').selectedIndex = 1;
             $('.slot-select').css({'border-color': '#666'});
           let day_one: object, day_two: object, day_three: object, day_four: object, day_five: object;
                 // If day one's items are active
@@ -3146,7 +2932,7 @@ export class MenuComponent implements OnInit {
                 $('.added-db').css({'display': 'flex'});
                 setTimeout(function() {
                   $('.added-db').css({'display': 'none'});
-                }, 1000);
+                }, 3000);
               }else {
                 this.hover_alert = 'Please select one Base Item';
                 $('.added-db').css({'display': 'flex'});
@@ -3181,7 +2967,6 @@ export class MenuComponent implements OnInit {
                   }
                 });
                 if (day_three_check) {
-                $('.slot-select').selectedIndex = 1;
                 $('.slot-select').css({'border-color': '#666'});
               let day_one: object, day_two: object, day_three: object, day_four: object, day_five: object;
                       // If day one's items are active
@@ -3395,7 +3180,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1000);
+                      }, 3000);
                     }else {
                       this.hover_alert = 'Please select one Base item';
                       $('.added-db').css({'display': 'flex'});
@@ -3430,7 +3215,6 @@ export class MenuComponent implements OnInit {
                 }
               });
               if (day_four_check) {
-              $('.slot-select').selectedIndex = 1;
               $('.slot-select').css({'border-color': '#666'});
               let day_one: object, day_two: object, day_three: object, day_four: object, day_five: object;
                       // If day one's items are active
@@ -3565,23 +3349,15 @@ export class MenuComponent implements OnInit {
                           day_four = this.allOrders['day_four'];
                         }
                       }
-                      // If day five's items are active
                       if (this.num_day_five_items > 0) {
                         if (this.day_five_c_books.length > 4) {
                           day_five = {
-                            // Get Date
                             date: this.p_day_five,
-                            // Raw date for reports
                             rawDate : this.day_five,
-                            // Get the booked menu
                             menu: this.day_five_c_books,
-                            // Get the number of times menu has been booked
                             numOfTimes: this.num_day_five_items,
-                            // Price per portion
                             perPortionPrice: this.day_five_price,
-                            // Time slot
                             timeSlot: this.day_five_slot,
-                            // Total price
                             totalPrice: this.total_day_five_price
                           };
                         }else {
@@ -3644,7 +3420,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1000);
+                      }, 3000);
 
                     } else {
                       this.hover_alert = 'Please select one Base Item';
@@ -3680,26 +3456,17 @@ export class MenuComponent implements OnInit {
                   }
                 });
                 if (day_five_check) {
-                $('.slot-select').selectedIndex = 1;
                 $('.slot-select').css({'border-color': '#666'});
                 let day_one: object, day_two: object, day_three: object, day_four: object, day_five: object;
-                      // If day one's items are active
                       if (this.num_day_one_items > 0) {
                         if (this.day_one_c_books.length > 4) {
                           day_one = {
-                            // Get Date
                             date: this.p_day_one,
-                            // Raw date for reports
                             rawDate : this.day_one,
-                            // Get the booked menu
                             menu: this.day_one_c_books,
-                            // Get the number of times menu has been booked
                             numOfTimes: this.num_day_one_items,
-                            // Price per portion
                             perPortionPrice: this.day_one_price,
-                            // Time slot
                             timeSlot: this.day_one_slot,
-                            // Total price
                             totalPrice: this.total_day_one_price
                           };
                         }else {
@@ -3716,24 +3483,15 @@ export class MenuComponent implements OnInit {
                           day_one = null;
                         }
                       }
-                      // If day two's items are active
                       if (this.num_day_two_items > 0) {
-                        // let date, menu, numOfTimes, totalPrice;
                         if (this.day_two_c_books.length > 4) {
                           day_two = {
-                            // Get Date
                             date: this.p_day_two,
-                            // Raw date for reports
                             rawDate: this.day_two,
-                            // Get the booked menu
                             menu: this.day_two_c_books,
-                            // Get the number of times menu has been booked
                             numOfTimes: this.num_day_two_items,
-                            // Price per portion
                             perPortionPrice: this.day_two_price,
-                            // Time slot
                             timeSlot: this.day_two_slot,
-                            // Total price
                             totalPrice: this.total_day_two_price
                           };
                         }else {
@@ -3750,23 +3508,15 @@ export class MenuComponent implements OnInit {
                           day_two = null;
                         }
                       }
-                      // If day three's items are active
                       if (this.num_day_three_items > 0) {
                         if (this.day_three_c_books.length > 4) {
                           day_three = {
-                            // Get Date
                             date: this.p_day_three,
-                            // Raw date for reports
                             rawDate: this.day_three,
-                            // Get the booked menu
                             menu: this.day_three_c_books,
-                            // Get the number of times menu has been booked
                             numOfTimes: this.num_day_three_items,
-                            // Price per portion
                             perPortionPrice: this.day_three_price,
-                            // Time slot
                             timeSlot: this.day_three_slot,
-                            // Total price
                             totalPrice: this.total_day_three_price
                           };
                         } else {
@@ -3895,7 +3645,7 @@ export class MenuComponent implements OnInit {
                       $('.added-db').css({'display': 'flex'});
                       setTimeout(function() {
                         $('.added-db').css({'display': 'none'});
-                      }, 1000);
+                      }, 3000);
 
                     }else {
                       this.hover_alert = 'Please select one Base Item';
@@ -3912,8 +3662,6 @@ export class MenuComponent implements OnInit {
         break;
     }
   }
-
-  // Close schedule menu
   scClose() {
     $('.schedule-menu-back').css({ 'display': 'none' });
   }
@@ -3942,37 +3690,14 @@ export class MenuComponent implements OnInit {
 
 
   }
-
-  // Slot selected event
   slotSelected(event) {
     const slot = event.target.value;
-    switch (true) {
-      case this.today_status:
-          this.today_slot = slot;
-        break;
-      case this.day_one_status:
-          this.day_one_slot = slot;
-        break;
-      case this.day_two_status:
-          this.day_two_slot = slot;
-        break;
-      case this.day_three_status:
-          this.day_three_slot = slot;
-        break;
-      case this.day_four_status:
-          this.day_four_slot = slot;
-        break;
-      case this.day_five_status:
-          this.day_five_slot = slot;
-        break;
-      case this.day_six_status:
-          this.day_six_slot = slot;
-        break;
-      default:
-        break;
-    }
+    this.day_one_slot = slot;
+    this.day_two_slot = slot;
+    this.day_three_slot = slot;
+    this.day_four_slot = slot;
+    this.day_five_slot = slot;
   }
-  // Today slot select
   todayMenuSlotSelect(event) {
     $('#t-menu-select-slot').css({'border-color': 'rgba(0,0,0,.2)'});
     const tslot = event.target.value;
@@ -4180,43 +3905,29 @@ export class MenuComponent implements OnInit {
   removeTodayTab(tab) {
     switch (tab) {
       case 'tab_one':
-        // Remove from today_orders
         this.today_tab_one_books = null;
-        // Hide band
         $('#tab-one-band').hide();
-        // Hide tab remove btn
         $('#rem-t-tab_one').hide();
-        // basket number decrement
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
         localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
       case 'tab_two':
-        // Remove from today_orders
         this.today_tab_two_books = null;
-         // Hide band
-         $('#tab-two-band').hide();
-         // Hide tab remove btn
-          $('#rem-t-tab_two').hide();
-
-         // basket number decrement
+        $('#tab-two-band').hide();
+        $('#rem-t-tab_two').hide();
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
         localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
       case 'tab_three':
-        // Remove from today_orders
         this.today_tab_three_books = null;
-        // Hide band
         $('#tab-three-band').hide();
-        // Hide tab remove btn
         $('#rem-t-tab_three').hide();
-        // basket number decrement
         this.basketNumber--;
         this.appComponent.basket_num = this.basketNumber;
         localStorage.setItem('basket_number', this.basketNumber.toString());
         break;
-
       default:
         break;
     }
@@ -4238,7 +3949,6 @@ export class MenuComponent implements OnInit {
     this.today_tab_two_slot = null;
     this.today_tab_three_slot = null;
   }
-
   navToChekout() {
     // if basket number is atleast one
     if (this.basketNumber > 0) {

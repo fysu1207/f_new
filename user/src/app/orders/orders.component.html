@@ -1,1 +1,39 @@
-<div class="det-title-div"> <div class="det-title-core"> <h2 class="det-title">Orders</h2> </div></div><div class="dets-core"> <div *ngIf='orders_exist==false'> <h5>You have no orders yet.</h5> </div><div *ngIf='orders_exist==true'> <div class="table-responsive"> <table class="table table-striped"> <tr> <th> Order id </th> <th> Order Time </th> <th> Ordered Items </th> <th> Payment Type </th> <th> Price </th> </tr><tr *ngFor='let order of orders'> <td>{{order.order_id}}</td><td>{{order.time}}</td><td> <span *ngFor='let item of order.items'> <p>{{item}}</p></span> </td><td>{{order.payment_method}}</td><td>{{order.price}}</td></tr></table> </div></div></div><div class="clearfix"></div>
+<div class="det-title-div"> 
+    <div class="det-title-core"> 
+        <h2 class="det-title">Orders</h2> 
+    </div>
+</div>
+<div class="dets-core"> 
+    <div *ngIf='orders_exist==false'> 
+        <h5>You have no orders yet.</h5> 
+    </div>
+    <div *ngIf='orders_exist==true'>
+         <div class="table-responsive"> 
+             <table class="table table-striped"> 
+                 <tr> 
+                     <th> Order Id </th> 
+                     <th> Order Time </th> 
+                     <th> Ordered Items </th> 
+                     <th> Payment Type </th> 
+                     <th> Price </th> 
+                    </tr>
+                    <tr *ngFor='let order of orders'> 
+                        <td>{{order.order_id}}</td>
+                        <td>{{order.time}}</td>
+                        <td> 
+                            <span *ngFor='let item of order.items'> 
+                                <p>{{item}}</p>
+                            </span> 
+                        </td>
+                        <td>
+                            {{order.payment_method}}
+                        </td>
+                        <td>
+                            {{order.price}}
+                        </td>
+                    </tr>
+                </table> 
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>

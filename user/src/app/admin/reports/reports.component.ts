@@ -16,20 +16,34 @@ declare var $: any;
   styleUrls: ['./reports.component.css', '../admin/admin.component.css'],
 })
 export class ReportsComponent implements OnInit {
-  // public fromDate: any = { date: { year: 2017, month: 10, day: 1 } };
-  // public toDate: any = { date: { year: 2017, month: 10, day: 4 } };
-
   public fromDate; toDate;
 
-  allTodayOrders = [];
-  allNextDayOrders = [];
-  orders_of_these_sc_days = [];
-  today_all_items = [];
-
-  sc_all_items = [];
-  un_items = [];
+  allTodayOrders = []; allNextDayOrders = []; orders_of_these_sc_days = []; today_all_items = []; sc_all_items = []; un_items = [];
+  today_active;
+  day_one_orders = [];
+  day_two_orders = [];
+  day_three_orders = [];
+  day_four_orders = [];
+  day_five_orders = [];
+  day_six_orders = [];
+  total_orders: any;
+  next_days: any;
+  today_orders = [];
+  next_total_orders = [];
+  display_next_orders = [];
+  display_today_orders = [];
+  p_h_order = []; p_h_order_id; p_h_user_name; p_h_user_email;
+  p_h_user_mobile;
+  p_h_address;
+  p_h_num_times;
+  p_h_tab_one_times;
+  p_h_tab_two_times;
+  p_h_tab_three_times;
+  p_h_time_slot;
+  p_h_one_time_slot;
+  p_h_two_time_slot;
+  p_h_three_time_slot;
   public myDatePickerOptions: IMyDpOptions = {
-    // other options...
     dateFormat: 'dd.mm.yyyy',
   };
   constructor(private getMenu: AdminServicesService, private router: Router, private title: Title, private datePipe: DatePipe) { }
@@ -49,6 +63,48 @@ export class ReportsComponent implements OnInit {
         });
       }
     });
+
+
+    this.getMenu.getOrders().subscribe(res => {
+      this.total_orders = res.msg;
+      this.total_orders.forEach(element => {
+        if (element.order.order) {
+          const user_id = element.order.user_id;
+          const order_time = element.order.order_time;
+          const order_id = element.order.order_id;
+          this.getMenu.getUserFromId(user_id).subscribe(ress => {
+            if (ress.success) {
+              const user = ress.msg;
+              let username = '';
+              let user_mobile = '';
+              let user_email = '';
+              if (user[0] !== undefined) {
+                 username = user[0].name;
+                 user_mobile = user[0].mobile;
+                 user_email = user[0].email;
+              }
+              if (element.order.order.today !== null) {
+                // tslint:disable-next-line:max-line-length
+                const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: element.order.order.today, payment_type: element.order.payment_method };
+                this.today_orders.push(iind);
+              }
+              this.next_days = element.order.order.next_days;
+              for (const key in this.next_days) {
+                if (this.next_days.hasOwnProperty(key)) {
+                  const e = this.next_days[key];
+                  if (e != null) {
+                        // tslint:disable-next-line:max-line-length
+                        const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        this.next_total_orders.push(iind);
+                        this.day_one_orders.push(e);
+                  }
+                }
+              }
+            }
+          });
+        }
+      });
+    });
   }
   datesUpdated() {
     const datesArray: any = [];
@@ -60,7 +116,6 @@ export class ReportsComponent implements OnInit {
     let orders_of_next_days: any = [];
     const for_from = this.fromDate.date.month + '/' +  this.fromDate.date.day + '/' + this.fromDate.date.year;
     const for_to = this.toDate.date.month + '/' + this.toDate.date.day + '/' + this.toDate.date.year;
-
     const from = this.datePipe.transform(for_from, 'fullDate');
     const to = this.datePipe.transform(for_to, 'fullDate');
     const mfrom = moment(this.datePipe.transform(from, 'shortDate'));
@@ -70,69 +125,30 @@ export class ReportsComponent implements OnInit {
       const ph = mfrom;
       datesArray.push(this.datePipe.transform(ph.add(1, 'days'), 'fullDate'));
     }
-    // console.log(datesArray);
     datesArray.forEach(element => {
-      // Today dates
-      this.allTodayOrders.forEach(to_e => {
+      this.today_orders.forEach(to_e => {
         if (to_e !== null) {
-          // console.log(to_e);
-          if (to_e.date === element) {
-            orders_of_todays.push(to_e);
+          if (to_e.order.date === element) {
+            this.display_today_orders.push(to_e);
           }
         }
       });
-      // Next days orders
-      this.allNextDayOrders.forEach(n_e => {
+      this.next_total_orders.forEach(n_e => {
         if (n_e !== null) {
-          // day_one
-          if (n_e.day_one !== null) {
-            if (n_e.day_one.date === element) {
-              orders_of_next_days.push(n_e.day_one);
-            }
-          }
-          // day_two
-          if (n_e.day_two != null) {
-            if (n_e.day_two.date === element) {
-              orders_of_next_days.push(n_e.day_two);
-            }
-          }
-          // day_three
-          if (n_e.day_three != null) {
-            if (n_e.day_three.date === element) {
-              orders_of_next_days.push(n_e.day_three);
-            }
-          }
-          // day_four
-          if (n_e.day_four != null) {
-            if (n_e.day_four.date === element) {
-              orders_of_next_days.push(n_e.day_four);
-            }
-          }
-          // day_five
-          if (n_e.day_five != null) {
-            if (n_e.day_five.date === element) {
-              orders_of_next_days.push(n_e.day_five);
-            }
-          }
-          // day_six
-          if (n_e.day_six != null) {
-            if (n_e.day_six.date === element) {
-              orders_of_next_days.push(n_e.day_six);
-            }
+          if (n_e.order.date === element) {
+            this.display_next_orders.push(n_e);
           }
         }
       });
 
     });
     orders_of_next_days.forEach(t => {
-      // iterate through t.menu
       t.menu.forEach(menu_el => {
         all_items.push(menu_el.item_name);
         const p_ar = all_items;
         filter_array = p_ar.filter(function (item, pos) {
           return p_ar.indexOf(item) === pos;
         });
-        // for each object in unique_items
         // tslint:disable-next-line:radix
         const j_obj = [menu_el.item_name, parseInt(t.numOfTimes)];
         unique_items.push(j_obj);
@@ -154,7 +170,6 @@ export class ReportsComponent implements OnInit {
         }
       });
     });
-    console.log(this.un_items);
     all_items.length = 0;
     all_items = [];
     filter_array.length = 0;
@@ -163,6 +178,127 @@ export class ReportsComponent implements OnInit {
     unique_items.length = 0;
     orders_of_next_days = [];
     orders_of_next_days.length = 0;
+  }
+  ViewDetails(today, order_id, date) {
+    this.p_h_order = [];
+    $('.db').css({'display': 'flex'});
+    if (today === 'today') {
+      this.today_active = true;
+      this.today_orders.forEach(element => {
+        if (order_id === element.order_id) {
+          this.p_h_order_id = element.order_id;
+          this.p_h_user_name = element.user_name;
+          this.p_h_user_email = element.user_email;
+          this.p_h_user_mobile = element.user_mobile;
+          this.p_h_address = element.delivery_address;
+          this.p_h_time_slot = element.order.timeSlot;
+          if (element.order.tab_one) {
+            if (element.order.tab_one !== undefined || element.order.tab_one !== null) {
+              this.p_h_order.push(element.order.tab_one.name);
+              this.p_h_tab_one_times = element.order.tab_one.num_of_items;
+              this.p_h_one_time_slot = element.order.tab_one.time_slot;
+              switch (this.p_h_one_time_slot) {
+                case 'slot_one':
+                  this.p_h_one_time_slot = '12:00 PM - 12:45 PM';
+                  break;
+                case 'slot_two':
+                  this.p_h_one_time_slot = '12:45 PM - 1:30 PM';
+                  break;
+                case 'slot_three':
+                  this.p_h_one_time_slot = '1:30 PM - 2:15 PM';
+                  break;
+                case 'slot_four':
+                  this.p_h_one_time_slot = '2:15 PM - 3:00 PM';
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          if (element.order.tab_two) {
+            if (element.order.tab_two !== undefined || element.order.tab_two !== null) {
+              this.p_h_order.push(element.order.tab_two.name);
+              this.p_h_tab_two_times = element.order.tab_two.num_of_items;
+              this.p_h_two_time_slot = element.order.tab_two.time_slot;
+              switch (this.p_h_two_time_slot) {
+                case 'slot_one':
+                  this.p_h_two_time_slot = '12:00 PM - 12:45 PM';
+                  break;
+                case 'slot_two':
+                  this.p_h_two_time_slot = '12:45 PM - 1:30 PM';
+                  break;
+                case 'slot_three':
+                  this.p_h_two_time_slot = '1:30 PM - 2:15 PM';
+                  break;
+                case 'slot_four':
+                  this.p_h_two_time_slot = '2:15 PM - 3:00 PM';
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+          if (element.order.tab_three) {
+            if (element.order.tab_three !== undefined || element.order.tab_three !== null) {
+              this.p_h_order.push(element.order.tab_three.name);
+              this.p_h_tab_three_times = element.order.tab_three.num_of_items;
+              this.p_h_three_time_slot = element.order.tab_three.time_slot;
+              switch (this.p_h_three_time_slot) {
+                case 'slot_one':
+                  this.p_h_three_time_slot = '12:00 PM - 12:45 PM';
+                  break;
+                case 'slot_two':
+                  this.p_h_three_time_slot = '12:45 PM - 1:30 PM';
+                  break;
+                case 'slot_three':
+                  this.p_h_three_time_slot = '1:30 PM - 2:15 PM';
+                  break;
+                case 'slot_four':
+                  this.p_h_three_time_slot = '2:15 PM - 3:00 PM';
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+        }
+      });
+    }else {
+      this.today_active = false;
+      this.next_total_orders.forEach(element => {
+        if (order_id === element.order_id) {
+          this.p_h_order_id = element.order_id;
+          this.p_h_user_name = element.user_name;
+          this.p_h_user_email = element.user_email;
+          this.p_h_user_mobile = element.user_mobile;
+          this.p_h_address = element.delivery_address;
+          this.p_h_num_times = element.order.numOfTimes;
+          this.p_h_time_slot = element.order.timeSlot;
+          element.order.menu.forEach(el => {
+            this.p_h_order.push(el);
+          });
+        }
+      });
+    }
+    switch (this.p_h_time_slot) {
+      case 'slot_one':
+        this.p_h_time_slot = '12:00 PM - 12:45 PM';
+        break;
+      case 'slot_two':
+        this.p_h_time_slot = '12:45 PM - 1:30 PM';
+        break;
+      case 'slot_three':
+        this.p_h_time_slot = '1:30 PM - 2:15 PM';
+        break;
+      case 'slot_four':
+        this.p_h_time_slot = '2:15 PM - 3:00 PM';
+        break;
+      default:
+        break;
+    }
+  }
+  closedb() {
+    $('.db').hide();
   }
 
 }

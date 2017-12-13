@@ -162,7 +162,7 @@ export class CheckoutComponent implements OnInit {
   day_four_change_status = false;
   day_five_change_status = false;
 
-  schSlot: any;
+  schSlot= 'def';
   schTimes: any;
 
   date_and_item_array = [];
@@ -194,6 +194,7 @@ export class CheckoutComponent implements OnInit {
     this.authService.getUserRewards(this.userId).subscribe(res => {
       if (res.success) {
         this.rewardPoints = res.msg;
+        this.remainingPoints = res.msg;
         this.fixedRewardPoints = res.msg;
         // Conditions
         if (this.rewardPoints >= 100) {
@@ -228,18 +229,12 @@ export class CheckoutComponent implements OnInit {
     this.letter_added = localStorage.getItem('letter_added');
     if (this.letter_added === 'true') {
       this.letter_price = 5;
-    }else {
-
     }
-    // Get orders from local storage
     const s_orders = localStorage.getItem('all_orders');
     this.orders = JSON.parse(s_orders);
-
     const to_orders = localStorage.getItem('today_orders');
     this.today_orders = JSON.parse(to_orders);
     if (this.today_orders != null) {
-      // console.log(this.today_orders);
-      // tab one
       this.tab_one = this.today_orders['tab_one'];
       this.tab_two = this.today_orders['tab_two'];
       this.tab_three = this.today_orders['tab_three'];
@@ -250,7 +245,6 @@ export class CheckoutComponent implements OnInit {
         this.tab_one_name = this.today_orders['tab_one'].name;
         this.tab_one_times = this.today_orders['tab_one'].num_of_items;
         this.tab_one_time_slot = this.getSlotValue(this.today_orders['tab_one'].time_slot);
-        // alert(this.tab_one_name);
       }
 
 
@@ -441,48 +435,30 @@ export class CheckoutComponent implements OnInit {
       }else {
         this.day_five_menu = null;
       }
-
-
     }
     // Get location from local storage
     // tslint:disable-next-line:max-line-length
     this.total_price = this.delivery_fee + this.today_total_price + this.day_one_total_price + this.day_two_total_price + this.day_three_total_price + this.day_four_total_price + this.day_five_total_price + this.tab_one_total_price + this.tab_two_total_price + this.tab_three_total_price + this.letter_price;
 
     this.total_to_pay = this.total_price;
-
-    // calculate points_earned from total_price
      const rounded_num = Math.round(this.total_price / 10);
      this.points_earned = rounded_num;
   }
-
-  // if redeem is clicked
   redeemClicked() {
-    // alert(this.redeemable);
-    // Show discount points
     this.showDiscount = true;
-    // Get total points
-    // Get redeemable points;
-    // Get discountable amount
-    // Remaining user points
     this.remainingPoints = this.rewardPoints - this.redeemable;
-    // Update total price
     this.total_to_pay = this.total_price - this.discount;
-    // Update rewards
     this.rewardPoints = this.remainingPoints;
-    // disable button
     $('#redeem-btn').css({'background-color': '#9a9a9a'});
     $('#redeem-btn').prop('disabled', true);
   }
   addRewardPoints() {
-    // alert(this.points);
-    // this.deduct_points = this.rewardPoints + this.points_earned;
-    this.deduct_points = this.remainingPoints + this.points_earned;
+    this.deduct_points = +this.remainingPoints + +this.points_earned;
     this.getMenu.repRewards(this.userEmail, this.deduct_points).subscribe(res => {
       if (res.success) {
       }
     });
   }
-
   onLogoutClick() {
     this.authService.logout();
     this.router.navigate(['/home']);
@@ -490,10 +466,11 @@ export class CheckoutComponent implements OnInit {
   }
   addressChecked(event) {
     this.selected_address = event.target.value;
-    // alert(this.selected_address);
+    $('.err').html('');
   }
   paymentMethod(event) {
     this.payment_method = event.target.value;
+    $('.err').html('');
   }
   placeOrder() {
     // Check for address
@@ -521,10 +498,8 @@ export class CheckoutComponent implements OnInit {
         }
         // Order id
         const order_id = shortid.generate();
-        // Make order
         // Cumulative of today's and all schduled orders
         const cum_orders = {
-          // today orders
           today: this.today_orders,
           // next days orders
           next_days: this.orders
@@ -600,42 +575,36 @@ export class CheckoutComponent implements OnInit {
   getSlotValue(slot) {
     switch (slot) {
       case 'slot_one':
-        return '12:00PM - 12:45PM';
-        // break;/
+        return '12:00 PM - 12:45 PM';
       case 'slot_two':
-        return '12:45PM - 1:30PM';
-        // break;
+        return '12:45 PM - 1:30 PM';
       case 'slot_three':
-        return '1:30PM - 2:15PM';
+        return '1:30 PM - 2:15 PM';
       case 'slot_four':
-        return '2:15PM - 3:00PM';
-        // break;
-
+        return '2:15 PM - 3:00 PM';
       default:
         break;
     }
   }
   postOrder(resp, json, order_id) {
     this.addRewardPoints();
-    // save orderid and payment id
     this.authService.postOrder(json).subscribe(res => {
       if (res.success) {
-        // post date and item array
         const dIjson = { dateItem: this.date_and_item_array };
-          // Rewards
-          // Add rewards
           this.addRewardPoints();
-          // Save order id to local storage
           localStorage.setItem('order_id', order_id);
           localStorage.removeItem('all_orders');
           localStorage.removeItem('today_orders');
           localStorage.removeItem('basket_number');
           this.basket_num = 0;
           this.appComponent.basket_num = 0;
-          // redirect to thanks page
-          setTimeout(() => {
+          if (localStorage.getItem('order_id') !== null && localStorage.getItem('order_id') !== undefined) {
             this.router.navigate(['/thanks']);
-          }, 500);
+          }else {
+            setTimeout(() => {
+              this.router.navigate(['/thanks']);
+            }, 200);
+          }
       }else {
         $('.err').html('Something went wrong. please try again later');
       }
@@ -647,7 +616,6 @@ export class CheckoutComponent implements OnInit {
     $('.db').css({'display': 'flex'});
   }
   updateAddress() {
-    // alert('fd');
     const addresses = {
       user_id: this.userId,
       original : this.original_address,
@@ -878,139 +846,119 @@ export class CheckoutComponent implements OnInit {
     $('.today-menu-back').hide();
   }
   addTodayCartClicked() {
-    switch (true) {
-      case this.tab_one_change_status:
-        this.today_orders['tab_one'].time_slot = this.schSlot;
-        this.tab_one_time_slot = this.getSlotValue(this.schSlot);
-        break;
-      case this.tab_two_change_status:
-        this.today_orders['tab_two'].time_slot = this.schSlot;
-        this.tab_two_time_slot = this.getSlotValue(this.schSlot);
-        break;
-      case this.tab_three_change_status:
-        this.today_orders['tab_three'].time_slot = this.schSlot;
-        this.tab_three_time_slot = this.getSlotValue(this.schSlot);
-        break;
-      case this.day_one_change_status:
-        // alert(this.schTimes);
-        if (this.orders['day_one'] != null) {
-          // this.day_one_per_portion_price = this.orders['day_one'].perPortionPrice;
-          // this.day_one_total_price = this.orders['day_one'].totalPrice;
-          // this.day_one_num_items = this.orders['day_one'].numOfTimes;
-          // this.day_one_slot = this.schSlot;
-          // Time slots
-          switch (this.schSlot) {
-            case 'slot_one':
-              this.day_one_slot = this.slot_one;
-              break;
-            case 'slot_two':
-              this.day_one_slot = this.slot_two;
-              break;
-            case 'slot_three':
-              this.day_one_slot = this.slot_three;
-              break;
-            default:
-              break;
-          }
-        }
-        this.orders['day_one'].timeSlot = this.schSlot;
-        console.log(this.orders);
-        break;
-      case this.day_two_change_status:
-          if (this.orders['day_two'] != null) {
-            // this.day_two_per_portion_price = this.orders['day_two'].perPortionPrice;
-            // this.day_two_total_price = this.orders['day_two'].totalPrice;
-            // this.day_two_num_items = this.orders['day_two'].numOfTimes;
-            // this.day_two_slot = this.schSlot;
+    if (this.schSlot !== 'def') {
+      switch (true) {
+        case this.tab_one_change_status:
+          this.today_orders['tab_one'].time_slot = this.schSlot;
+          this.tab_one_time_slot = this.getSlotValue(this.schSlot);
+          break;
+        case this.tab_two_change_status:
+          this.today_orders['tab_two'].time_slot = this.schSlot;
+          this.tab_two_time_slot = this.getSlotValue(this.schSlot);
+          break;
+        case this.tab_three_change_status:
+          this.today_orders['tab_three'].time_slot = this.schSlot;
+          this.tab_three_time_slot = this.getSlotValue(this.schSlot);
+          break;
+        case this.day_one_change_status:
+          if (this.orders['day_one'] != null) {
             // Time slots
             switch (this.schSlot) {
               case 'slot_one':
-                this.day_two_slot = this.slot_one;
+                this.day_one_slot = this.slot_one;
                 break;
               case 'slot_two':
-                this.day_two_slot = this.slot_two;
+                this.day_one_slot = this.slot_two;
                 break;
               case 'slot_three':
-                this.day_two_slot = this.slot_three;
+                this.day_one_slot = this.slot_three;
                 break;
               default:
                 break;
             }
           }
-
-        break;
-      case this.day_three_change_status:
-      if (this.orders['day_three'] != null) {
-        // this.day_three_per_portion_price = this.orders['day_three'].perPortionPrice;
-        // this.day_three_total_price = this.orders['day_three'].totalPrice;
-        // this.day_three_num_items = this.orders['day_three'].numOfTimes;
-        // this.day_three_slot = this.schSlot;
-        // Time slots
-        switch (this.schSlot) {
-          case 'slot_one':
-            this.day_three_slot = this.slot_one;
-            break;
-          case 'slot_two':
-            this.day_three_slot = this.slot_two;
-            break;
-          case 'slot_three':
-            this.day_three_slot = this.slot_three;
-            break;
-          default:
-            break;
+          this.orders['day_one'].timeSlot = this.schSlot;
+          break;
+        case this.day_two_change_status:
+            if (this.orders['day_two'] != null) {
+              // Time slots
+              switch (this.schSlot) {
+                case 'slot_one':
+                  this.day_two_slot = this.slot_one;
+                  break;
+                case 'slot_two':
+                  this.day_two_slot = this.slot_two;
+                  break;
+                case 'slot_three':
+                  this.day_two_slot = this.slot_three;
+                  break;
+                default:
+                  break;
+              }
+            }
+          break;
+        case this.day_three_change_status:
+        if (this.orders['day_three'] != null) {
+          // Time slots
+          switch (this.schSlot) {
+            case 'slot_one':
+              this.day_three_slot = this.slot_one;
+              break;
+            case 'slot_two':
+              this.day_three_slot = this.slot_two;
+              break;
+            case 'slot_three':
+              this.day_three_slot = this.slot_three;
+              break;
+            default:
+              break;
+          }
         }
+          break;
+        case this.day_four_change_status:
+          if (this.orders['day_four'] != null) {
+            // Time slots
+            switch (this.schSlot) {
+              case 'slot_one':
+                this.day_four_slot = this.slot_one;
+                break;
+              case 'slot_two':
+                this.day_four_slot = this.slot_two;
+                break;
+              case 'slot_three':
+                this.day_four_slot = this.slot_three;
+                break;
+              default:
+                break;
+            }
+          }
+          break;
+        case this.day_five_change_status:
+          if (this.orders['day_five'] != null) {
+            // Time slots
+            switch (this.schSlot) {
+              case 'slot_one':
+                this.day_five_slot = this.slot_one;
+                break;
+              case 'slot_two':
+                this.day_five_slot = this.slot_two;
+                break;
+              case 'slot_three':
+                this.day_five_slot = this.slot_three;
+                break;
+              default:
+                break;
+            }
+          }
+          break;
+        default:
+          break;
       }
-
-        break;
-      case this.day_four_change_status:
-        if (this.orders['day_four'] != null) {
-          // this.day_four_per_portion_price = this.orders['day_four'].perPortionPrice;
-          // this.day_four_total_price = this.orders['day_four'].totalPrice;
-          // this.day_four_num_items = this.orders['day_four'].numOfTimes;
-          // this.day_four_slot = this.schSlot;
-          // Time slots
-          switch (this.schSlot) {
-            case 'slot_one':
-              this.day_four_slot = this.slot_one;
-              break;
-            case 'slot_two':
-              this.day_four_slot = this.slot_two;
-              break;
-            case 'slot_three':
-              this.day_four_slot = this.slot_three;
-              break;
-            default:
-              break;
-          }
-        }
-
-        break;
-      case this.day_five_change_status:
-        if (this.orders['day_five'] != null) {
-          // this.day_five_per_portion_price = this.orders['day_five'].perPortionPrice;
-          // this.day_five_total_price = this.orders['day_five'].totalPrice;
-          // this.day_five_num_items = this.orders['day_five'].numOfTimes;
-          // this.day_five_slot = this.schSlot;
-          // Time slots
-          switch (this.schSlot) {
-            case 'slot_one':
-              this.day_five_slot = this.slot_one;
-              break;
-            case 'slot_two':
-              this.day_five_slot = this.slot_two;
-              break;
-            case 'slot_three':
-              this.day_five_slot = this.slot_three;
-              break;
-            default:
-              break;
-          }
-        }
-
-        break;
-
-      default:
-        break;
+    }else {
+      $('#t-menu-select-slot').css({'border-color': '#fa0000'});
+      setTimeout(() => {
+        $('#t-menu-select-slot').css({'border-color': '#666'});
+      }, 2000);
     }
     $('.today-menu-back').hide();
   }

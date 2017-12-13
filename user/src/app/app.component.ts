@@ -426,15 +426,15 @@ export class AppComponent implements OnInit {
               }
             });
           }else {
-            $('.err').html('Please Enter password with atleast 6 characters');
+            $('.err').html('Please enter password with atleast 6 characters');
             $('#reg-pwd').css({'border-color': '#fa0000'});
           }
         }else {
-          $('.err').html('Please Enter a Valid Mobile number');
+          $('.err').html('Please enter a Valid Mobile number');
           $('#reg-mobile').css({'border-color': '#fa0000'});
         }
       }else {
-        $('.err').html('Please Enter a Valid Email');
+        $('.err').html('Please enter a Valid Email');
         $('#reg-email').css({'border-color': '#fa0000'});
       }
     }else {
@@ -530,13 +530,13 @@ export class AppComponent implements OnInit {
                       }else {
                         // Show Error
                         if (res.msg.message === 'otp_not_verified') {
-                          $('.err').html('Please Enter Valid OTP');
+                          $('.err').html('Please enter Valid OTP');
                           $('#reg-otp').css({'border-color': '#fa0000'});
                         }
                       }
                     });
                   }else {
-                    $('.err').html('Please Enter password with atleast 6 characters');
+                    $('.err').html('Please enter password with atleast 6 characters');
                     $('#reg-pwd').css({'border-color': '#fa0000'});
                   }
                 }
@@ -740,7 +740,7 @@ export class AppComponent implements OnInit {
           $('#fp-fixed-dark-cover').hide();
           $('#next-login-fixed-dark-cover').css({ 'display': 'flex' });
         }else {
-          $('.fp-err').html('Please Enter a valid OTP');
+          $('.fp-err').html('Please enter a valid OTP');
         }
       });
     }else {
@@ -757,7 +757,7 @@ export class AppComponent implements OnInit {
         this.resendotpinterval = setInterval(function() {
           if (n !== 1) {
             n--;
-            $('#sign-resend-otp-text').html('You can resend otp in 00 : ' + n + ' seconds.');
+            $('#sign-resend-otp-text').html('You can resend OTP in 00 : ' + n + ' seconds.');
           }else {
             // Show resend otp
             $('#sign-resend-otp-text').hide();
@@ -768,11 +768,11 @@ export class AppComponent implements OnInit {
         break;
       case 'fp':
       n = 30;
-      $('#fp-resend-otp-text').html('You can resend otp in 00 ' + n + ' seconds.').show();
+      $('#fp-resend-otp-text').html('You can resend OTP in 00 ' + n + ' seconds.').show();
       this.fpresendotpInterval = setInterval(function() {
         if (n !== 1) {
           n--;
-          $('#fp-resend-otp-text').html('You can resend otp in 00 ' + n + ' seconds.');
+          $('#fp-resend-otp-text').html('You can resend OTP in 00 ' + n + ' seconds.');
         }else {
           // Show resend otp
           $('#fp-resend-otp-text').hide();
@@ -819,7 +819,7 @@ export class AppComponent implements OnInit {
                   });
 
                 }else {
-                  $('.err').html('Please Enter password with atleast 6 characters');
+                  $('.err').html('Please enter password with atleast 6 characters');
                   $('#reg-pwd').css({'border-color': '#fa0000'});
                 }
               } else {
@@ -828,7 +828,7 @@ export class AppComponent implements OnInit {
               }
             });
           }else {
-            $('.err').html('Please Enter Valid Mobile number');
+            $('.err').html('Please enter Valid Mobile number');
             // Hightlight mogile number
             $('#reg-mobile').css({'border-color': '#fa0000'});
           }
