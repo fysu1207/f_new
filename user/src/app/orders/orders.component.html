@@ -21,8 +21,14 @@
                         <td>{{order.order_id}}</td>
                         <td>{{order.time}}</td>
                         <td> 
-                            <span *ngFor='let item of order.items'> 
+                            <!-- <span *ngFor='let item of order.items'> 
                                 <p>{{item}}</p>
+                            </span>  -->
+                            <span *ngFor='let item of order.next_dates'> 
+                                <p>{{item.date}}</p>
+                                <span *ngFor='let i of item.items'>
+                                    <p>{{ i }}</p>
+                                </span>
                             </span> 
                         </td>
                         <td>

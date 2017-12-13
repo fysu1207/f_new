@@ -13,10 +13,7 @@ declare var $: any;
   styleUrls: ['./orders.component.css', '../settings/settings.component.css']
 })
 export class OrdersComponent implements OnInit {
-
   all_user_orders: any = [];
-
-
   userEmail: string;
   userName: string;
   companyName: string;
@@ -38,12 +35,12 @@ export class OrdersComponent implements OnInit {
     this.userMobile = user_parsed.mobile;
     this.userId = user_parsed.id;
     this.getadMenu.getUserOrders(this.userId).subscribe(res => {
-      console.log(res.msg);
       if (res.success) {
         if (res.msg.length > 0) {
           this.orders_exist = true;
           this.all_user_orders = res.msg.orders;
           res.msg.forEach(element => {
+            const nextday_dates = [];
             const user_items = [];
             if (element.order.order.today !== null && element.order.order.today !== undefined) {
               if (element.order.order.today.tab_one !== null && element.order.order.today.tab_one !== undefined) {
@@ -58,29 +55,64 @@ export class OrdersComponent implements OnInit {
             }
             if (element.order.order.next_days !== null && element.order.order.next_days !== undefined) {
               if (element.order.order.next_days.day_one !== null && element.order.order.next_days.day_one !== undefined) {
+                const day_one_temp = [];
                 element.order.order.next_days.day_one.menu.forEach(el => {
                   user_items.push(el.item_name);
+                  day_one_temp.push(el.item_name);
                 });
+                const one_obj = {
+                  date : element.order.order.next_days.day_one.date,
+                  items : day_one_temp
+                };
+                nextday_dates.push(one_obj);
               }
               if (element.order.order.next_days.day_two !== null && element.order.order.next_days.day_two !== undefined) {
+                const day_two_temp = [];
                 element.order.order.next_days.day_two.menu.forEach(el => {
                   user_items.push(el.item_name);
+                  day_two_temp.push(el.item_name);
                 });
+                const two_obj = {
+                  date : element.order.order.next_days.day_two.date,
+                  items : day_two_temp
+                };
+                nextday_dates.push(two_obj);
               }
               if (element.order.order.next_days.day_three !== null && element.order.order.next_days.day_three !== undefined) {
+                const day_three_temp = [];
                 element.order.order.next_days.day_three.menu.forEach(el => {
                   user_items.push(el.item_name);
+                  day_three_temp.push(el.item_name);
                 });
+                const three_obj = {
+                  date : element.order.order.next_days.day_three.date,
+                  items : day_three_temp
+                };
+                nextday_dates.push(three_obj);
               }
               if (element.order.order.next_days.day_four !== null && element.order.order.next_days.day_four !== undefined) {
+                const day_four_temp = [];
                 element.order.order.next_days.day_four.menu.forEach(el => {
                   user_items.push(el.item_name);
+                  day_four_temp.push(el.item_name);
                 });
+                const four_obj = {
+                  date : element.order.order.next_days.day_four.date,
+                  items : day_four_temp
+                };
+                nextday_dates.push(four_obj);
               }
               if (element.order.order.next_days.day_five !== null && element.order.order.next_days.day_five !== undefined) {
+                const day_five_temp = [];
                 element.order.order.next_days.day_five.menu.forEach(el => {
                   user_items.push(el.item_name);
+                  day_five_temp.push(el.item_name);
                 });
+                const five_obj = {
+                  date : element.order.order.next_days.day_five.date,
+                  items : day_five_temp
+                };
+                nextday_dates.push(five_obj);
               }
             }
             const obj = {
@@ -88,7 +120,8 @@ export class OrdersComponent implements OnInit {
               time: element.order.order_time,
               payment_method: element.order.payment_method,
               price: element.order.total_price,
-              items: user_items
+              items: user_items,
+              next_dates : nextday_dates
             };
             this.orders.push(obj);
           });

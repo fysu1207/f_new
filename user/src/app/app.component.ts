@@ -192,7 +192,6 @@ export class AppComponent implements OnInit {
 
     });
   }
-
   // On clicking continue in first login/signup slide
   public firstConClick(input: string) {
     input = input.toLowerCase();
@@ -290,8 +289,6 @@ export class AppComponent implements OnInit {
       $('#email').css({'border-color': '#fa0000'});
     }
   }
-
-
   public otpKeyUp(event: any) {
     const otp = event.target.value;
     if (otp.length === 6) {
@@ -387,11 +384,7 @@ export class AppComponent implements OnInit {
       }
     }
   }
-
-   // On clicking enter OTP button
    public OtpBtnClick() {
-    //  alert(this.regMobileInput);
-
     $('.err').html('');
     // Validate inputs
     if (
@@ -481,7 +474,6 @@ export class AppComponent implements OnInit {
       }
     }
   }
-
   public SignUpClick(regNameInput: string, regEmailInput: string, regMobileInput: string, regPwdInput: string, regOTPInput: string) {
     $('.err').html('');
     $('.fixed-dark-cover input').css({'border-color': 'rgba(0, 0, 0, 0.2)'});
@@ -598,7 +590,6 @@ export class AppComponent implements OnInit {
     $('.login-trig-div').hide();
     $('.account-trig-div').show();
   }
-
   public showError(context: string, error: string) {
     switch (context) {
       case 'login-err':
@@ -609,8 +600,6 @@ export class AppComponent implements OnInit {
         break;
     }
   }
-
-  // Onclicking Close button
   public mainClose() {
      // resetting all the variables
      this.regNameInput = null;
@@ -640,7 +629,6 @@ export class AppComponent implements OnInit {
     $('#sign-resend-otp-text').html('');
     $('#fp-resend-otp-text').html('');
   }
-
   clickedOnTerms() {
     $('.fixed-dark-cover').hide();
   }
@@ -744,9 +732,8 @@ export class AppComponent implements OnInit {
         }
       });
     }else {
-      $('.fp-err').html('Passwords did\'t match');
+      $('.fp-err').html('Passwords do not match');
     }
-
   }
   resendotptrig(mode) {
 

@@ -156,51 +156,36 @@ export class HomeComponent implements OnInit {
             console.log('one address');
             this.router.navigate(['/menu']);
           }else {
-            this.geoLocate();
+            if (this.locationEntry === undefined || this.locationEntry === null || this.locationEntry === '') {
+              this.geoLocate();
+            }else {
+              // tslint:disable-next-line:max-line-length
+              if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Madhapur' || this.locationEntry === 'madhapur' || this.locationEntry === 'Madapur' || this.locationEntry === 'madapur' || this.locationEntry.includes('Madapur') || this.locationEntry.includes('madapur')) {
+                localStorage.setItem('home_address', this.locationEntry);
+                if (this.authService.loggedIn()) {
+                  const address = {
+                    user_id: this.userId,
+                    address: this.locationEntry
+                  };
+                  this.authService.saveAddress(address).subscribe(rres => {});
+                  this.router.navigate(['/menu']);
+                } else {
+                  // Navigate to menu
+                  this.router.navigate(['/menu']);
+                }
+              } else {
+                this.locationEntry = this.address;
+                this.display_error = 'Please enter your delivery location to view menu.';
+                $('.location-warning-div').show();
+                $('#scroll-head-err').css({'display' : 'flex'});
+                setTimeout(() => {
+                  $('#scroll-head-err').hide();
+                }, 3000);
+              }
+            }
           }
         }
       });
-      // tslint:disable-next-line:max-line-length
-      if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Madhapur' || this.locationEntry === 'madhapur' || this.locationEntry === 'Madapur' || this.locationEntry === 'madapur' || this.locationEntry.includes('Madapur') || this.locationEntry.includes('madapur')) {
-        localStorage.setItem('home_address', this.locationEntry);
-        // Add to user's address if he is logged in
-        if (this.authService.loggedIn()) {
-          // User is logged in
-          // send this address to save
-          const address = {
-            user_id: this.userId,
-            address: this.locationEntry
-          };
-          this.authService.saveAddress(address).subscribe(res => {
-            if (res.success) {
-              // Address saved
-              console.log(res);
-            } else {
-              // Address not saved
-              if (res.msg = 'exists') {
-                // address already exists
-              } else {
-                // console.log(res);
-              }
-            }
-          });
-          this.router.navigate(['/menu']);
-        } else {
-          // Navigate to menu
-          // this.appComponent.loginSignupTrigger();
-          this.router.navigate(['/menu']);
-        }
-      } else {
-        this.locationEntry = this.address;
-        this.display_error = 'Please enter your delivery location to view menu.';
-        $('.location-warning-div').show();
-        $('#scroll-head-err').css({'display' : 'flex'});
-        setTimeout(() => {
-          $('#scroll-head-err').hide();
-        }, 3000);
-        // Remove later
-        // this.router.navigate(['/menu']);
-      }
     }else {
       if (this.locationEntry !== undefined && this.locationEntry !== null && this.locationEntry !== '') {
         // tslint:disable-next-line:max-line-length
