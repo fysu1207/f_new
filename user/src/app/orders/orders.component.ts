@@ -57,7 +57,6 @@ export class OrdersComponent implements OnInit {
               if (element.order.order.next_days.day_one !== null && element.order.order.next_days.day_one !== undefined) {
                 const day_one_temp = [];
                 element.order.order.next_days.day_one.menu.forEach(el => {
-                  user_items.push(el.item_name);
                   day_one_temp.push(el.item_name);
                 });
                 const one_obj = {
@@ -69,7 +68,6 @@ export class OrdersComponent implements OnInit {
               if (element.order.order.next_days.day_two !== null && element.order.order.next_days.day_two !== undefined) {
                 const day_two_temp = [];
                 element.order.order.next_days.day_two.menu.forEach(el => {
-                  user_items.push(el.item_name);
                   day_two_temp.push(el.item_name);
                 });
                 const two_obj = {
@@ -81,7 +79,6 @@ export class OrdersComponent implements OnInit {
               if (element.order.order.next_days.day_three !== null && element.order.order.next_days.day_three !== undefined) {
                 const day_three_temp = [];
                 element.order.order.next_days.day_three.menu.forEach(el => {
-                  user_items.push(el.item_name);
                   day_three_temp.push(el.item_name);
                 });
                 const three_obj = {
@@ -93,7 +90,6 @@ export class OrdersComponent implements OnInit {
               if (element.order.order.next_days.day_four !== null && element.order.order.next_days.day_four !== undefined) {
                 const day_four_temp = [];
                 element.order.order.next_days.day_four.menu.forEach(el => {
-                  user_items.push(el.item_name);
                   day_four_temp.push(el.item_name);
                 });
                 const four_obj = {
@@ -105,7 +101,6 @@ export class OrdersComponent implements OnInit {
               if (element.order.order.next_days.day_five !== null && element.order.order.next_days.day_five !== undefined) {
                 const day_five_temp = [];
                 element.order.order.next_days.day_five.menu.forEach(el => {
-                  user_items.push(el.item_name);
                   day_five_temp.push(el.item_name);
                 });
                 const five_obj = {
