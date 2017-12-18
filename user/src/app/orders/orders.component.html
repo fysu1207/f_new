@@ -16,6 +16,7 @@
                      <th> Ordered Items </th> 
                      <th> Payment Type </th> 
                      <th> Price </th> 
+                     <th> Points </th> 
                     </tr>
                     <tr *ngFor='let order of orders'> 
                         <td>{{order.order_id}}</td>
@@ -38,6 +39,9 @@
                         </td>
                         <td>
                             {{order.price}}
+                        </td>
+                        <td>
+                            {{order.earned}}
                         </td>
                     </tr>
                 </table> 

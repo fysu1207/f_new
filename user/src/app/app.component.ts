@@ -2,22 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
 import { Http } from '@angular/http';
-
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
+// import { clearTimeout } from 'timers';
 declare var $: any;
-
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
   public locationEntry: string;
   public location = {};
   public lat: number;
@@ -32,17 +28,12 @@ export class AppComponent implements OnInit {
   public regOTPInput: string;
   today_one = moment();
   dateForHeader: string;
-
   public loginEmailInput: string;
   public loginPasswordInput: string;
-
   public user: object;
-
   address: string;
-
   public uName: string;
   public basket_num = 0;
-
   isInputEmail = false;
   isInputMobile = false;
   fpOtpInput: string;
@@ -54,17 +45,13 @@ export class AppComponent implements OnInit {
   fpresendotpInterval;
   sretryOtp;
   fpretryOtp;
-
+  otptrigTimeout;
+  fptrigTimeout;
   // tslint:disable-next-line:max-line-length
   constructor(private title: Title, private router: Router, private validate: ValidateService, public authService: AuthService, private http: Http, private datePipe: DatePipe) { }
   ngOnInit() {
-
-    // Set title
     this.title.setTitle('Home');
-
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
-
-      // Mobile Menu
       $('.mob-menu-trig-btn').click(function(){
         const mob_menu_offest = $('.mob-menu').offset().left;
         if (mob_menu_offest < 0) {
@@ -93,7 +80,6 @@ export class AppComponent implements OnInit {
         $('.mob-menu').animate({'left': '-50vw' }, 200);
         $('.mob-db').hide();
       });
-
     // tslint:disable-next-line:radix
     this.basket_num = parseInt(localStorage.getItem('basket_number'));
     if (this.basket_num === undefined || this.basket_num == null || this.basket_num === 0 || isNaN(this.basket_num) === true) {
@@ -409,7 +395,7 @@ export class AppComponent implements OnInit {
               } else {
                 // Send otp
                 this.authService.sendOtp(this.regMobileInput).subscribe(ress => {
-                  setTimeout(() => {
+                  this.otptrigTimeout = setTimeout(() => {
                     this.resendotptrig('signup');
                   }, 10000);
                 });
@@ -624,10 +610,14 @@ export class AppComponent implements OnInit {
     // reset resend setintervals
     clearInterval(this.resendotpinterval);
     clearInterval(this.fpresendotpInterval);
-    clearInterval(this.sretryOtp);
-    clearInterval(this.fpretryOtp);
+    clearTimeout(this.sretryOtp);
+    clearTimeout(this.fpretryOtp);
+    clearTimeout(this.otptrigTimeout);
+    clearTimeout(this.fptrigTimeout);
     $('#sign-resend-otp-text').html('');
     $('#fp-resend-otp-text').html('');
+    $('.otp-span').hide();
+    $('#reg-otp').val('');
   }
   clickedOnTerms() {
     $('.fixed-dark-cover').hide();
@@ -661,7 +651,7 @@ export class AppComponent implements OnInit {
               // Open forgot pwd db
               $('#fp-fixed-dark-cover').css({'display': 'flex'});
               this.authService.sendOtp(this.mobileNumForfp).subscribe(ress => {
-                setTimeout(() => {
+                this.fptrigTimeout = setTimeout(() => {
                   this.resendotptrig('fp');
                 }, 10000);
               });
@@ -838,7 +828,6 @@ export class AppComponent implements OnInit {
                       this.resendotptrig('fp');
                     }, 10000);
                   }else {
-                    console.log(res);
                     $('.err').html('Something went wrong. Please try again later');
                     setTimeout(function() {
                       $('.err').html('');

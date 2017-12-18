@@ -15,7 +15,8 @@ declare var $: any;
 })
 export class ThanksComponent implements OnInit {
 
-  constructor(public authService: AuthService, private title: Title, private router: Router, private datePipe: DatePipe) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(public authService: AuthService, private title: Title, private router: Router, private datePipe: DatePipe,public appComponent: AppComponent) { }
 
   order_id: string;
   userEmail: string;
@@ -45,9 +46,6 @@ export class ThanksComponent implements OnInit {
     if (this.basket_num === undefined || this.basket_num === null || this.basket_num === 0 || isNaN(this.basket_num) === true) {
       // redirect to menu
       this.basket_num = 0;
-      // alert('no');
-    }else {
-      // this.basket_num;
     }
     if (this.authService.loggedIn() === true) {
       const user = this.authService.getUserFromLocal();

@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import * as moment from 'moment';
 import { AdminServicesService } from '../../services/admin-services.service';
 import { AdminAuthService } from '../../services/admin-auth.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 declare var $: any;
 @Component({
   selector: 'app-orders',
@@ -67,8 +68,10 @@ export class AdminOrdersComponent implements OnInit {
   p_h_two_time_slot;
   p_h_three_time_slot;
   today_orders = [];
+  order_ref_length;
+  order_ref_array = [];
   // tslint:disable-next-line:max-line-length
-  constructor(private getMenu: AdminServicesService, private router: Router, private title: Title, private datePipe: DatePipe, private adminAuth: AdminAuthService) { }
+  constructor(private getMenu: AdminServicesService, private router: Router, private title: Title, private datePipe: DatePipe, private adminAuth: AdminAuthService, private flash: FlashMessagesService) { }
   ngOnInit() {
     this.title.setTitle('View Orders');
     this.p_today_one = this.datePipe.transform(this.today_one, 'fullDate');
@@ -83,24 +86,89 @@ export class AdminOrdersComponent implements OnInit {
     this.disp_day_three = this.p_day_three;
     this.disp_day_four = this.p_day_four;
     this.disp_day_five = this.p_day_five;
+    setInterval( () => {
+      this.getMenu.getOrders().subscribe(dords => {
+        if (dords.msg.length > this.order_ref_length) {
+              dords.msg.forEach(element => {
+                this.order_ref_array.includes(element._id);
+                if (this.order_ref_array.includes(element._id)) {
+                }else {
+                  console.log(element.order.order_id);
+                  this.order_ref_array.push(element);
+                  this.flash.show('New Order ' + element.order.order_id + ' refresh to view details' , {
+                    cssClass: 'alert-success',
+                    timeout: 8000
+                  });
+                  this.order_ref_length = dords.msg.length;
+                }
+              });
+        }
+      });
+    }, 5000);
     this.getMenu.getOrders().subscribe(res => {
-      this.total_orders = res.msg;
-      this.total_orders.forEach(element => {
-        if (element.order.order) {
-          const user_id = element.order.user_id;
-          const order_time = element.order.order_time;
-          const order_id = element.order.order_id;
-          this.getMenu.getUserFromId(user_id).subscribe(ress => {
-            if (ress.success) {
-              const user = ress.msg;
+      res.msg.forEach(element => {
+        this.order_ref_array.push(element._id);
+      });
+      this.order_ref_length = res.msg.length;
+      res.msg.reverse();
+      const tot_orders = res.msg;
+      this.displayOrders(tot_orders);
+      setTimeout(() => {
+        console.log(this.total_orders.length);
+      }, 2000);
+    });
+  }
+  refreshPage() {
+    window.location.reload();
+  }
+  displayOrders(array) {
+    this.total_orders = array;
+    this.total_orders.forEach(element => {
+      if (element.order.order) {
+        const user_id = element.order.user_id;
+        const order_time = element.order.order_time;
+        const order_id = element.order.order_id;
+        this.getMenu.getUserFromId(user_id).subscribe(ress => {
+          if (ress.success) {
+            const user = ress.msg;
+            if (user[0] !== undefined) {
               const username = user[0].name;
               const user_mobile = user[0].mobile;
               const user_email = user[0].email;
               if (element.order.order.today !== null) {
                 if (this.p_today_one === element.order.order.today.date) {
                   this.now_exists = true;
+                  const today_arr = [];
+                  if (element.order.order.today.tab_one !== null && element.order.order.today.tab_one !== undefined) {
+                    // Getting time slot
+                    const obj = {
+                      name : element.order.order.today.tab_one.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_one.time_slot),
+                      num_of_items : element.order.order.today.tab_one.num_of_items,
+                      price : element.order.order.today.tab_one.total_price
+                    };
+                    today_arr.push(obj);
+                  }
+                  if (element.order.order.today.tab_two !== null && element.order.order.today.tab_two !== undefined) {
+                    const obj = {
+                      name : element.order.order.today.tab_two.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_two.time_slot),
+                      num_of_items : element.order.order.today.tab_two.num_of_items,
+                      price : element.order.order.today.tab_two.total_price
+                    };
+                    today_arr.push(obj);
+                  }
+                  if (element.order.order.today.tab_three !== null && element.order.order.today.tab_three !== undefined) {
+                    const obj = {
+                      name : element.order.order.today.tab_three.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_three.time_slot),
+                      num_of_items : element.order.order.today.tab_three.num_of_items,
+                      price : element.order.order.today.tab_three.total_price
+                    };
+                    today_arr.push(obj);
+                  }
                   // tslint:disable-next-line:max-line-length
-                  const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: element.order.order.today, payment_type: element.order.payment_method };
+                  const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: element.order.order.today, payment_type: element.order.payment_method, item_dets: today_arr, delivery_notes: element.order.delivery_notes };
                   this.today_orders.push(iind);
                 }
               }
@@ -112,37 +180,37 @@ export class AdminOrdersComponent implements OnInit {
                     switch (e.date) {
                       case this.p_today_one:
                         // tslint:disable-next-line:max-line-length
-                        const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.today_total_orders.push(iind);
                       break;
                       case this.p_day_one:
                         this.day_one_orders.push(e);
                         // tslint:disable-next-line:max-line-length
-                        const ind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        const ind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_one_total_orders.push(ind);
                         break;
                       case this.p_day_two:
                         this.day_two_orders.push(e);
                         // tslint:disable-next-line:max-line-length
-                        const indd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        const indd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_two_total_orders.push(indd);
                         break;
                       case this.p_day_three:
                         this.day_three_orders.push(e);
                         // tslint:disable-next-line:max-line-length
-                        const inddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method};
+                        const inddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_three_total_orders.push(inddd);
                         break;
                       case this.p_day_four:
                         this.day_four_orders.push(e);
                         // tslint:disable-next-line:max-line-length
-                        const indddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        const indddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_four_total_orders.push(indddd);
                         break;
                       case this.p_day_five:
                         this.day_five_orders.push(e);
                         // tslint:disable-next-line:max-line-length
-                        const innddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
+                        const innddd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_five_total_orders.push(innddd);
                         break;
                       case this.p_day_six:
@@ -158,10 +226,11 @@ export class AdminOrdersComponent implements OnInit {
                 }
               }
             }
-          });
-        }
-      });
+          }
+        });
+      }
     });
+    this.total_orders = [];
   }
   getUserfromUserId(id): any {
     let user: any;
@@ -395,6 +464,20 @@ export class AdminOrdersComponent implements OnInit {
       case 'slot_four':
         this.p_h_time_slot = '2:15 PM - 3:00 PM';
         break;
+      default:
+        break;
+    }
+  }
+  getTimeSlot(slot_string) {
+    switch (slot_string) {
+      case 'slot_one':
+        return '12:00 PM - 12:45 PM';
+      case 'slot_two':
+        return '12:45 PM - 1:30 PM';
+      case 'slot_three':
+        return '1:30 PM - 2:15 PM';
+      case 'slot_four':
+        return '2:15 PM - 3:00 PM';
       default:
         break;
     }

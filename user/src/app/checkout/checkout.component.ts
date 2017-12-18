@@ -263,10 +263,7 @@ export class CheckoutComponent implements OnInit {
         this.tab_three_times = this.today_orders['tab_three'].num_of_items;
         this.tab_three_time_slot = this.getSlotValue(this.today_orders['tab_three'].time_slot);
       }
-
     }
-
-
     // Get addresses
     this.authService.getUserAddressses(this.userId).subscribe(res => {
       if (res.success) {
@@ -403,11 +400,9 @@ export class CheckoutComponent implements OnInit {
           default:
             break;
         }
-
       }else {
         this.day_four_menu = null;
       }
-
       if (this.orders['day_five'] != null) {
         this.day_five_date = this.orders['day_five'].date;
         this.day_five_date = this.datePipe.transform(this.day_five_date, 'EEE, MMM d');
@@ -441,8 +436,8 @@ export class CheckoutComponent implements OnInit {
     this.total_price = this.delivery_fee + this.today_total_price + this.day_one_total_price + this.day_two_total_price + this.day_three_total_price + this.day_four_total_price + this.day_five_total_price + this.tab_one_total_price + this.tab_two_total_price + this.tab_three_total_price + this.letter_price;
 
     this.total_to_pay = this.total_price;
-     const rounded_num = Math.round(this.total_price / 10);
-     this.points_earned = rounded_num;
+    const rounded_num = Math.round(this.total_price / 10);
+    this.points_earned = rounded_num;
   }
   redeemClicked() {
     this.showDiscount = true;
@@ -508,6 +503,7 @@ export class CheckoutComponent implements OnInit {
         const main_order = {
           user_id: this.userId,
           order_id: order_id,
+          delivery_notes: delivery_notes,
           order_time: moment().format('llll'),
           delivery_address : delivery_address,
           payment_method: pay_method,

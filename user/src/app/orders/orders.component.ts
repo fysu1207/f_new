@@ -110,11 +110,14 @@ export class OrdersComponent implements OnInit {
                 nextday_dates.push(five_obj);
               }
             }
+            const rounded_num = Math.round(element.order.total_price / 10);
+            const points_earned = rounded_num;
             const obj = {
               order_id: element.order.order_id,
               time: element.order.order_time,
               payment_method: element.order.payment_method,
               price: element.order.total_price,
+              earned : points_earned,
               items: user_items,
               next_dates : nextday_dates
             };
