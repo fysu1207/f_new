@@ -15,35 +15,43 @@
             <div class="clearfix"></div>
         </div>
         <div class="days-div">
-                <table class="table table-striped">
-                  <tr>
-                    <th>
-                      Order id
-                    </th>
-                    <th>
-                      Order Time
-                    </th>
-                    <th>
-                      Delivery Address
-                    </th>
-                    <th>
-                      Payment Type
-                    </th>
-                    <th>
-                      User name
-                    </th>
-                    <th>
-                      User Mobile
-                    </th>
-                    <th>
-                      User Email
-                    </th>
-                    <th>
-                      Details
-                    </th>
-                  </tr>
-                  
-                  <tr *ngFor='let today of display_today_orders'>
+            <table class="table table-striped">
+                <tr>
+                  <th>
+                    Order Id
+                  </th>
+                  <th>
+                    Order Time
+                  </th>
+                  <th>
+                    User name
+                  </th>
+                  <th>
+                    Mobile
+                  </th>
+                  <th>
+                    Address
+                  </th>
+                  <th>
+                    Items
+                  </th>
+                  <th>
+                    Timeslot
+                  </th>
+                  <th>
+                    Number of orders
+                  </th>
+                  <th>
+                    Payment mode
+                  </th>
+                  <th>
+                    Price
+                  </th>
+                  <th>
+                    Notes
+                  </th>
+                </tr>
+                <tr *ngFor='let today of display_today_orders'>
                     <td>
                        {{today.order_id}}
                     </td>
@@ -51,79 +59,126 @@
                       {{today.order_time}}
                     </td>
                     <td>
-                       {{today.delivery_address}}
+                      {{today.user_name}}
+                    </td>
+                    <td>
+                      {{today.user_mobile}}
+                    </td>
+                    <td>
+                      {{today.delivery_address}}
+                    </td>
+                    <td>
+                      <span *ngFor='let item_det of today.item_dets'>
+                        <p>
+                          {{item_det.name}}
+                        </p>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngFor='let item_det of today.item_dets'>
+                          <p>
+                            {{item_det.time_slot}}
+                          </p>
+                      </span>
+                    </td>
+                    <td>
+                      <span *ngFor='let item_det of today.item_dets'>
+                        <p>
+                          {{item_det.num_of_items}}
+                        </p>
+                      </span>
                     </td>
                     <td>
                       {{today.payment_type}}
                     </td>
                     <td>
-                       {{today.user_name}}
+                      <span *ngFor='let item_det of today.item_dets'>
+                        <p>
+                          {{item_det.price}}
+                        </p>
+                      </span>
                     </td>
                     <td>
-                       {{today.user_mobile}}
-                    </td>
-                    <td>
-                       {{today.user_email}}
-                    </td>
-                    <td>
-                      <span (click)='ViewDetails("today",today.order_id,p_today_one)'>View</span>
+                      {{today.delivery_notes}}
                     </td>
                   </tr>
-                </table>
+              </table>
                 <table class="table table-striped">
-                  <tr>
-                    <th>
-                      Order id
-                    </th>
-                    <th>
-                      Order Time
-                    </th>
-                    <th>
-                      Delivery Address
-                    </th>
-                    <th>
-                      Payment Type
-                    </th>
-                    <th>
-                      User name
-                    </th>
-                    <th>
-                      User Mobile
-                    </th>
-                    <th>
-                      User Email
-                    </th>
-                    <th>
-                      Details
-                    </th>
-                  </tr>
-                  <tr *ngFor='let order of display_next_orders'>
-                    <td>
-                      {{order.order_id}}
-                    </td>
-                    <td>
-                      {{order.order_time}}
-                    </td>
-                    <td>
-                      {{order.delivery_address}}
-                    </td>
-                    <td>
-                      {{order.payment_type}}
-                    </td>
-                    <td>
-                      {{order.user_name}}
-                    </td>
-                    <td>
-                      {{order.user_mobile}}
-                    </td>
-                    <td>
-                      {{order.user_email}}
-                    </td>
-                    <td>
-                      <span (click)='ViewDetails("day_three",order.order_id)'>View</span>
-                    </td>
-                  </tr>
-                </table>
+                    <tr>
+                      <th>
+                        Order Id
+                      </th>
+                      <th>
+                        Order Time
+                      </th>
+                      <th>
+                        User name
+                      </th>
+                      <th>
+                        Mobile
+                      </th>
+                      <th>
+                        Address
+                      </th>
+                      <th>
+                        Items
+                      </th>
+                      <th>
+                        Timeslot
+                      </th>
+                      <th>
+                        Number of orders
+                      </th>
+                      <th>
+                        Payment mode
+                      </th>
+                      <th>
+                        Price
+                      </th>
+                      <th>
+                        Notes
+                      </th>
+                    </tr>
+                    <tr *ngFor='let day_two of display_next_orders'>
+                        <td>
+                           {{ day_two.order_id }}
+                        </td>
+                        <td>
+                          {{ day_two.order_time }}
+                        </td>
+                        <td>
+                          {{ day_two.user_name }}
+                        </td>
+                        <td>
+                          {{ day_two.user_mobile }}
+                        </td>
+                        <td>
+                          {{ day_two.delivery_address }}
+                        </td>
+                        <td>
+                          <span *ngFor='let item_det of day_two.order'>
+                            <p>
+                              {{item_det.item_name}}
+                            </p>
+                          </span>
+                        </td>
+                        <td>
+                          {{ day_two.time_slot }}
+                        </td>
+                        <td>
+                            {{ day_two.num_of_items }}
+                        </td>
+                        <td>
+                          {{ day_two.payment_type }}
+                        </td>
+                        <td>
+                          {{ day_two.price }}
+                        </td>
+                        <td>
+                          {{ day_two.delivery_notes }}
+                        </td>
+                      </tr>
+                  </table>
               </div>
     </div>
     <div class="db">

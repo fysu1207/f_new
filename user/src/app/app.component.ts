@@ -6,7 +6,6 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { DatePipe } from '@angular/common';
 import * as moment from 'moment';
-// import { clearTimeout } from 'timers';
 declare var $: any;
 @Component({
   selector: 'app-root',
@@ -18,7 +17,6 @@ export class AppComponent implements OnInit {
   public location = {};
   public lat: number;
   public long: number;
-
   public initialLoginInput: string;
   public regNameInput: string;
   public regComNameInput: string;
@@ -241,10 +239,8 @@ export class AppComponent implements OnInit {
         // User entered mobile
         $('.err').html('');
         $('.fixed-dark-cover').hide();
-
         this.authService.authenticateMobile(input).subscribe(data => {
           if (data.success) {
-            // this.loginMobileInput = this.initialLoginInput;
             this.loginEmailInput = this.initialLoginInput;
             this.isInputMobile = true;
             // Mobile number exists
@@ -261,9 +257,33 @@ export class AppComponent implements OnInit {
           } else {
             this.regMobileInput = this.initialLoginInput;
             $('#reg-mobile').val(this.initialLoginInput);
-            // alert(this.initialLoginInput);
             $('#next-reg-fixed-dark-cover').css({ 'display': 'flex' });
             $('#reg-name').focus();
+            this.regEmailInput = this.initialLoginInput;
+            $('#reg-email').val(this.initialLoginInput);
+            $('#next-reg-fixed-dark-cover').keyup(function(e) {
+              const regname = $('#reg-name').val();
+              const regemail = $('#reg-email').val();
+              const regmobile = $('#reg-mobile').val();
+              const regpwd = $('#reg-pwd').val();
+              const otp = $('#reg-otp').val();
+              // Validate inputs
+              if (
+                regname &&
+                regemail &&
+                regmobile &&
+                regpwd
+              ) {
+                if (regpwd.length > 5) {
+                  $('#otp-btn').css({'background-color': '#6DA942'});
+                  if (otp) {
+                    $('#signup-btn').css({'background-color': '#6DA942'});
+                  }
+                }
+              }else {
+                $('#otp-btn').css({'background-color': '#b2b2b2'});
+              }
+            });
           }
         });
       } else {
@@ -384,24 +404,26 @@ export class AppComponent implements OnInit {
       if (this.validate.validateEmail(this.regEmailInput)) {
         if (this.validate.validateMobile(this.regMobileInput)) {
           if (this.regPwdInput.length > 5) {
-
             this.authService.authenticateMobile(this.regMobileInput).subscribe(data => {
               if (data.success) {
                 // Mobile exists
-                $('.otp-span').show('slow');
-                $('#otp-btn').hide();
-                $('#signup-btn').css({ 'display': 'block' });
                 $('.err').html('The mobile number is already registered with us.');
               } else {
-                // Send otp
-                this.authService.sendOtp(this.regMobileInput).subscribe(ress => {
-                  this.otptrigTimeout = setTimeout(() => {
-                    this.resendotptrig('signup');
-                  }, 10000);
+                this.authService.authenticateEmail(this.regEmailInput).subscribe(edat => {
+                  if (edat.success) {
+                    $('.err').html('The email is already registered with us.');
+                    }else {
+                      // Send otp
+                      this.authService.sendOtp(this.regMobileInput).subscribe(ress => {
+                        this.otptrigTimeout = setTimeout(() => {
+                          this.resendotptrig('signup');
+                        }, 10000);
+                      });
+                      $('.otp-span').show('slow');
+                      $('#otp-btn').hide();
+                      $('#signup-btn').css({ 'display': 'block' });
+                    }
                 });
-                $('.otp-span').show('slow');
-                $('#otp-btn').hide();
-                $('#signup-btn').css({ 'display': 'block' });
               }
             });
           }else {

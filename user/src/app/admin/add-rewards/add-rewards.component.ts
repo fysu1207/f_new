@@ -34,7 +34,7 @@ export class AddRewardsComponent implements OnInit {
       if (res.success) {
         this.flash.show('Updated', {
           cssClass: 'alert-success',
-          timeout: 5000
+          timeout: 700
         });
         this.userName = '';
         this.points = '';

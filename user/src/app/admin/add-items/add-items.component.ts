@@ -80,9 +80,8 @@ export class AddItemsComponent implements OnInit {
       if (res.msg === 'success') {
         this.flash.show('Item Added !', {
           cssClass: 'alert-success',
-          timeout: 5000
+          timeout: 500
         });
-        window.location.reload();
       } else {
         console.log(res);
       }

@@ -42,8 +42,10 @@ export class AddSubsComponent implements OnInit {
         if (res.msg === 'success') {
           // Category added
           $('.err').html('Added !');
+          setTimeout(() => {
+            $('.err').html('');
+          }, 500);
           $('#sub-inp').val('');
-          window.location.reload();
         }
       });
     } else {
@@ -52,7 +54,6 @@ export class AddSubsComponent implements OnInit {
 
   }
   catSelect(event) {
-    // var cjson = {'catId':event};
     this.selectedCat = event;
     const cjson = event;
     this.getMenu.getSubs(cjson).subscribe(res => {

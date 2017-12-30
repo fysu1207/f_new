@@ -116,10 +116,6 @@ export class AddMenuComponent implements OnInit {
 
   subCatSelect(subCat) {
     this.subSelected = 'true';
-    // selected category
-    // this.selectedCat;
-    // selected sub category
-    // this.selectedSubCat;
     this.getMenu.getDateItems(this.selectedCat, this.selectedSubCat, this.dateSelected).subscribe(res => {
       if (res === 'failed') {
       } else {
@@ -181,7 +177,10 @@ export class AddMenuComponent implements OnInit {
   submitMenu() {
     this.getMenu.postSchedule(this.addedItems, this.removedItems).subscribe(res => {
       if (res) {
-        window.location.reload();
+        $('.ad-alert').html('Added');
+        setTimeout(() => {
+          $('.ad-alert').html('');
+        },500);
       }
     });
 

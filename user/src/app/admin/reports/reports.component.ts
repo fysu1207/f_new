@@ -43,6 +43,7 @@ export class ReportsComponent implements OnInit {
   p_h_one_time_slot;
   p_h_two_time_slot;
   p_h_three_time_slot;
+  now_exists;
   public myDatePickerOptions: IMyDpOptions = {
     dateFormat: 'dd.mm.yyyy',
   };
@@ -63,8 +64,6 @@ export class ReportsComponent implements OnInit {
         });
       }
     });
-
-
     this.getMenu.getOrders().subscribe(res => {
       this.total_orders = res.msg;
       this.total_orders.forEach(element => {
@@ -84,9 +83,39 @@ export class ReportsComponent implements OnInit {
                  user_email = user[0].email;
               }
               if (element.order.order.today !== null) {
-                // tslint:disable-next-line:max-line-length
-                const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: element.order.order.today, payment_type: element.order.payment_method };
-                this.today_orders.push(iind);
+                this.now_exists = true;
+                  const today_arr = [];
+                  if (element.order.order.today.tab_one !== null && element.order.order.today.tab_one !== undefined) {
+                    // Getting time slot
+                    const obj = {
+                      name : element.order.order.today.tab_one.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_one.time_slot),
+                      num_of_items : element.order.order.today.tab_one.num_of_items,
+                      price : element.order.order.today.tab_one.total_price
+                    };
+                    today_arr.push(obj);
+                  }
+                  if (element.order.order.today.tab_two !== null && element.order.order.today.tab_two !== undefined) {
+                    const obj = {
+                      name : element.order.order.today.tab_two.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_two.time_slot),
+                      num_of_items : element.order.order.today.tab_two.num_of_items,
+                      price : element.order.order.today.tab_two.total_price
+                    };
+                    today_arr.push(obj);
+                  }
+                  if (element.order.order.today.tab_three !== null && element.order.order.today.tab_three !== undefined) {
+                    const obj = {
+                      name : element.order.order.today.tab_three.name,
+                      time_slot : this.getTimeSlot(element.order.order.today.tab_three.time_slot),
+                      num_of_items : element.order.order.today.tab_three.num_of_items,
+                      price : element.order.order.today.tab_three.total_price
+                    };
+                    today_arr.push(obj);
+                  }
+                  // tslint:disable-next-line:max-line-length
+                  const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: element.order.order.today, payment_type: element.order.payment_method, item_dets: today_arr, delivery_notes: element.order.delivery_notes };
+                  this.today_orders.push(iind);
               }
               this.next_days = element.order.order.next_days;
               for (const key in this.next_days) {
@@ -94,9 +123,8 @@ export class ReportsComponent implements OnInit {
                   const e = this.next_days[key];
                   if (e != null) {
                         // tslint:disable-next-line:max-line-length
-                        const iind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e, payment_type: element.order.payment_method };
-                        this.next_total_orders.push(iind);
-                        this.day_one_orders.push(e);
+                        const indd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
+                        this.day_one_orders.push(indd);
                   }
                 }
               }
@@ -105,6 +133,20 @@ export class ReportsComponent implements OnInit {
         }
       });
     });
+  }
+  getTimeSlot(slot_string) {
+    switch (slot_string) {
+      case 'slot_one':
+        return '12:00 PM - 12:45 PM';
+      case 'slot_two':
+        return '12:45 PM - 1:30 PM';
+      case 'slot_three':
+        return '1:30 PM - 2:15 PM';
+      case 'slot_four':
+        return '2:15 PM - 3:00 PM';
+      default:
+        break;
+    }
   }
   datesUpdated() {
     const datesArray: any = [];
@@ -118,57 +160,20 @@ export class ReportsComponent implements OnInit {
     const for_to = this.toDate.date.month + '/' + this.toDate.date.day + '/' + this.toDate.date.year;
     const from = this.datePipe.transform(for_from, 'fullDate');
     const to = this.datePipe.transform(for_to, 'fullDate');
-    const mfrom = moment(this.datePipe.transform(from, 'shortDate'));
-    const mto = moment(this.datePipe.transform(to, 'shortDate'));
-    const new_from = mto.diff(mfrom, 'days');
-    for (let i = 1; i <= new_from; i++) {
-      const ph = mfrom;
-      datesArray.push(this.datePipe.transform(ph.add(1, 'days'), 'fullDate'));
-    }
-    datesArray.forEach(element => {
-      this.today_orders.forEach(to_e => {
-        if (to_e !== null) {
-          if (to_e.order.date === element) {
-            this.display_today_orders.push(to_e);
-          }
+    this.today_orders.forEach(to_e => {
+    if (to_e !== null) {
+      if (moment(to_e.order_time).isBefore(to, 'day') && moment(to_e.order_time).isAfter(from, 'day')) {
+          this.display_today_orders.push(to_e);
         }
-      });
-      this.next_total_orders.forEach(n_e => {
-        if (n_e !== null) {
-          if (n_e.order.date === element) {
+      }
+    });
+    this.day_one_orders.forEach(n_e => {
+      if (n_e !== null) {
+        if (moment(n_e.order_time).isBefore(to, 'day') && moment(n_e.order_time).isAfter(from, 'day')) {
             this.display_next_orders.push(n_e);
-          }
+            console.log('success');
         }
-      });
-
-    });
-    orders_of_next_days.forEach(t => {
-      t.menu.forEach(menu_el => {
-        all_items.push(menu_el.item_name);
-        const p_ar = all_items;
-        filter_array = p_ar.filter(function (item, pos) {
-          return p_ar.indexOf(item) === pos;
-        });
-        // tslint:disable-next-line:radix
-        const j_obj = [menu_el.item_name, parseInt(t.numOfTimes)];
-        unique_items.push(j_obj);
-      });
-    });
-
-    this.un_items = [];
-
-    if (this.un_items.length < 1) {
-      filter_array.forEach(far => {
-        const js = {item_name: far, num_of_times: 0};
-        this.un_items.push(js);
-      });
-    }
-    unique_items.forEach(uu => {
-      this.un_items.forEach(unq => {
-        if (unq.item_name === uu[0]) {
-          unq.num_of_times = unq.num_of_times + uu[1];
-        }
-      });
+      }
     });
     all_items.length = 0;
     all_items = [];

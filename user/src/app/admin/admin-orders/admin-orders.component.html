@@ -154,9 +154,9 @@
            {{today.delivery_address}}
          </td>
          <td>
-           <span *ngFor='let item_det of today.order'>
+           <span *ngFor='let itemDet of today.order'>
              <p>
-               {{item_det.item_name}}
+               {{ itemDet.item_name }}
              </p>
            </span>
          </td>
@@ -218,55 +218,56 @@
             Notes
           </th>
         </tr>
-        <tr *ngFor='let today of day_one_total_orders'>
+        <tr *ngFor='let day_one of day_one_total_orders'>
             <td>
-               {{today.order_id}}
+               {{day_one.order_id}}
             </td>
             <td>
-              {{today.order_time}}
+              {{day_one.order_time}}
             </td>
             <td>
-              {{today.user_name}}
+              {{day_one.user_name}}
             </td>
             <td>
-              {{today.user_mobile}}
+              {{day_one.user_mobile}}
             </td>
             <td>
-              {{today.delivery_address}}
+              {{day_one.delivery_address}}
             </td>
             <td>
-              <span *ngFor='let item_det of today.item_dets'>
+              <span *ngFor='let item_det of day_one.item_dets'>
                 <p>
-                  {{item_det.name}}
+                  {{ item_det }}
                 </p>
               </span>
             </td>
             <td>
-              <span *ngFor='let item_det of today.item_dets'>
+              <!-- <span *ngFor='let item_det of day_one.item_dets'>
                   <p>
-                    {{item_det.time_slot}}
+                    {{ item_det.time_slot }}
                   </p>
-              </span>
+              </span> -->
             </td>
             <td>
-              <span *ngFor='let item_det of today.item_dets'>
+              {{ day_one.num_of_items }}
+              <!-- <span *ngFor='let item_det of day_one.item_dets'>
                 <p>
-                  {{item_det.num_of_items}}
+                  {{ item_det.num_of_items }}
                 </p>
-              </span>
+              </span> -->
             </td>
             <td>
-              {{today.payment_type}}
+              {{day_one.payment_type}}
             </td>
             <td>
-              <span *ngFor='let item_det of today.item_dets'>
+              <span *ngFor='let item_det of day_one.item_dets'>
                 <p>
                   {{item_det.price}}
                 </p>
               </span>
             </td>
             <td>
-              {{today.delivery_notes}}
+              {{day_one.delivery_notes}}
             </td>
           </tr>
       </table>
@@ -311,43 +312,43 @@
               Notes
             </th>
           </tr>
-          <tr *ngFor='let today of day_two_total_orders'>
+          <tr *ngFor='let day_two of day_two_total_orders'>
               <td>
-                 {{today.order_id}}
+                 {{ day_two.order_id }}
               </td>
               <td>
-                {{today.order_time}}
+                {{ day_two.order_time }}
               </td>
               <td>
-                {{today.user_name}}
+                {{ day_two.user_name }}
               </td>
               <td>
-                {{today.user_mobile}}
+                {{ day_two.user_mobile }}
               </td>
               <td>
-                {{today.delivery_address}}
+                {{ day_two.delivery_address }}
               </td>
               <td>
-                <span *ngFor='let item_det of today.order'>
+                <span *ngFor='let item_det of day_two.order'>
                   <p>
                     {{item_det.item_name}}
                   </p>
                 </span>
               </td>
               <td>
-                {{ today.time_slot }}
+                {{ day_two.time_slot }}
               </td>
               <td>
-                {{ today.num_of_items }}
+                  {{ day_two.num_of_items }}
               </td>
               <td>
-                {{today.payment_type}}
+                {{ day_two.payment_type }}
               </td>
               <td>
-                {{ today.price }}
+                {{ day_two.price }}
               </td>
               <td>
-                {{today.delivery_notes}}
+                {{ day_two.delivery_notes }}
               </td>
             </tr>
         </table>
@@ -392,43 +393,43 @@
               Notes
             </th>
           </tr>
-          <tr *ngFor='let today of day_three_total_orders'>
+          <tr *ngFor='let day_three of day_three_total_orders'>
             <td>
-              {{today.order_id}}
+              {{day_three.order_id}}
            </td>
            <td>
-             {{today.order_time}}
+             {{day_three.order_time}}
            </td>
            <td>
-             {{today.user_name}}
+             {{day_three.user_name}}
            </td>
            <td>
-             {{today.user_mobile}}
+             {{day_three.user_mobile}}
            </td>
            <td>
-             {{today.delivery_address}}
+             {{day_three.delivery_address}}
            </td>
            <td>
-             <span *ngFor='let item_det of today.order'>
+             <span *ngFor='let item_det of day_three.order'>
                <p>
                  {{item_det.item_name}}
                </p>
              </span>
            </td>
            <td>
-             {{ today.time_slot }}
+             {{ day_three.time_slot }}
            </td>
            <td>
-             {{ today.num_of_items }}
+             {{ day_three.num_of_items }}
            </td>
            <td>
-             {{today.payment_type}}
+             {{day_three.payment_type}}
            </td>
            <td>
-             {{ today.price }}
+             {{ day_three.price }}
            </td>
            <td>
-             {{today.delivery_notes}}
+             {{day_three.delivery_notes}}
            </td>
             </tr>
         </table>

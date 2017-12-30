@@ -93,11 +93,10 @@ export class AdminOrdersComponent implements OnInit {
                 this.order_ref_array.includes(element._id);
                 if (this.order_ref_array.includes(element._id)) {
                 }else {
-                  console.log(element.order.order_id);
                   this.order_ref_array.push(element);
                   this.flash.show('New Order ' + element.order.order_id + ' refresh to view details' , {
                     cssClass: 'alert-success',
-                    timeout: 8000
+                    timeout: 6000
                   });
                   this.order_ref_length = dords.msg.length;
                 }
@@ -114,7 +113,7 @@ export class AdminOrdersComponent implements OnInit {
       const tot_orders = res.msg;
       this.displayOrders(tot_orders);
       setTimeout(() => {
-        console.log(this.total_orders.length);
+        console.log(tot_orders.length);
       }, 2000);
     });
   }
@@ -188,12 +187,14 @@ export class AdminOrdersComponent implements OnInit {
                         // tslint:disable-next-line:max-line-length
                         const ind = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_one_total_orders.push(ind);
+                        // console.log(ind);
                         break;
                       case this.p_day_two:
                         this.day_two_orders.push(e);
                         // tslint:disable-next-line:max-line-length
                         const indd = { user_id: user_id, user_name: username, user_mobile: user_mobile, user_email: user_email, order_id: order_id, order_time: order_time, delivery_address: element.order.delivery_address, order: e.menu, payment_type: element.order.payment_method, price: e.totalPrice, delivery_notes: element.order.delivery_notes, time_slot : this.getTimeSlot(e.timeSlot), num_of_items: e.numOfTimes };
                         this.day_two_total_orders.push(indd);
+                        // console.log(indd);
                         break;
                       case this.p_day_three:
                         this.day_three_orders.push(e);
@@ -222,6 +223,7 @@ export class AdminOrdersComponent implements OnInit {
                       default:
                         break;
                     }
+                    console.log(this.day_one_total_orders);
                   }
                 }
               }
