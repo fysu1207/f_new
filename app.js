@@ -35,7 +35,7 @@ mongoose.connection.on('error',function(a){
 //     res.redirect(301,'https://www.' + host);
 //   }
 // });
-app.get('/*', function(req, res, next) {
+app.all('/*', function(req, res, next) {
   if (req.headers.host.match(/^www/) !== null ) {
     res.redirect('https://' + req.headers.host.replace(/^www\./, '') + req.url);
   } else {
