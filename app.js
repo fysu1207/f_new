@@ -27,14 +27,21 @@ mongoose.connection.on('connected',function(){
 mongoose.connection.on('error',function(a){
   a&&console.log('Error'+a)
 });
-app.all(/.*/, (req, res, next)=>{
-  var host = req.header('host');
-  if(host.match(/^www\..*/i)){
-    next();
-  }else {
-    res.redirect(301,'https://www.' + host);
+// app.all(/.*/, (req, res, next)=>{
+//   var host = req.header('host');
+//   if(host.match(/^www\..*/i)){
+//     next();
+//   }else {
+//     res.redirect(301,'https://www.' + host);
+//   }
+// });
+app.get('/*', function(req, res, next) {
+  if (req.headers.host.match(/^www/) !== null ) {
+    res.redirect('http://' + req.headers.host.replace(/^www\./, '') + req.url);
+  } else {
+    next();     
   }
-});
+})
 app.get('*',function(a,b){
   b.sendFile(path.join(__dirname+'/public/index.html'))
 });
