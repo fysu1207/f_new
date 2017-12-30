@@ -27,12 +27,12 @@ mongoose.connection.on('connected',function(){
 mongoose.connection.on('error',function(a){
   a&&console.log('Error'+a)
 });
-self.app.all(/.*/, function(req, res, next) {
-  var host = req.header("host");
-  if (host.match(/^www\..*/i)) {
+app.all(/.*/, (req, res, next)=>{
+  var host = req.header('host');
+  if(host.match(/^www\..*/i)){
     next();
-  } else {
-    res.redirect(301, "http://www." + host + req.url);
+  }else {
+    res.redirect(301,'https://www.' + host);
   }
 });
 app.get('*',function(a,b){
