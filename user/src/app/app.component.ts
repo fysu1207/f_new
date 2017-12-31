@@ -180,17 +180,11 @@ export class AppComponent implements OnInit {
   public firstConClick(input: string) {
     input = input.toLowerCase();
     $('.err').html('');
-    // Validate input
     if (this.validate.validateInput(input)) {
-      // User has entered input
-      // Checking if it is email
       if (this.validate.validateEmail(input)) {
-        // User have entered email
-        // Check if email is registered
         $('.fixed-dark-cover').hide();
         this.authService.authenticateEmail(input).subscribe(data => {
           if (data.success) {
-            // Email exists
             this.loginEmailInput = this.initialLoginInput;
             this.isInputEmail = true;
             $('#next-login-fixed-dark-cover').css({ 'display': 'flex' });
@@ -259,8 +253,6 @@ export class AppComponent implements OnInit {
             $('#reg-mobile').val(this.initialLoginInput);
             $('#next-reg-fixed-dark-cover').css({ 'display': 'flex' });
             $('#reg-name').focus();
-            this.regEmailInput = this.initialLoginInput;
-            $('#reg-email').val(this.initialLoginInput);
             $('#next-reg-fixed-dark-cover').keyup(function(e) {
               const regname = $('#reg-name').val();
               const regemail = $('#reg-email').val();

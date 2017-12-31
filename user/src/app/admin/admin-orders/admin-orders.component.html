@@ -1,7 +1,7 @@
 <!-- Orders Section -->
 <div class="orders-section">
     <h3>Orders</h3>
-  </div>
+</div>
   <!-- Orders Listing -->
   <div class="orders-list-section table-responsive">
     <!-- Today -->
@@ -173,7 +173,7 @@
            {{ today.price }}
          </td>
          <td>
-           {{today.delivery_notes}}
+           {{ today.delivery_notes }}
          </td>
           </tr>
       </table>
@@ -235,36 +235,23 @@
               {{day_one.delivery_address}}
             </td>
             <td>
-              <span *ngFor='let item_det of day_one.item_dets'>
+              <span *ngFor='let item_det of day_one.order'>
                 <p>
-                  {{ item_det }}
+                  {{ item_det.item_name }}
                 </p>
               </span>
             </td>
             <td>
-              <!-- <span *ngFor='let item_det of day_one.item_dets'>
-                  <p>
-                    {{ item_det.time_slot }}
-                  </p>
-              </span> -->
+              {{ day_one.time_slot }}
             </td>
             <td>
               {{ day_one.num_of_items }}
-              <!-- <span *ngFor='let item_det of day_one.item_dets'>
-                <p>
-                  {{ item_det.num_of_items }}
-                </p>
-              </span> -->
             </td>
             <td>
               {{day_one.payment_type}}
             </td>
             <td>
-              <span *ngFor='let item_det of day_one.item_dets'>
-                <p>
-                  {{item_det.price}}
-                </p>
-              </span>
+              {{ day_one.price }}
             </td>
             <td>
               {{day_one.delivery_notes}}

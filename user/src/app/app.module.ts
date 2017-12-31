@@ -3,9 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RouterModule, Router, Routes } from '@angular/router';
-// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-// import { GoogleMapDirective } from '../app/directives/google-map.directive';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
@@ -22,7 +19,7 @@ import { TermsComponent } from './terms/terms.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
 import { AddressComponent } from './address/address.component';
-
+import { ThanksComponent } from './thanks/thanks.component';
 // Admin components
 import { AdminComponent } from './admin/admin/admin.component';
 import { AddAdminComponent } from './admin/add-admin/add-admin.component';
@@ -34,13 +31,8 @@ import { AddMenuComponent } from './admin/add-menu/add-menu.component';
 import { ReportsComponent } from './admin/reports/reports.component';
 import { AddRewardsComponent } from './admin/add-rewards/add-rewards.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
-import { ThanksComponent } from './thanks/thanks.component';
 import { SoldoutComponent } from './admin/soldout/soldout.component';
 import { MyDatePickerModule } from 'mydatepicker';
-// import { DaterangePickerModule } from 'ng2-daterange-picker';
-// import { AdminComponent } from "./admin/admin.component";
-
-
 // Services
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
