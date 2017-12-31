@@ -36,16 +36,11 @@ mongoose.connection.on('error',function(a){
 //     res.redirect(301,'https://www.' + host);
 //   }
 // });
-// app.get('/*', function(req, res, next) {
-//   if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
-//   else next();
-// });
-app.get( '/*', (req, res, next) =>{
-  if( req.headers.host.match(/^www\./)){
-    res.redirect('https://#{req.headers.host[4..]}#{req.url}', 301);
-  }
+app.get('/*', function(req, res, next) {
+  if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
   else next();
 });
+
 app.get('*',function(a,b){
   b.sendFile(path.join(__dirname + '/public/index.html'))
 });
