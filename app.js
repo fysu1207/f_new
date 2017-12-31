@@ -29,10 +29,6 @@ mongoose.connection.on('error',function(a){
   a&&console.log('Error'+a)
 });
 // Forcedomain to www
-app.use(forceDomain({
-  hostname: 'www.fysu.in',
-  protocol: 'https'
-}));
 // app.all(/.*/, (req, res, next)=>{
 //   var host = req.header('host');
 //   if(host.match(/^www\..*/i)){
@@ -42,9 +38,15 @@ app.use(forceDomain({
 //   }
 // });
 // app.get('/*', function(req, res, next) {
-//   if (req.headers.host.match(/^www/) == null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
+//   if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
 //   else next();
 // });
+app.get( '/*', (req, res, next) =>{
+  if( req.headers.host.match(/^www\./)){
+    res.redirect('https://#{req.headers.host[4..]}#{req.url}', 301);
+  }
+  else next();
+});
 app.get('*',function(a,b){
-  b.sendFile(path.join(__dirname+'/public/index.html'))
+  b.sendFile(path.join(__dirname + '/public/index.html'))
 });
