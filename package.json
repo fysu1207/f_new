@@ -22,6 +22,7 @@
     "@types/googlemaps": "^3.26.20",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.1",
+    "compression": "^1.7.1",
     "cors": "^2.8.4",
     "express": "^4.15.4",
     "express-https-redirect": "^1.0.0",

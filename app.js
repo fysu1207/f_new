@@ -1,5 +1,5 @@
 var express=require('express');
-// var httpsRedirect = require('express-https-redirect');
+var compression = require('compression')
 const forceDomain = require('forcedomain');
 path=require('path');
 bodyParser=require('body-parser');
@@ -8,7 +8,7 @@ passport=require('passport');
 mongoose=require('mongoose');
 config=require('./config/database');
 app=express();
-// app.use('/', httpsRedirect());
+app.use(compression());
 app.use(forceDomain({
   hostname: 'www.fysu.in',
   protocol: 'https'
