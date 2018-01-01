@@ -1,5 +1,5 @@
 var express=require('express');
-var httpsRedirect = require('express-https-redirect');
+// var httpsRedirect = require('express-https-redirect');
 path=require('path');
 bodyParser=require('body-parser');
 cors=require('cors');
@@ -7,7 +7,7 @@ passport=require('passport');
 mongoose=require('mongoose');
 config=require('./config/database');
 app=express();
-app.use('/', httpsRedirect());
+// app.use('/', httpsRedirect());
 port=3700;
 app.use(cors());
 app.use(bodyParser.json());
@@ -36,11 +36,16 @@ mongoose.connection.on('error',function(a){
 //     res.redirect(301,'https://www.' + host);
 //   }
 // });
-app.use(function(req, res, next) {
-  if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
-  else next();
-});
+// app.use(function(req, res, next) {
+//   if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
+//   else next();
+// });
 
-app.get('*',function(a,b){
+app.get('*', function(req, res) {  
+  // res.redirect('https://' + req.headers.host + req.url);
+  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
+  res.redirect('https://www.example.com' + req.url);
   b.sendFile(path.join(__dirname + '/public/index.html'))
 });
+// app.get('*',function(a,b){
+// });
