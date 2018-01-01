@@ -36,15 +36,9 @@ mongoose.connection.on('error',function(a){
 //     res.redirect(301,'https://www.' + host);
 //   }
 // });
-// app.use(function(req, res, next) {
-//   if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
-//   else next();
-// });
-
-app.get('*', function(req, res) {  
-  // res.redirect('https://' + req.headers.host + req.url);
-  // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
-  res.redirect('https://www.fysu.in' + req.url);
+app.use(function(req, res, next) {
+  if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
+  else next();
 });
 app.get('*',function(a,b){
   res.sendFile(path.join(__dirname + '/public/index.html'))
