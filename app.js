@@ -45,7 +45,7 @@ app.get('*', function(req, res) {
   // res.redirect('https://' + req.headers.host + req.url);
   // Or, if you don't want to automatically detect the domain name from the request header, you can hard code it:
   res.redirect('https://www.example.com' + req.url);
-  b.sendFile(path.join(__dirname + '/public/index.html'))
+  res.sendFile(path.join(__dirname + '/public/index.html'))
 });
 // app.get('*',function(a,b){
 // });
