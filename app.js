@@ -32,19 +32,6 @@ mongoose.connection.on('connected',function(){
 mongoose.connection.on('error',function(a){
   a&&console.log('Error'+a)
 });
-// Forcedomain to www
-// app.all(/.*/, (req, res, next)=>{
-//   var host = req.header('host');
-//   if(host.match(/^www\..*/i)){
-//     next();
-//   }else {
-//     res.redirect(301,'https://www.' + host);
-//   }
-// });
-app.use(function(req, res, next) {
-  if (req.headers.host.match(/^www/) === null ) res.redirect('https://www.' + req.headers.host + req.url, 301);
-  else next();
-});
 app.get('*',function(a,b){
   b.sendFile(path.join(__dirname + '/public/index.html'))
 });
