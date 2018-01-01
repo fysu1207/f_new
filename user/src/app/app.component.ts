@@ -630,6 +630,8 @@ export class AppComponent implements OnInit {
     clearTimeout(this.fptrigTimeout);
     $('#sign-resend-otp-text').html('');
     $('#fp-resend-otp-text').html('');
+    $('#fp-resend').hide();
+    $('#sign-resend').hide();
     $('.otp-span').hide();
     $('#reg-otp').val('');
   }
@@ -740,7 +742,6 @@ export class AppComponent implements OnInit {
     }
   }
   resendotptrig(mode) {
-
     switch (mode) {
       case 'signup':
         let n = 30;
@@ -759,11 +760,11 @@ export class AppComponent implements OnInit {
         break;
       case 'fp':
       n = 30;
-      $('#fp-resend-otp-text').html('You can resend OTP in 00 ' + n + ' seconds.').show();
+      $('#fp-resend-otp-text').html('You can resend OTP in 00 : ' + n + ' seconds.').show();
       this.fpresendotpInterval = setInterval(function() {
         if (n !== 1) {
           n--;
-          $('#fp-resend-otp-text').html('You can resend OTP in 00 ' + n + ' seconds.');
+          $('#fp-resend-otp-text').html('You can resend OTP in 00 : ' + n + ' seconds.');
         }else {
           // Show resend otp
           $('#fp-resend-otp-text').hide();
@@ -780,7 +781,6 @@ export class AppComponent implements OnInit {
 
   }
   retryOtp(mode) {
-
     switch (mode) {
       case 'signup':
         if (this.validate.validateEmail(this.regEmailInput)) {
