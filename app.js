@@ -46,5 +46,5 @@ app.use(function(req, res, next) {
   else next();
 });
 app.get('*',function(a,b){
-  res.sendFile(path.join(__dirname + '/public/index.html'))
+  b.sendFile(path.join(__dirname + '/public/index.html'))
 });
