@@ -690,9 +690,9 @@ export class AppComponent implements OnInit {
             $('.fixed-dark-cover').hide();
             // Open forgot pwd db
             $('#fp-fixed-dark-cover').css({'display': 'flex'});
-            // this.authService.sendOtp(input).subscribe(res => {
-            //   // console.log(res);
-            // });
+            this.authService.sendOtp(input).subscribe(res => {
+              // console.log(res);
+            });
             setTimeout(() => {
               this.resendotptrig('fp');
             }, 10000);
