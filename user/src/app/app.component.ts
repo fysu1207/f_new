@@ -298,11 +298,9 @@ export class AppComponent implements OnInit {
     $('.fixed-dark-cover input').css({'border-color': '#b2b2b2'});
     loginEmailInput = loginEmailInput.toLowerCase();
     // this.loginEmailInput = this.loginEmailInput.toLowerCase();
-
     this.isInputEmail = false;
     this.isInputMobile = false;
     $('.err').html('');
-
     this.loginEmailInput = loginEmailInput;
     this.loginPasswordInput = loginPasswordInput;
     // Check if password has atleast 6 characters
@@ -320,11 +318,8 @@ export class AppComponent implements OnInit {
             this.authService.authenticateUser(user).subscribe(dat => {
               // console.log(dat);
               if (dat.success) {
-
                 this.uName = dat.user.name;
-
                 this.authService.storeUserData(dat.token, dat.user);
-                // this.router.navigate(['/home']);
                 window.location.reload();
                   $('.login-trig-div').hide();
                   $('.account-trig-div').show();

@@ -147,13 +147,12 @@ export class HomeComponent implements OnInit {
 
   }
 
-  seeMenu() {
+  public seeMenu() {
     // Address in this.locationEntry
     if (this.authService.loggedIn()) {
       this.authService.getUserAddressses(this.userId).subscribe(res => {
         if (res.success) {
           if (res.msg[0].address.length > 0) {
-            console.log('one address');
             this.router.navigate(['/menu']);
           }else {
             if (this.locationEntry === undefined || this.locationEntry === null || this.locationEntry === '') {
@@ -227,7 +226,6 @@ export class HomeComponent implements OnInit {
           setTimeout(() => {
             $('#scroll-head-err').hide();
           }, 3000);
-
           // Remove later
           this.router.navigate(['/menu']);
         }
@@ -241,13 +239,11 @@ export class HomeComponent implements OnInit {
               $('#scroll-head-err').hide();
             }, 3000);
           }
-          // this.appComponent.loginSignupTrigger();
       }
     }
 
 
   }
-
   pageScrollTop() {
     $('html, body').animate({ scrollTop: $('html').offset().top }, 1000);
   }
