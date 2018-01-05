@@ -21,7 +21,8 @@ export class AuthService {
     updateUser(user) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
-        return this.http.post('users/update-user', user, { headers: header }).map(res => res.json());
+        // return this.http.post('users/update-user', user, { headers: header }).map(res => res.json());
+        return this.http.post('https://fab.com/some.py/update', user, { headers: header }).map(res => res.json());
     }
     updatePassword(pwd) {
         const header = new Headers();

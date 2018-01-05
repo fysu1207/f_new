@@ -84,7 +84,7 @@ const appRoutes: Routes = [
     {
         path: 'checkout',
         component: CheckoutComponent,
-        canActivate: [AuthGuard]
+        // canActivate: [AuthGuard]
     },
     {
         path: 'thanks',

@@ -23,14 +23,9 @@ export class HomeComponent implements OnInit {
   companyName: string;
   userMobile: string;
   userId: string;
-
   basket_num: number;
-
   display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
-
-
   constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService) { }
-
   ngOnInit() {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
@@ -38,16 +33,13 @@ export class HomeComponent implements OnInit {
       }
       window.scrollTo(0, 0);
     });
-
     // tslint:disable-next-line:radix
     this.basket_num = parseInt(localStorage.getItem('basket_number'));
     if (this.basket_num === undefined || this.basket_num === null || this.basket_num === 0 || isNaN(this.basket_num) === true) {
       this.basket_num = 0;
     }else {
     }
-
     if (this.authService.loggedIn()) {
-
       const user = this.authService.getUserFromLocal();
       const user_parsed = JSON.parse(user);
       this.userEmail = user_parsed.email;
@@ -56,13 +48,11 @@ export class HomeComponent implements OnInit {
       this.userMobile = user_parsed.mobile;
       this.userId = user_parsed.id;
       const fLength = this.fullName.split(' ');
-
       if (fLength.length > 1) {
         this.userName = this.fullName.split(' ').slice(0, -(this.fullName.split(' ').length - 1)).join(' ');
       }else {
         this.userName = this.fullName;
       }
-
       if (this.userName === undefined || this.userName === null || this.userName === '') {
         this.userName  = this.appComponent.uName;
       }
@@ -144,7 +134,6 @@ export class HomeComponent implements OnInit {
         }
       });
     }
-
   }
 
   public seeMenu() {
@@ -241,8 +230,6 @@ export class HomeComponent implements OnInit {
           }
       }
     }
-
-
   }
   pageScrollTop() {
     $('html, body').animate({ scrollTop: $('html').offset().top }, 1000);

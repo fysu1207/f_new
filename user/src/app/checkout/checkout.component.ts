@@ -175,7 +175,7 @@ export class CheckoutComponent implements OnInit {
     this.basket_num = parseInt(localStorage.getItem('basket_number'));
     if (this.basket_num === undefined || this.basket_num === null || this.basket_num === 0 || isNaN(this.basket_num) === true) {
       // redirect to menu
-      this.router.navigate(['/menu']);
+      // this.router.navigate(['/menu']);
     }
     const user = this.authService.getUserFromLocal();
     const user_parsed = JSON.parse(user);
@@ -467,102 +467,140 @@ export class CheckoutComponent implements OnInit {
     this.payment_method = event.target.value;
     $('.err').html('');
   }
+
+  public geoLocate() {
+    let location, lat, long, address;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        location = position.coords;
+        lat = position.coords.latitude;
+        long = position.coords.longitude;
+        if (location === undefined || location === null) {
+        } else {
+          this.authService.getLocation(lat, long).subscribe(res => {
+            address = res.results[0].formatted_address;
+            this.placeholder_address = address;
+            // const addres = {
+            //   user_id: this.userId,
+            //   address: address
+            // };
+            // this.authService.saveAddress(addres).subscribe(rres => {
+            //   if (rres.success) {
+            //     // Address saved
+            //     console.log(rres);
+            //   } else {
+            //     if (rres.msg = 'exists') {
+            //     } else {
+            //     }
+            //   }
+            // });
+          });
+        }
+      });
+    }
+  }
+
+
   placeOrder() {
     // Check for address
     if (this.selected_address === null || this.selected_address === undefined) {
       // Show Error
       $('.err').html('Please select an address');
     }else {
-      const delivery_address = this.selected_address;
-      // Check for payment type
-      if (this.payment_method === null || this.payment_method === undefined) {
-        // Show error
-        $('.err').html('Please select a payment method');
+      if (this.selected_address === '' || this.selected_address.length === 0) {
+
       }else {
-        let pay_method = this.payment_method;
-        if (this.payment_method === 'Cash On Delivery') {
-          pay_method = 'Cash On Delivery';
-        }
-        // Generate Order Id
-        // delivery notes
-        let delivery_notes;
-        if (this.deliveryInst != null) {
-          delivery_notes = this.deliveryInst;
+        const delivery_address = this.selected_address;
+        // Check for payment type
+        if (this.payment_method === null || this.payment_method === undefined) {
+          // Show error
+          $('.err').html('Please select a payment method');
         }else {
-          delivery_notes = '-';
-        }
-        // Order id
-        const order_id = shortid.generate();
-        // Cumulative of today's and all schduled orders
-        const cum_orders = {
-          today: this.today_orders,
-          // next days orders
-          next_days: this.orders
-        };
-        // Whole order in one place
-        const main_order = {
-          user_id: this.userId,
-          order_id: order_id,
-          delivery_notes: delivery_notes,
-          order_time: moment().format('llll'),
-          delivery_address : delivery_address,
-          payment_method: pay_method,
-          order: cum_orders,
-          total_price: this.total_price
-        };
-        // Send order to backend
-        const json = {'order_dets': main_order};
-        if (this.payment_method !== 'Cash On Delivery') {
-          if (this.payment_method === 'Wallet') {
-            this.options = {
-              'key': this.p_key,
-              'amount': this.total_to_pay * 100, // 2000 paise = INR 20
-              'name': 'Fysu',
-              'description': 'Purchase Description',
-              'image': '../../assets/logo/logo_black.png',
-              'handler':  (response) => {
-                this.postOrder(response, json, order_id);
-            },
-              'prefill': {
-                  'name': this.userName,
-                  'email': this.userEmail,
-                  'contact': this.userMobile,
-                  'method': this.payment_method
-              },
-              'notes': {
-                  'address': this.deliveryInst
-              },
-              'theme': {
-                  'color': '#F37254'
-              }
-            };
+          let pay_method = this.payment_method;
+          if (this.payment_method === 'Cash On Delivery') {
+            pay_method = 'Cash On Delivery';
+          }
+          // Generate Order Id
+          // delivery notes
+          let delivery_notes;
+          if (this.deliveryInst != null) {
+            delivery_notes = this.deliveryInst;
           }else {
-            this.options = {
-              'key': this.p_key,
-              'amount': this.total_to_pay * 100, // 2000 paise = INR 20
-              'name': 'Fysu',
-              'description': 'Purchase Description',
-              'image': '../../assets/logo/logo_black.png',
-              'handler': (response) => {
+            delivery_notes = '-';
+          }
+          // Order id
+          const order_id = shortid.generate();
+          // Cumulative of today's and all schduled orders
+          const cum_orders = {
+            today: this.today_orders,
+            // next days orders
+            next_days: this.orders
+          };
+          // Whole order in one place
+          const main_order = {
+            user_id: this.userId,
+            order_id: order_id,
+            delivery_notes: delivery_notes,
+            order_time: moment().format('llll'),
+            delivery_address : delivery_address,
+            payment_method: pay_method,
+            order: cum_orders,
+            total_price: this.total_price
+          };
+          // Send order to backend
+          const json = {'order_dets': main_order};
+          if (this.payment_method !== 'Cash On Delivery') {
+            if (this.payment_method === 'Wallet') {
+              this.options = {
+                'key': this.p_key,
+                'amount': this.total_to_pay * 100, // 2000 paise = INR 20
+                'name': 'Fysu',
+                'description': 'Purchase Description',
+                'image': '../../assets/logo/logo_black.png',
+                'handler':  (response) => {
                   this.postOrder(response, json, order_id);
               },
-              'prefill': {
-                  'name': this.userName,
-                  'email': this.userEmail,
-                  'contact': this.userMobile
-              },
-              'notes': {
-                  'address': this.deliveryInst
-              },
-              'theme': {
-                  'color': '#F37254'
-              }
-            };
+                'prefill': {
+                    'name': this.userName,
+                    'email': this.userEmail,
+                    'contact': this.userMobile,
+                    'method': this.payment_method
+                },
+                'notes': {
+                    'address': this.deliveryInst
+                },
+                'theme': {
+                    'color': '#F37254'
+                }
+              };
+            }else {
+              this.options = {
+                'key': this.p_key,
+                'amount': this.total_to_pay * 100, // 2000 paise = INR 20
+                'name': 'Fysu',
+                'description': 'Purchase Description',
+                'image': '../../assets/logo/logo_black.png',
+                'handler': (response) => {
+                    this.postOrder(response, json, order_id);
+                },
+                'prefill': {
+                    'name': this.userName,
+                    'email': this.userEmail,
+                    'contact': this.userMobile
+                },
+                'notes': {
+                    'address': this.deliveryInst
+                },
+                'theme': {
+                    'color': '#F37254'
+                }
+              };
+            }
+          this.rzp1 = new this.winRef.nativeWindow.Razorpay(this.options);
+          this.rzp1.open();
+          }else {
+            this.postOrder('Cash On Delivery', json, order_id);
           }
-        this.rzp1 = new this.winRef.nativeWindow.Razorpay(this.options);
-        this.rzp1.open();
-        }else {
-          this.postOrder('Cash On Delivery', json, order_id);
         }
       }
     }
