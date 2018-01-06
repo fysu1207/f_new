@@ -464,7 +464,7 @@ export class CheckoutComponent implements OnInit {
   }
   paymentMethod(event) {
     this.payment_method = event.target.value;
-    $('.payment-options-ul > label').css({'color': '#666'});
+    $('.plabels').css({'color': '#666'});
     $(event.target).parent().css({'color': '#6DA942'});
     $('.err').html('');
   }

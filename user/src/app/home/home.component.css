@@ -310,7 +310,7 @@ a {
 .p-window-one,
 .p-window-two,
 .svp {
-    background-size: cover
+    background-size: cover;
 }
 
 .main-nav-div li .reward-pts-trig-btn:hover {
@@ -790,6 +790,9 @@ a {
         margin: 0;
         padding: 0;
         box-shadow: 0 0 5px 1px rgba(0, 0, 0, .13)
+    }
+    .p-window-one{
+        background-position: 50% 50%;
     }
 }
 

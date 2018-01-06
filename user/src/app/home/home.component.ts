@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.authService.getLocation(this.lat, this.long).subscribe(res => {
             this.address = res.results[0].formatted_address;
+            $('.location-warning-div').hide();
             this.locationEntry = this.address;
             if (this.address.includes('Madhapur')) {
               localStorage.setItem('home_address', this.address);
