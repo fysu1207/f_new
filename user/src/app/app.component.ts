@@ -495,6 +495,7 @@ export class AppComponent implements OnInit {
       this.validate.validateInput(regMobileInput) &&
       this.validate.validateInput(regPwdInput)
     ) {
+      $('#signup-btn').prop('disabled', true);
       // Validate Email and Mobile
       if (this.validate.validateEmail(regEmailInput)) {
         if (this.validate.validateMobile(regMobileInput)) {
@@ -509,12 +510,14 @@ export class AppComponent implements OnInit {
                   $('.err').html('That Email is already registered with us');
                 }else {
                   if (regPwdInput.length > 5) {
+                    $('#signup-btn').prop('disabled', true);
                     // Valid email and mobile numbers. register user
                     this.authService.registerUser(this.user).subscribe(res => {
                       if (res.success) {
                         // Log user in
                         this.LoginSubmit(regEmailInput, regPwdInput);
                       }else {
+                        $('#signup-btn').prop('disabled', false);
                         // Show Error
                         if (res.msg.message === 'otp_not_verified') {
                           $('.err').html('Please enter Valid OTP');
@@ -523,6 +526,7 @@ export class AppComponent implements OnInit {
                       }
                     });
                   }else {
+                    $('#signup-btn').prop('disabled', false);
                     $('.err').html('Please enter password with atleast 6 characters');
                     $('#reg-pwd').css({'border-color': '#fa0000'});
                   }
@@ -531,15 +535,18 @@ export class AppComponent implements OnInit {
             }
           });
         }else {
+          $('#signup-btn').prop('disabled', false);
           $('.err').html('Please enter a 10 digit Mobile number');
           // Hightlight mobile number
           $('#reg-mobile').css({'border-color': '#fa0000'});
         }
       }else {
+        $('#signup-btn').prop('disabled', false);
         $('.err').html('Please enter a valid email address');
         $('#reg-email').css({'border-color': '#fa0000'});
       }
     }else {
+      $('#signup-btn').prop('disabled', false);
       $('.err').html('All input fields are required');
       if (!this.validate.validateInput(this.regNameInput)) {
         $('#reg-name').css({'border-color': '#fa0000'});

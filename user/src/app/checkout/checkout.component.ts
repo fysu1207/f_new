@@ -508,7 +508,7 @@ export class CheckoutComponent implements OnInit {
       $('.err').html('Please select an address');
     }else {
       if (this.selected_address === '' || this.selected_address.length === 0) {
-
+        $('.err').html('Your address is empty, please edit the address');
       }else {
         const delivery_address = this.selected_address;
         // Check for payment type
