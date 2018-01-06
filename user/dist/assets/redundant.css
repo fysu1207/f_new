@@ -383,6 +383,7 @@ input:active {
 
 #our-menu-btn {
   margin-right: 20px;
+  font-weight: normal !important;
 }
 
 .selected {

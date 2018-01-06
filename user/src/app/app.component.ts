@@ -794,7 +794,7 @@ export class AppComponent implements OnInit {
                   $('#sign-resend-otp-text').hide();
                   this.authService.retryOtp(this.regMobileInput).subscribe(res => {
                     if (res.success) {
-                      $('.err').html('Otp sent !');
+                      $('.err').html('OTP sent to your mobile');
                       setTimeout(function() {
                         $('.err').html('');
                       }, 1500);

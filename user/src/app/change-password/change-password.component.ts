@@ -40,19 +40,21 @@ export class ChangePasswordComponent implements OnInit {
           };
           // Update password
           this.authService.updatePassword(obj).subscribe(res => {
-            console.log(res);
             if (res.success) {
-              $('.err').html('Password Changed !');
+              $('.err').html('Password changed successfully');
+              this.oldPassword = '';
+              this.newPassword = '';
+              this.conNewPassword = '';
             }else {
               $('.err').html('Incorrect old password');
             }
           });
         }else {
-          $('.err').html('Password must contain at least 6 characters');
+          $('.err').html('New password must have at least 6 characters');
         }
 
       }else {
-        $('.err').html('Passwords does\'t match !');
+        $('.err').html('New and Confirm passwords do not match');
       }
     }else {
       $('.err').html('All fields are required');

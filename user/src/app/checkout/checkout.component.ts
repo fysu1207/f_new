@@ -464,6 +464,8 @@ export class CheckoutComponent implements OnInit {
   }
   paymentMethod(event) {
     this.payment_method = event.target.value;
+    $('.payment-options-ul > label').css({'color': '#666'});
+    $(event.target).parent().css({'color': '#6DA942'});
     $('.err').html('');
   }
   public geoLocate() {
@@ -490,7 +492,7 @@ export class CheckoutComponent implements OnInit {
       $('.err').html('Please select an address');
     }else {
       if (this.selected_address === '' || this.selected_address.length === 0) {
-        $('.err').html('Your address is empty, please edit the address');
+        $('.err').html('Your address is empty. Please edit the address');
       }else {
         const delivery_address = this.selected_address;
         // Check for payment type
@@ -523,6 +525,8 @@ export class CheckoutComponent implements OnInit {
           // Whole order in one place
           const main_order = {
             user_id: this.userId,
+            user_name: this.userName,
+            user_mobile: this.userMobile,
             order_id: order_id,
             delivery_notes: delivery_notes,
             order_time: moment().format('llll'),
@@ -652,7 +656,6 @@ export class CheckoutComponent implements OnInit {
   }
   removeDate(day) {
     switch (day) {
-
       case 'tab_one':
         // Remove tab_one from orders
         this.today_orders['tab_one'] = null;
@@ -692,7 +695,6 @@ export class CheckoutComponent implements OnInit {
         const rounded_num2 = Math.round(this.total_price / 10);
         this.points_earned = rounded_num2;
         break;
-
       case 'day_one':
         // Remove day one from orders
         this.orders['day_one'] = null;
@@ -705,7 +707,6 @@ export class CheckoutComponent implements OnInit {
         const rounded_num3 = Math.round(this.total_price / 10);
         this.points_earned = rounded_num3;
         break;
-
       case 'day_two':
         // Remove day one from orders
         this.orders['day_two'] = null;
@@ -718,7 +719,6 @@ export class CheckoutComponent implements OnInit {
         const rounded_num4 = Math.round(this.total_price / 10);
         this.points_earned = rounded_num4;
         break;
-
       case 'day_three':
         // Remove day one from orders
         this.orders['day_three'] = null;
@@ -731,7 +731,6 @@ export class CheckoutComponent implements OnInit {
         const rounded_num5 = Math.round(this.total_price / 10);
         this.points_earned = rounded_num5;
         break;
-
       case 'day_four':
         // Remove day one from orders
         this.orders['day_four'] = null;
