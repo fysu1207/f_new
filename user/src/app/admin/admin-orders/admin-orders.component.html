@@ -66,6 +66,9 @@
                       {{item_det.name}}
                     </p>
                   </span>
+                  <span *ngIf='today.letter_added'>
+                      Letter added
+                  </span>
                 </td>
                 <td>
                   <span *ngFor='let item_det of today.item_dets'>
@@ -89,6 +92,9 @@
                     <p>
                       {{item_det.price}}
                     </p>
+                  </span>
+                  <span>
+                    Redeemed : {{ today.redeemedPrice }} /-
                   </span>
                 </td>
                 <td>
@@ -156,9 +162,10 @@
          <td>
            <span *ngFor='let itemDet of today.order'>
              <p>
-               {{ itemDet.item_name }}
+                {{ itemDet.item_name }}
              </p>
            </span>
+           
          </td>
          <td>
            {{ today.time_slot }}
@@ -168,6 +175,9 @@
          </td>
          <td>
            {{today.payment_type}}
+           <span>
+              Redeemed : {{ today.redeemedPrice }} /-
+          </span>
          </td>
          <td>
            {{ today.price }}
@@ -252,6 +262,9 @@
             </td>
             <td>
               {{ day_one.price }}
+              <span>
+                Redeemed : {{ day_one.redeemedPrice }} /-
+              </span>
             </td>
             <td>
               {{day_one.delivery_notes}}
@@ -333,6 +346,9 @@
               </td>
               <td>
                 {{ day_two.price }}
+                <span>
+                  Redeemed : {{ day_two.redeemedPrice }} /-
+                </span>
               </td>
               <td>
                 {{ day_two.delivery_notes }}
@@ -414,6 +430,9 @@
            </td>
            <td>
              {{ day_three.price }}
+             <span>
+                Redeemed : {{ day_three.redeemedPrice }} /-
+              </span>
            </td>
            <td>
              {{day_three.delivery_notes}}
@@ -495,6 +514,9 @@
            </td>
            <td>
              {{ today.price }}
+             <span>
+                Redeemed : {{ today.redeemedPrice }} /-
+            </span>
            </td>
            <td>
              {{today.delivery_notes}}
@@ -576,6 +598,9 @@
            </td>
            <td>
              {{ today.price }}
+             <span>
+                Redeemed : {{ today.redeemedPrice }} /-
+              </span>
            </td>
            <td>
              {{today.delivery_notes}}

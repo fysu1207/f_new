@@ -164,6 +164,7 @@ export class CheckoutComponent implements OnInit {
 
   schSlot= 'def';
   schTimes: any;
+  redeemedPrice = 0;
 
   date_and_item_array = [];
 
@@ -269,7 +270,6 @@ export class CheckoutComponent implements OnInit {
       if (res.success) {
         this.addresses = res.msg[0].address;
         if (this.addresses.length > 0) {
-          console.log('one address');
         }else {
           const addressd = {
             user_id: this.userId,
@@ -278,9 +278,7 @@ export class CheckoutComponent implements OnInit {
           this.authService.saveAddress(addressd).subscribe(rees => {
             if (rees.success) {
               // Address saved
-              // alert('saved');
             }else {
-              // alert('nope');
             }
           });
           this.addresses.push(localStorage.getItem('home_address'));
@@ -446,6 +444,7 @@ export class CheckoutComponent implements OnInit {
     this.rewardPoints = this.remainingPoints;
     $('#redeem-btn').css({'background-color': '#9a9a9a'});
     $('#redeem-btn').prop('disabled', true);
+    this.redeemedPrice = this.discount;
   }
   addRewardPoints() {
     this.deduct_points = +this.remainingPoints + +this.points_earned;
@@ -467,7 +466,6 @@ export class CheckoutComponent implements OnInit {
     this.payment_method = event.target.value;
     $('.err').html('');
   }
-
   public geoLocate() {
     let location, lat, long, address;
     if (navigator.geolocation) {
@@ -480,27 +478,11 @@ export class CheckoutComponent implements OnInit {
           this.authService.getLocation(lat, long).subscribe(res => {
             address = res.results[0].formatted_address;
             this.placeholder_address = address;
-            // const addres = {
-            //   user_id: this.userId,
-            //   address: address
-            // };
-            // this.authService.saveAddress(addres).subscribe(rres => {
-            //   if (rres.success) {
-            //     // Address saved
-            //     console.log(rres);
-            //   } else {
-            //     if (rres.msg = 'exists') {
-            //     } else {
-            //     }
-            //   }
-            // });
           });
         }
       });
     }
   }
-
-
   placeOrder() {
     // Check for address
     if (this.selected_address === null || this.selected_address === undefined) {
@@ -534,7 +516,9 @@ export class CheckoutComponent implements OnInit {
           const cum_orders = {
             today: this.today_orders,
             // next days orders
-            next_days: this.orders
+            next_days: this.orders,
+            letter_added : this.letter_added,
+            redeemedPrice : this.redeemedPrice
           };
           // Whole order in one place
           const main_order = {
@@ -545,7 +529,7 @@ export class CheckoutComponent implements OnInit {
             delivery_address : delivery_address,
             payment_method: pay_method,
             order: cum_orders,
-            total_price: this.total_price
+            total_price: this.total_to_pay
           };
           // Send order to backend
           const json = {'order_dets': main_order};
