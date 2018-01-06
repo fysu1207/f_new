@@ -1296,7 +1296,11 @@ label {
     }
     .schedule-menu-right {
         width: 120%;
-        height: 100%
+        height: 100%;
+        align-items: flex-start;
+    }
+    .schedule-choose-core{
+        height: 90%;
     }
     .slot-select {
         outline: 0;

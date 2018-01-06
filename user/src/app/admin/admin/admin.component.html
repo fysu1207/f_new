@@ -1,1 +1,85 @@
-<div class="mob-menu-admin"> <ul class="list-unstyled"> <a routerLink='/admin/orders'> <li class="selected-li"> <i class="fa fa-bars" aria-hidden="true"></i> Orders </li></a> <a routerLink='/admin/add-menu'> <li> <i class="fa fa-pie-chart" aria-hidden="true"></i> Menu </li></a> <a routerLink='/admin/add-category'> <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Category </li></a> <a routerLink='/admin/add-sub-category'> <li> <i class="fa fa-cutlery" aria-hidden="true"></i> Add Sub Category </li></a> <a routerLink='/admin/add-items'> <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Items </li></a> <a routerLink='/admin/add-rewards'> <li> <i class="fa fa-archive" aria-hidden="true"></i> Reward </li></a> <a routerLink='/admin/add-admin'> <li> <i class="fa fa-bookmark" aria-hidden="true"></i> Add Admin </li></a> <a routerLink='/admin/soldout'> <li> <i class="fa fa-money" aria-hidden="true"></i> Soldout </li></a> <a routerLink='/admin/reports'> <li> <i class="fa fa-user" aria-hidden="true"></i> Report </li></a> <li (click)="onLogoutClick()"> <i class="fa fa-line-chart" aria-hidden="true"></i> Logout </li></ul></div><div class="main-container"> <header class="main-header"> <div class="container"> <button type="button" class="mob-menu-trig-btn pull-left visible-sm visible-xs"><i class="fa fa-bars" aria-hidden="true"></i></button> <div class="main-logo pull-left visible-md visible-lg"> <img src="../../assets/logo/logo.png" alt="" srcset="" style="height:80%; width:auto"> </div><div class="main-logo visible-xs visible-sm mob-main-logo"> <h1 class="logo-text">fysu</h1> </div><div class="logout-div pull-right visible-md visible-lg" *ngIf="authService.loggedIn()"> <button type="button" class="main-logout-btn" (click)="onLogoutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</button> </div></div></header> <div class="container-core"> <div class="left-menu pull-left visible-md visible-lg" *ngIf="authService.loggedIn()"> <ul class="list-unstyled" *ngIf="authService.loggedIn()"> <a routerLink='/admin/orders'> <li class="selected-li"> <i class="fa fa-bars" aria-hidden="true"></i> Orders </li></a> <a routerLink='/admin/add-menu'> <li> <i class="fa fa-cutlery" aria-hidden="true"></i> Menu </li></a> <a routerLink='/admin/add-category'> <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Category</li></a> <a routerLink='/admin/add-sub-category'> <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Sub Category</li></a> <a routerLink='/admin/add-items'> <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Items</li></a> <a routerLink='/admin/add-rewards'> <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Reward </li></a> <a routerLink='/admin/add-admin'> <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Admin </li></a> <a routerLink='/admin/soldout'> <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Soldout </li></a> <a routerLink='/admin/reports'> <li> <i class="fa fa-pie-chart" aria-hidden="true"></i> Report </li></a> </ul> </div><div class="right-dets pull-right"> <flash-messages></flash-messages> <router-outlet> </router-outlet> </div></div></div>
+<div class="mob-menu-admin">
+  <ul class="list-unstyled">
+      <a routerLink='/admin/orders'>
+          <li class="selected-li"> <i class="fa fa-bars" aria-hidden="true"></i> Orders </li>
+      </a>
+      <a routerLink='/admin/add-menu'>
+          <li> <i class="fa fa-pie-chart" aria-hidden="true"></i> Menu </li>
+      </a>
+      <a routerLink='/admin/add-category'>
+          <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Category </li>
+      </a>
+      <a routerLink='/admin/add-sub-category'>
+          <li> <i class="fa fa-cutlery" aria-hidden="true"></i> Add Sub Category </li>
+      </a>
+      <a routerLink='/admin/add-items'>
+          <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Items </li>
+      </a>
+      <a routerLink='/admin/add-rewards'>
+          <li> <i class="fa fa-archive" aria-hidden="true"></i> Reward </li>
+      </a>
+      <a routerLink='/admin/add-admin'>
+          <li> <i class="fa fa-bookmark" aria-hidden="true"></i> Add Admin </li>
+      </a>
+      <a routerLink='/admin/soldout'>
+          <li> <i class="fa fa-money" aria-hidden="true"></i> Soldout </li>
+      </a>
+      <a routerLink='/admin/reports'>
+          <li> <i class="fa fa-user" aria-hidden="true"></i> Report </li>
+      </a>
+      <li (click)="onLogoutClick()"> <i class="fa fa-line-chart" aria-hidden="true"></i> Logout </li>
+  </ul>
+</div>
+<div class="main-container">
+  <header class="main-header">
+      <div class="container">
+          <button type="button" class="mob-menu-trig-btn pull-left visible-sm visible-xs"><i class="fa fa-bars" aria-hidden="true"></i></button>
+          <div class="main-logo pull-left visible-md visible-lg"> <img src="../../assets/logo/logo.png" alt="" srcset="" style="height:80%; width:auto"> </div>
+          <div class="main-logo visible-xs visible-sm mob-main-logo">
+              <h1 class="logo-text">fysu</h1> </div>
+          <div class="logout-div pull-right visible-md visible-lg" *ngIf="authService.loggedIn()">
+              <button type="button" class="main-logout-btn" (click)="onLogoutClick()"><i class="fa fa-sign-out" aria-hidden="true"></i> &nbsp; Logout</button>
+          </div>
+      </div>
+  </header>
+  <div class="container-core">
+      <div class="left-menu pull-left visible-md visible-lg" *ngIf="authService.loggedIn()">
+          <ul class="list-unstyled" *ngIf="authService.loggedIn()">
+              <a routerLink='/admin/orders'>
+                  <li class="selected-li"> <i class="fa fa-bars" aria-hidden="true"></i> Orders </li>
+              </a>
+              <a routerLink='/admin/add-menu'>
+                  <li> <i class="fa fa-cutlery" aria-hidden="true"></i> Menu </li>
+              </a>
+              <a routerLink='/admin/add-category'>
+                  <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Category</li>
+              </a>
+              <a routerLink='/admin/add-sub-category'>
+                  <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Sub Category</li>
+              </a>
+              <a routerLink='/admin/add-items'>
+                  <li> <i class="fa fa-th-large" aria-hidden="true"></i> Add Items</li>
+              </a>
+              <a routerLink='/admin/add-rewards'>
+                  <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Reward </li>
+              </a>
+              <a routerLink='/admin/users'>
+                  <li> <i class="fa fa-user" aria-hidden="true"></i> Users </li>
+              </a>
+              <a routerLink='/admin/add-admin'>
+                  <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Add Admin </li>
+              </a>
+              <a routerLink='/admin/soldout'>
+                  <li> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Soldout </li>
+              </a>
+              <a routerLink='/admin/reports'>
+                  <li> <i class="fa fa-pie-chart" aria-hidden="true"></i> Report </li>
+              </a>
+          </ul>
+      </div>
+      <div class="right-dets pull-right">
+          <flash-messages></flash-messages>
+          <router-outlet> </router-outlet>
+      </div>
+  </div>
+</div>

@@ -70,9 +70,13 @@ export class AdminOrdersComponent implements OnInit {
   today_orders = [];
   order_ref_length;
   order_ref_array = [];
+  audio;
   // tslint:disable-next-line:max-line-length
   constructor(private getMenu: AdminServicesService, private router: Router, private title: Title, private datePipe: DatePipe, private adminAuth: AdminAuthService, private flash: FlashMessagesService) { }
   ngOnInit() {
+    this.audio = new Audio();
+    this.audio.src = '../../../assets/alert.mp3';
+    this.audio.load();
     this.title.setTitle('View Orders');
     this.p_today_one = this.datePipe.transform(this.today_one, 'fullDate');
     this.p_day_one = this.datePipe.transform(this.day_one, 'fullDate');
@@ -94,6 +98,7 @@ export class AdminOrdersComponent implements OnInit {
                 if (this.order_ref_array.includes(element._id)) {
                 }else {
                   this.order_ref_array.push(element);
+                  this.audio.play();
                   this.flash.show('New Order ' + element.order.order_id + ' refresh to view details' , {
                     cssClass: 'alert-success',
                     timeout: 6000

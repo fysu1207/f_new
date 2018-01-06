@@ -45,6 +45,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 // Auth Guard
 import { AuthGuard } from './guards/auth.guard';
 import { AdminAuthGuard } from './guards/admin-auth.guard';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
 
 
 const appRoutes: Routes = [
@@ -139,6 +140,11 @@ const appRoutes: Routes = [
                 canActivate: [AdminAuthGuard]
             },
             {
+                path: 'users',
+                component: AdminUsersComponent,
+                canActivate: [AdminAuthGuard]
+            },
+            {
                 path: 'login',
                 component: LoginComponent
             },
@@ -228,7 +234,8 @@ const appRoutes: Routes = [
     AddRewardsComponent,
     AdminOrdersComponent,
     ThanksComponent,
-    SoldoutComponent
+    SoldoutComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,

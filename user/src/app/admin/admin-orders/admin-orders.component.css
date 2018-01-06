@@ -1,1 +1,50 @@
-.days-div{ font-size: 90%; }.db{z-index:100;position:fixed;display:flex;display:none;align-items:center;justify-content:center;top:0;left:0;height:100vh;width:100vw;background-color:rgba(0,0,0,.4)}.dets-div{position:relative;display:block;height:80%;width:80%;background-color:#fff;color:#000}.det-close{position:absolute;display:block;top:5%;left:95%;color:#fff;font-size:240%;cursor:pointer}.address-cell{width:200px}table{ table-layout: fixed; }
+.days-div {
+  font-size: 90%;
+  overflow-x: auto;
+}
+
+.db {
+  z-index: 100;
+  position: fixed;
+  display: flex;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, .4)
+}
+
+.dets-div {
+  position: relative;
+  display: block;
+  height: 80%;
+  width: 80%;
+  background-color: #fff;
+  color: #000
+}
+
+.det-close {
+  position: absolute;
+  display: block;
+  top: 5%;
+  left: 95%;
+  color: #fff;
+  font-size: 240%;
+  cursor: pointer
+}
+
+.address-cell {
+  width: 200px !important;
+}
+
+table {
+  table-layout: fixed;
+  width: auto;
+}
+table td{
+  table-layout: fixed;
+  min-width: 200px !important;
+}
