@@ -279,26 +279,26 @@ export class MenuComponent implements OnInit {
     const slot_three_end_time = moment('1:29pm', 'h:mma');
     const slot_two_end_time = moment('12:44pm', 'h:mma');
     const slot_one_end_time = moment('11:59am', 'h:mma');
-    if (om_cur_time.isAfter(last_time)) {
-      // Disable all today slots
-      $('#slot_one_option').prop('disabled', true);
-      $('#slot_two_option').prop('disabled', true);
-      $('#slot_three_option').prop('disabled', true);
-      $('#slot_four_option').prop('disabled', true);
-      $('#today-add-btn').prop('disabled', true);
-    }else if (om_cur_time.isAfter(slot_three_end_time)) {
-      // Diable first three slots
-      $('#slot_one_option').prop('disabled', true);
-      $('#slot_two_option').prop('disabled', true);
-      $('#slot_three_option').prop('disabled', true);
-    }else if (om_cur_time.isAfter(slot_two_end_time)) {
-      // Diable first two slots
-      $('#slot_one_option').prop('disabled', true);
-      $('#slot_two_option').prop('disabled', true);
-    }else if (om_cur_time.isAfter(slot_one_end_time)) {
-      // Diable first slot
-      $('#slot_one_option').prop('disabled', true);
-    }
+    // if (om_cur_time.isAfter(last_time)) {
+    //   // Disable all today slots
+    //   $('#slot_one_option').prop('disabled', true);
+    //   $('#slot_two_option').prop('disabled', true);
+    //   $('#slot_three_option').prop('disabled', true);
+    //   $('#slot_four_option').prop('disabled', true);
+    //   $('#today-add-btn').prop('disabled', true);
+    // }else if (om_cur_time.isAfter(slot_three_end_time)) {
+    //   // Diable first three slots
+    //   $('#slot_one_option').prop('disabled', true);
+    //   $('#slot_two_option').prop('disabled', true);
+    //   $('#slot_three_option').prop('disabled', true);
+    // }else if (om_cur_time.isAfter(slot_two_end_time)) {
+    //   // Diable first two slots
+    //   $('#slot_one_option').prop('disabled', true);
+    //   $('#slot_two_option').prop('disabled', true);
+    // }else if (om_cur_time.isAfter(slot_one_end_time)) {
+    //   // Diable first slot
+    //   $('#slot_one_option').prop('disabled', true);
+    // }
     $(document).keydown(function(e) {
       if (e === 27) {
         this.tdClose();
@@ -306,31 +306,31 @@ export class MenuComponent implements OnInit {
         this.scClose();
       }
     });
-    $(document).ready(function(){
-      const tdown_time = moment('11:59am', 'h:mma');
-      setInterval(function(){
-        const m_cur_time = moment(new Date());
-        const tup_time = moment('12:00am', 'h:mma');
-        if (m_cur_time.isAfter(tup_time)) {
-        }
-        if (m_cur_time.isAfter(last_time)) {
-          $('#slot_one_option').prop('disabled', true);
-          $('#slot_two_option').prop('disabled', true);
-          $('#slot_three_option').prop('disabled', true);
-          $('#slot_four_option').prop('disabled', true);
-          $('#today-add-btn').prop('disabled', true);
-        }else if (m_cur_time.isAfter(slot_three_end_time)) {
-          $('#slot_one_option').prop('disabled', true);
-          $('#slot_two_option').prop('disabled', true);
-          $('#slot_three_option').prop('disabled', true);
-        }else if (m_cur_time.isAfter(slot_two_end_time)) {
-          $('#slot_one_option').prop('disabled', true);
-          $('#slot_two_option').prop('disabled', true);
-        }else if (m_cur_time.isAfter(slot_one_end_time)) {
-          $('#slot_one_option').prop('disabled', true);
-        }
-      }, 2000);
-    });
+    // $(document).ready(function(){
+    //   const tdown_time = moment('11:59am', 'h:mma');
+    //   setInterval(function(){
+    //     const m_cur_time = moment(new Date());
+    //     const tup_time = moment('12:00am', 'h:mma');
+    //     if (m_cur_time.isAfter(tup_time)) {
+    //     }
+    //     if (m_cur_time.isAfter(last_time)) {
+    //       $('#slot_one_option').prop('disabled', true);
+    //       $('#slot_two_option').prop('disabled', true);
+    //       $('#slot_three_option').prop('disabled', true);
+    //       $('#slot_four_option').prop('disabled', true);
+    //       $('#today-add-btn').prop('disabled', true);
+    //     }else if (m_cur_time.isAfter(slot_three_end_time)) {
+    //       $('#slot_one_option').prop('disabled', true);
+    //       $('#slot_two_option').prop('disabled', true);
+    //       $('#slot_three_option').prop('disabled', true);
+    //     }else if (m_cur_time.isAfter(slot_two_end_time)) {
+    //       $('#slot_one_option').prop('disabled', true);
+    //       $('#slot_two_option').prop('disabled', true);
+    //     }else if (m_cur_time.isAfter(slot_one_end_time)) {
+    //       $('#slot_one_option').prop('disabled', true);
+    //     }
+    //   }, 2000);
+    // });
     localStorage.removeItem('all_orders');
     localStorage.removeItem('today_orders');
     localStorage.removeItem('basket_number');
