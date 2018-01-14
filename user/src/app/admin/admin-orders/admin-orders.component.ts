@@ -104,11 +104,14 @@ export class AdminOrdersComponent implements OnInit {
                     timeout: 6000
                   });
                   this.order_ref_length = dords.msg.length;
+                  const n_arr = dords.msg;
+                  // this.fakedOrder(n_arr);
+                  this.displayOrders(dords.msg.reverse());
                 }
               });
         }
       });
-    }, 5000);
+    }, 9000);
     this.getMenu.getOrders().subscribe(res => {
       res.msg.forEach(element => {
         this.order_ref_array.push(element._id);
@@ -122,7 +125,18 @@ export class AdminOrdersComponent implements OnInit {
   refreshPage() {
     window.location.reload();
   }
+  fakedOrder(array) {
+    this.total_orders = [];
+  }
   displayOrders(array) {
+    this.total_orders = [];
+    this.today_orders = [];
+    this.today_total_orders = [];
+    this.day_one_total_orders = [];
+    this.day_two_total_orders = [];
+    this.day_three_total_orders = [];
+    this.day_four_total_orders = [];
+    this.day_five_total_orders = [];
     this.total_orders = array;
     this.total_orders.forEach(element => {
       if (element.order.order) {
@@ -154,7 +168,8 @@ export class AdminOrdersComponent implements OnInit {
                       name : element.order.order.today.tab_one.name,
                       time_slot : this.getTimeSlot(element.order.order.today.tab_one.time_slot),
                       num_of_items : element.order.order.today.tab_one.num_of_items,
-                      price : element.order.order.today.tab_one.total_price
+                      price : element.order.order.today.tab_one.total_price,
+                      total_price: element.order.total_price
                     };
                     today_arr.push(obj);
                   }
@@ -163,7 +178,8 @@ export class AdminOrdersComponent implements OnInit {
                       name : element.order.order.today.tab_two.name,
                       time_slot : this.getTimeSlot(element.order.order.today.tab_two.time_slot),
                       num_of_items : element.order.order.today.tab_two.num_of_items,
-                      price : element.order.order.today.tab_two.total_price
+                      price : element.order.order.today.tab_two.total_price,
+                      total_price: element.order.total_price
                     };
                     today_arr.push(obj);
                   }
@@ -172,7 +188,8 @@ export class AdminOrdersComponent implements OnInit {
                       name : element.order.order.today.tab_three.name,
                       time_slot : this.getTimeSlot(element.order.order.today.tab_three.time_slot),
                       num_of_items : element.order.order.today.tab_three.num_of_items,
-                      price : element.order.order.today.tab_three.total_price
+                      price : element.order.order.today.tab_three.total_price,
+                      total_price: element.order.total_price
                     };
                     today_arr.push(obj);
                   }

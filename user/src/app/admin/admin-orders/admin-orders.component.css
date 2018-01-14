@@ -36,15 +36,18 @@
   cursor: pointer
 }
 
-.address-cell {
-  width: 200px !important;
-}
 
-table {
-  table-layout: fixed;
-  width: auto;
-}
-table td{
-  table-layout: fixed;
-  min-width: 200px !important;
+
+@media (max-width:740px) {
+  .address-cell {
+    width: 200px;
+  }
+  table {
+    table-layout: fixed;
+    width: auto;
+  }
+  table td{
+    table-layout: fixed;
+    min-width: 200px !important;
+  }
 }
