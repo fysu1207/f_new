@@ -1,11 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
+
 /* 6DA942 */
+
 .h-span-h {
     font-size: 16px;
     font-style: italic
 }
-.uname-home:hover{ color: #6DA942 !important; }
+
+.uname-home:hover {
+    color: #6DA942 !important;
+}
+
 #main-see-menu-btn,
 .scroll-header {
     -webkit-transition: all .2s ease-in;
@@ -389,7 +395,7 @@ a {
     color: rgba(255, 255, 255, .6);
     margin: 10px auto 10px 2px;
     letter-spacing: .5px;
-    font-size: 80%;
+    font-size: 90%;
     font-weight: 400
 }
 
@@ -791,7 +797,7 @@ a {
         padding: 0;
         box-shadow: 0 0 5px 1px rgba(0, 0, 0, .13)
     }
-    .p-window-one{
+    .p-window-one {
         background-position: 50% 50%;
     }
 }
