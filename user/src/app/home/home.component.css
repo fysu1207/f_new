@@ -395,7 +395,7 @@ a {
     color: rgba(255, 255, 255, .6);
     margin: 10px auto 10px 2px;
     letter-spacing: .5px;
-    font-size: 90%;
+    font-size: 100%;
     font-weight: 400
 }
 
@@ -742,7 +742,8 @@ a {
         font-size: 70%
     }
     .cur-serving {
-        font-size: 100%
+        font-size: 125%;
+        line-height: 15px;
     }
     .location-warning-div {
         width: 90%
@@ -810,9 +811,10 @@ a {
         top: 50%;
         font-size: 90%
     }
-    .cur-serving {
-        font-size: 110%
-    }
+    /* .cur-serving {
+        font-size: 125% 
+        
+     } */
     .location-warning-div {
         width: 80%
     }
