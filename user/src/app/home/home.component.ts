@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
       });
     });
     $('.location-search-input').focus(function() {
-      $('.location-warning-div').hide();
+      //$('.location-warning-div').hide();
     });
   }
   public gotoHowitWorks() {
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.authService.getLocation(this.lat, this.long).subscribe(res => {
             this.address = res.results[0].formatted_address;
-            $('.location-warning-div').hide();
+            //$('.location-warning-div').hide();
             this.locationEntry = this.address;
             if (this.address.includes('Madhapur')) {
               localStorage.setItem('home_address', this.address);
@@ -125,7 +125,7 @@ export class HomeComponent implements OnInit {
               // Add to user's address if he is logged in
               this.locationEntry = this.address;
               this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
-              $('.location-warning-div').show();
+              //$('.location-warning-div').show();
               $('#scroll-head-err').css({'display' : 'flex'});
               setTimeout(() => {
                 $('#scroll-head-err').hide();
@@ -165,7 +165,7 @@ export class HomeComponent implements OnInit {
               } else {
                 this.locationEntry = this.address;
                 this.display_error = 'Please enter your delivery location to view menu.';
-                $('.location-warning-div').show();
+                //$('.location-warning-div').show();
                 $('#scroll-head-err').css({'display' : 'flex'});
                 setTimeout(() => {
                   $('#scroll-head-err').hide();
@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.locationEntry = this.address;
           this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
-          $('.location-warning-div').show();
+          //$('.location-warning-div').show();
           $('#scroll-head-err').css({'display' : 'flex'});
           setTimeout(() => {
             $('#scroll-head-err').hide();
@@ -223,7 +223,7 @@ export class HomeComponent implements OnInit {
           if (this.locationEntry === null || this.locationEntry === undefined || this.locationEntry === '') {
             // Show Error
             this.display_error = 'Please enter your delivery location to view menu.';
-            $('.location-warning-div').show();
+            //$('.location-warning-div').show();
             $('#scroll-head-err').css({'display' : 'flex'});
             setTimeout(() => {
               $('#scroll-head-err').hide();
