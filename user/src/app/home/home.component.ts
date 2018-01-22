@@ -124,7 +124,7 @@ export class HomeComponent implements OnInit {
             } else {
               // Add to user's address if he is logged in
               this.locationEntry = this.address;
-              this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
+              //this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
               //$('.location-warning-div').show();
               $('#scroll-head-err').css({'display' : 'flex'});
               setTimeout(() => {
@@ -210,7 +210,7 @@ export class HomeComponent implements OnInit {
           }
         } else {
           this.locationEntry = this.address;
-          this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
+          //this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
           //$('.location-warning-div').show();
           $('#scroll-head-err').css({'display' : 'flex'});
           setTimeout(() => {
