@@ -25,10 +25,10 @@ export class CheckoutComponent implements OnInit {
   // Razorpay variables
   rzp1: any;
   options: any;
-  // p_key = 'rzp_live_qNI6V5maLBak44';
-  p_key = 'rzp_test_w2CGfBqrpGcF5o';
-  // p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
+  p_key = 'rzp_live_qNI6V5maLBak44';
+  //p_key = 'rzp_test_w2CGfBqrpGcF5o';
   p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
+ // p_secret = 'lM0HT7rLLHAIguyJIFv0jQ8y';
 
   kevv = 'kevv';
 
