@@ -192,7 +192,7 @@ a {
 
 .dark-cover .container {
     width: 95%;
-    height: 90%
+    height: 110%
 }
 
 .main-nav-div>nav>ul .head-basket {
@@ -393,7 +393,7 @@ a {
 
 .cur-serving {
     color: rgba(255, 255, 255, .6);
-    margin: 10px auto 10px 2px;
+    margin: 20px auto 10px 2px;
     letter-spacing: .5px;
     font-size: 100%;
     font-weight: 400
