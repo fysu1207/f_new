@@ -165,7 +165,7 @@ export class HomeComponent implements OnInit {
               } else {
                 this.locationEntry = this.address;
                 this.display_error = 'Please enter your delivery location to view menu.';
-                //$('.location-warning-div').show();
+                $('.location-warning-div').show();
                 $('#scroll-head-err').css({'display' : 'flex'});
                 setTimeout(() => {
                   $('#scroll-head-err').hide();
@@ -223,7 +223,7 @@ export class HomeComponent implements OnInit {
           if (this.locationEntry === null || this.locationEntry === undefined || this.locationEntry === '') {
             // Show Error
             this.display_error = 'Please enter your delivery location to view menu.';
-            //$('.location-warning-div').show();
+            $('.location-warning-div').show();
             $('#scroll-head-err').css({'display' : 'flex'});
             setTimeout(() => {
               $('#scroll-head-err').hide();
