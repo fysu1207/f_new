@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
             this.address = res.results[0].formatted_address;
             //$('.location-warning-div').hide();
             this.locationEntry = this.address;
-            if (this.address.includes('Madhapur')) {
+            if (this.address.includes('a')) {
               localStorage.setItem('home_address', this.address);
               if (this.authService.loggedIn()) {
                 const address = {
