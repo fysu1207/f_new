@@ -285,18 +285,18 @@ a {
     border: none;
     border-radius: 5px;
     margin: 15px auto 0;
-    background-color: #6DA942;
+    background-color: #6DA94200;
     color: #fff;
     font-size: 110%;
     letter-spacing: 1px;
-    box-shadow: 0 0 8px 1px rgba(0, 0, 0, .7);
+    box-shadow: 0 0 8px 1px #777777b3;
     -webkit-transition: all .2s ease-out;
     -moz-transition: all .2s ease-out;
     transition: all .2s ease-out
 }
 
 .concept-trig-btn:hover {
-    background-color: #588835
+    background-color: #6da942
 }
 
 .reward-pts-trig-btn {
@@ -441,15 +441,16 @@ a {
 }
 
 #main-see-menu-btn {
-    background-color: #000;
+    background-color: #6da942;
     color: #fff;
     font-size: 100%;
+    letter-spacing: .5px;
     margin-left: 5px;
     transition: all .2s ease-in
 }
 
 #main-see-menu-btn:hover {
-    background-color: #191919
+    background-color: #4b8024
 }
 
 .fvp-down-btn {
