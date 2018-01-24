@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit {
               this.geoLocate();
             }else {
               // tslint:disable-next-line:max-line-length
-              if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Madhapur' || this.locationEntry === 'madhapur' || this.locationEntry === 'Madapur' || this.locationEntry === 'madapur' || this.locationEntry.includes('Madapur') || this.locationEntry.includes('madapur')) {
+              if (this.locationEntry.includes('a') || this.locationEntry.includes('e') || this.locationEntry === 'a' || this.locationEntry === 'e' || this.locationEntry === 'i' || this.locationEntry === 'o' || this.locationEntry.includes('i') || this.locationEntry.includes('o')) {
                 localStorage.setItem('home_address', this.locationEntry);
                 if (this.authService.loggedIn()) {
                   const address = {
