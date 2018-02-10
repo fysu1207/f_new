@@ -12,9 +12,11 @@ export class AdminAuthService {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
         return this.http.post('admin/register', admin, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/admin/register', admin, { headers: header }).map(res => res.json());
     }
     getAdmins() {
         return this.http.get('admin/get-admins').map(res => res.json());
+        // return this.http.get('http://localhost:3700/admin/get-admins').map(res => res.json());
     }
     deleteAdmin(admin_id) {
         return this.http.delete('admin/delete-admin/' + admin_id).map(res => res.json());

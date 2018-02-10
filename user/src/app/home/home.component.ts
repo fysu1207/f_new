@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   userMobile: string;
   userId: string;
   basket_num: number;
-  display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
+  display_error = 'Thank you for stopping by, We unfortunately do not serve your locality';
   constructor(private router: Router, private title: Title, private appComponent: AppComponent, public authService: AuthService) { }
   ngOnInit() {
     this.router.events.subscribe((evt) => {
@@ -101,7 +101,7 @@ export class HomeComponent implements OnInit {
             this.address = res.results[0].formatted_address;
             //$('.location-warning-div').hide();
             this.locationEntry = this.address;
-            if (this.address.includes('a')) {
+            if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
               localStorage.setItem('home_address', this.address);
               if (this.authService.loggedIn()) {
                 const address = {
@@ -124,8 +124,8 @@ export class HomeComponent implements OnInit {
             } else {
               // Add to user's address if he is logged in
               this.locationEntry = this.address;
-              //this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
-              //$('.location-warning-div').show();
+              this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality.';
+              $('.location-warning-div').show();
               $('#scroll-head-err').css({'display' : 'flex'});
               setTimeout(() => {
                 $('#scroll-head-err').hide();
@@ -149,7 +149,7 @@ export class HomeComponent implements OnInit {
               this.geoLocate();
             }else {
               // tslint:disable-next-line:max-line-length
-              if (this.locationEntry.includes('a') || this.locationEntry.includes('e') || this.locationEntry === 'a' || this.locationEntry === 'e' || this.locationEntry === 'i' || this.locationEntry === 'o' || this.locationEntry.includes('i') || this.locationEntry.includes('o')) {
+              if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
                 localStorage.setItem('home_address', this.locationEntry);
                 if (this.authService.loggedIn()) {
                   const address = {
@@ -178,7 +178,7 @@ export class HomeComponent implements OnInit {
     }else {
       if (this.locationEntry !== undefined && this.locationEntry !== null && this.locationEntry !== '') {
         // tslint:disable-next-line:max-line-length
-        if (this.locationEntry.includes('a') || this.locationEntry.includes('e') || this.locationEntry === 'a' || this.locationEntry === 'e' || this.locationEntry === 'i' || this.locationEntry === 'o' || this.locationEntry.includes('i') || this.locationEntry.includes('o') ) {
+        if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
           localStorage.setItem('home_address', this.locationEntry);
           // Add to user's address if he is logged in
           if (this.authService.loggedIn()) {
@@ -210,8 +210,8 @@ export class HomeComponent implements OnInit {
           }
         } else {
           this.locationEntry = this.address;
-          //this.display_error = 'We are currently delivering to companies in and around Madhapur, Hyderabad';
-          //$('.location-warning-div').show();
+          this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality';
+          $('.location-warning-div').show();
           $('#scroll-head-err').css({'display' : 'flex'});
           setTimeout(() => {
             $('#scroll-head-err').hide();

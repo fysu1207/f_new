@@ -30,7 +30,7 @@
     "jsonwebtoken": "^8.0.1",
     "moment-countdown": "0.0.3",
     "mongoose": "^4.11.11",
-    "nodemon": "^1.12.0",
+    "nodemon": "^1.14.12",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.0",
     "razorpay": "^1.6.1",

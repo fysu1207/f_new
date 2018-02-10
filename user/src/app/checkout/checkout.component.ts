@@ -450,6 +450,9 @@ export class CheckoutComponent implements OnInit {
     this.deduct_points = +this.remainingPoints + +this.points_earned;
     this.getMenu.repRewards(this.userEmail, this.deduct_points).subscribe(res => {
       if (res.success) {
+        return true;
+      }else {
+        return false;
       }
     });
   }
@@ -490,6 +493,7 @@ export class CheckoutComponent implements OnInit {
     if (this.selected_address === null || this.selected_address === undefined) {
       // Show Error
       $('.err').html('Please select an address');
+      // Enable button
     }else {
       if (this.selected_address === '' || this.selected_address.length === 0) {
         $('.err').html('Your address is empty. Please edit the address');
@@ -500,6 +504,8 @@ export class CheckoutComponent implements OnInit {
           // Show error
           $('.err').html('Please select a payment method');
         }else {
+          // Disabling place order button for valid request
+          $('#place-order-button').prop('disabled', true);
           let pay_method = this.payment_method;
           if (this.payment_method === 'Cash On Delivery') {
             pay_method = 'Cash On Delivery';
@@ -609,11 +615,14 @@ export class CheckoutComponent implements OnInit {
     }
   }
   postOrder(resp, json, order_id) {
-    this.addRewardPoints();
+    const ret = this.addRewardPoints();
+    if (!ret) {
+        this.addRewardPoints();
+    }
     this.authService.postOrder(json).subscribe(res => {
       if (res.success) {
         const dIjson = { dateItem: this.date_and_item_array };
-          this.addRewardPoints();
+          // this.addRewardPoints();
           localStorage.setItem('order_id', order_id);
           localStorage.removeItem('all_orders');
           localStorage.removeItem('today_orders');
@@ -631,6 +640,7 @@ export class CheckoutComponent implements OnInit {
         $('.err').html('Something went wrong. please try again later');
       }
     });
+    
   }
   editAddress(i, address) {
     this.original_address = address;
