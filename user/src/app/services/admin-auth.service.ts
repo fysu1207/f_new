@@ -20,11 +20,13 @@ export class AdminAuthService {
     }
     deleteAdmin(admin_id) {
         return this.http.delete('admin/delete-admin/' + admin_id).map(res => res.json());
+        // return this.http.delete('admin/delete-admin/' + admin_id).map(res => res.json());
     }
     authenticateAdmin(admin) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
         return this.http.post('admin/authenticate', admin, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/admin/authenticate', admin, { headers: header }).map(res => res.json());
     }
     getProfile() {
         const header = new Headers();
@@ -32,6 +34,7 @@ export class AdminAuthService {
         this.loadToken();
         header.append('Authorization', this.authToken);
         return this.http.get('admin/profile', { headers: header }).map(res => res.json());
+        // return this.http.get('http://localhost:3700/admin/profile', { headers: header }).map(res => res.json());
     }
     loadToken() {
         const token = localStorage.getItem('admin_id_token');

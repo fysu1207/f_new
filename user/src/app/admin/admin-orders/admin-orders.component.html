@@ -29,10 +29,10 @@
                 Items
               </th>
               <th>
-                Timeslot
+                Number of orders
               </th>
               <th>
-                Number of orders
+                Timeslot
               </th>
               <th>
                 Payment mode
@@ -71,6 +71,13 @@
                   </span>
                 </td>
                 <td>
+                    <span *ngFor='let item_det of today.item_dets'>
+                      <p>
+                        {{item_det.num_of_items}}
+                      </p>
+                    </span>
+                  </td>
+                <td>
                   <span *ngFor='let item_det of today.item_dets'>
                       <p>
                         {{item_det.time_slot}}
@@ -78,26 +85,19 @@
                   </span>
                 </td>
                 <td>
-                  <span *ngFor='let item_det of today.item_dets'>
-                    <p>
-                      {{item_det.num_of_items}}
-                    </p>
-                  </span>
-                </td>
-                <td>
                   {{today.payment_type}}
                 </td>
                 <td>
-                  <span *ngFor='let item_det of today.item_dets'>
+                  <div *ngFor='let item of today.item_dets'>
                     <p>
-                      {{ item_det['0'].price }}
+                      {{ item.price }}
                     </p>
-                  </span>
+                  </div>
                   <span>
                     Redeemed : {{ today.redeemedPrice }} /-
                   </span>
                   <span>
-                    Total Price : {{ today.item_dets.total_price }}
+                    Total Price : {{ today.item_dets[0].total_price }}
                   </span>
                 </td>
                 <td>
@@ -131,10 +131,10 @@
             Items
           </th>
           <th>
-            Timeslot
+            Number of orders
           </th>
           <th>
-            Number of orders
+            Timeslot
           </th>
           <th>
             Payment mode
@@ -171,10 +171,10 @@
            
          </td>
          <td>
-           {{ today.time_slot }}
+           {{ today.num_of_items }}
          </td>
          <td>
-           {{ today.num_of_items }}
+           {{ today.time_slot }}
          </td>
          <td>
            {{today.payment_type}}
@@ -216,10 +216,10 @@
             Items
           </th>
           <th>
-            Timeslot
+            Number of orders
           </th>
           <th>
-            Number of orders
+            Timeslot
           </th>
           <th>
             Payment mode
@@ -255,10 +255,10 @@
               </span>
             </td>
             <td>
-              {{ day_one.time_slot }}
+              {{ day_one.num_of_items }}
             </td>
             <td>
-              {{ day_one.num_of_items }}
+              {{ day_one.time_slot }}
             </td>
             <td>
               {{day_one.payment_type}}
@@ -300,10 +300,10 @@
               Items
             </th>
             <th>
-              Timeslot
+              Number of orders
             </th>
             <th>
-              Number of orders
+              Timeslot
             </th>
             <th>
               Payment mode
@@ -339,10 +339,10 @@
                 </span>
               </td>
               <td>
-                {{ day_two.time_slot }}
+                  {{ day_two.num_of_items }}
               </td>
               <td>
-                  {{ day_two.num_of_items }}
+                {{ day_two.time_slot }}
               </td>
               <td>
                 {{ day_two.payment_type }}
@@ -384,10 +384,10 @@
               Items
             </th>
             <th>
-              Timeslot
+              Number of orders
             </th>
             <th>
-              Number of orders
+              Timeslot
             </th>
             <th>
               Payment mode
@@ -423,10 +423,10 @@
              </span>
            </td>
            <td>
-             {{ day_three.time_slot }}
+             {{ day_three.num_of_items }}
            </td>
            <td>
-             {{ day_three.num_of_items }}
+             {{ day_three.time_slot }}
            </td>
            <td>
              {{day_three.payment_type}}
@@ -468,10 +468,10 @@
               Items
             </th>
             <th>
-              Timeslot
+              Number of orders
             </th>
             <th>
-              Number of orders
+              Timeslot
             </th>
             <th>
               Payment mode
@@ -507,10 +507,10 @@
              </span>
            </td>
            <td>
-             {{ today.time_slot }}
+             {{ today.num_of_items }}
            </td>
            <td>
-             {{ today.num_of_items }}
+             {{ today.time_slot }}
            </td>
            <td>
              {{today.payment_type}}
@@ -552,10 +552,10 @@
               Items
             </th>
             <th>
-              Timeslot
+              Number of orders
             </th>
             <th>
-              Number of orders
+              Timeslot
             </th>
             <th>
               Payment mode
@@ -591,10 +591,10 @@
              </span>
            </td>
            <td>
-             {{ today.time_slot }}
+             {{ today.num_of_items }}
            </td>
            <td>
-             {{ today.num_of_items }}
+             {{ today.time_slot }}
            </td>
            <td>
              {{today.payment_type}}
@@ -637,10 +637,10 @@
             Ordered Items
           </th>
           <th>
-            Time slot
+            Number of orders
           </th>
           <th>
-            Number of orders
+            Time slot
           </th>
         </tr>
         <tr>
