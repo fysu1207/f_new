@@ -99,9 +99,9 @@ export class HomeComponent implements OnInit {
         } else {
           this.authService.getLocation(this.lat, this.long).subscribe(res => {
             this.address = res.results[0].formatted_address;
-            let temp_ad = this.locationEntry.toLowerCase();
             //$('.location-warning-div').hide();
             this.locationEntry = this.address;
+            let temp_ad = this.address.toLowerCase();
             if (temp_ad.includes('madhapur') || temp_ad.includes('kondapur') || temp_ad.includes('jubilee hills') || temp_ad.includes('hi-tech city') || temp_ad.includes('hitech city')) {
               localStorage.setItem('home_address', this.address);
               if (this.authService.loggedIn()) {

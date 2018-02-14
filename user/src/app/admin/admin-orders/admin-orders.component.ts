@@ -105,13 +105,12 @@ export class AdminOrdersComponent implements OnInit {
                   });
                   this.order_ref_length = dords.msg.length;
                   const n_arr = dords.msg;
-                  // this.fakedOrder(n_arr);
                   this.displayOrders(dords.msg.reverse());
                 }
               });
         }
       });
-    }, 9000);
+    }, 20000);
     this.getMenu.getOrders().subscribe(res => {
       res.msg.forEach(element => {
         this.order_ref_array.push(element._id);
