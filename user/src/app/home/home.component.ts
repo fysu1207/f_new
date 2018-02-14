@@ -99,9 +99,10 @@ export class HomeComponent implements OnInit {
         } else {
           this.authService.getLocation(this.lat, this.long).subscribe(res => {
             this.address = res.results[0].formatted_address;
+            let temp_ad = this.locationEntry.toLowerCase();
             //$('.location-warning-div').hide();
             this.locationEntry = this.address;
-            if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
+            if (temp_ad.includes('madhapur') || temp_ad.includes('kondapur') || temp_ad.includes('jubilee hills') || temp_ad.includes('hi-tech city') || temp_ad.includes('hitech city')) {
               localStorage.setItem('home_address', this.address);
               if (this.authService.loggedIn()) {
                 const address = {
@@ -148,8 +149,8 @@ export class HomeComponent implements OnInit {
             if (this.locationEntry === undefined || this.locationEntry === null || this.locationEntry === '') {
               this.geoLocate();
             }else {
-              // tslint:disable-next-line:max-line-length
-              if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
+              let temp_ad = this.locationEntry.toLowerCase();
+              if (temp_ad.includes('madhapur') || temp_ad.includes('kondapur') || temp_ad.includes('jubilee hills') || temp_ad.includes('hi-tech city') || temp_ad.includes('hitech city')) {
                 localStorage.setItem('home_address', this.locationEntry);
                 if (this.authService.loggedIn()) {
                   const address = {
@@ -177,8 +178,8 @@ export class HomeComponent implements OnInit {
       });
     }else {
       if (this.locationEntry !== undefined && this.locationEntry !== null && this.locationEntry !== '') {
-        // tslint:disable-next-line:max-line-length
-        if (this.locationEntry.includes('Madhapur') || this.locationEntry.includes('madhapur') || this.locationEntry === 'Kondapur' || this.locationEntry === 'kondapur' || this.locationEntry === 'Jubilee Hills' || this.locationEntry === 'Jubilee hills' || this.locationEntry.includes('jubilee hills') || this.locationEntry.includes('HITEC city') || this.locationEntry.includes('HITEC City') || this.locationEntry.includes('hitech city')) {
+        let temp_ad = this.locationEntry.toLowerCase();
+        if (temp_ad.includes('madhapur') || temp_ad.includes('kondapur') || temp_ad.includes('jubilee hills') || temp_ad.includes('hi-tech city') || temp_ad.includes('hitech city')) {
           localStorage.setItem('home_address', this.locationEntry);
           // Add to user's address if he is logged in
           if (this.authService.loggedIn()) {

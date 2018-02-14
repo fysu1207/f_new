@@ -155,7 +155,7 @@ router.use(bodyParser.json()), router.use(bodyParser.urlencoded({
             var h = parseInt(g) + parseInt(points),
                 h = parseInt(h);
             user.findOneAndUpdate({
-                email: email
+                mobile: mobile
             }, {
                 $set: {
                     rewardPoints: h
@@ -171,9 +171,10 @@ router.use(bodyParser.json()), router.use(bodyParser.urlencoded({
             })
         }
     })
-}), router.get('/rep-rewards/:email/:points', function(a, b) {
-    email = a.params.email, points = a.params.points, user.find({
-        email: email
+}); 
+router.get('/rep-rewards/:email/:points', function(a, b) {
+    mobile = a.params.email, points = a.params.points, user.find({
+        mobile: mobile
     }, function(e, f) {
         if (e) b.json({
             success: !1,
@@ -184,7 +185,7 @@ router.use(bodyParser.json()), router.use(bodyParser.urlencoded({
             var h = parseInt(points),
                 h = parseInt(h);
             user.findOneAndUpdate({
-                email: email
+                mobile: mobile
             }, {
                 $set: {
                     rewardPoints: h

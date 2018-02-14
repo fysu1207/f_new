@@ -448,7 +448,7 @@ export class CheckoutComponent implements OnInit {
   }
   addRewardPoints() {
     this.deduct_points = +this.remainingPoints + +this.points_earned;
-    this.getMenu.repRewards(this.userEmail, this.deduct_points).subscribe(res => {
+    this.getMenu.repRewards(this.userMobile, this.deduct_points).subscribe(res => {
       if (res.success) {
         return true;
       }else {

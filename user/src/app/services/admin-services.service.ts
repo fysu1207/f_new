@@ -59,8 +59,8 @@ export class AdminServicesService {
     }
     getDateItems(cat_id: string, sub_name: string, date: string) {
         // tslint:disable-next-line:max-line-length
-        // return this.http.get('admin/get-date-items/' + cat_id + '/' + sub_name + '/' + date).map(res => res.json());
-        return this.http.get('http://localhost:3700/admin/get-date-items/' + cat_id + '/' + sub_name + '/' + date).map(res => res.json());
+        return this.http.get('admin/get-date-items/' + cat_id + '/' + sub_name + '/' + date).map(res => res.json());
+        // return this.http.get('http://localhost:3700/admin/get-date-items/' + cat_id + '/' + sub_name + '/' + date).map(res => res.json());
     }
     postSchedule(schArray: any, remArray: any) {
         const headers = new Headers();
