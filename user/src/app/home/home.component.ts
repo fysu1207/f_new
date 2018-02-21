@@ -127,7 +127,7 @@ export class HomeComponent implements OnInit {
               this.locationEntry = this.address;
               this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality.';
               //$('.location-warning-div').show();
-              $('#scroll-head-err').css({'display' : 'flex'});
+              //$('#scroll-head-err').css({'display' : 'flex'});
               setTimeout(() => {
                 $('#scroll-head-err').hide();
               }, 3000);
@@ -213,7 +213,7 @@ export class HomeComponent implements OnInit {
           this.locationEntry = this.address;
           this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality';
           //$('.location-warning-div').show();
-          $('#scroll-head-err').css({'display' : 'flex'});
+          //$('#scroll-head-err').css({'display' : 'flex'});
           setTimeout(() => {
             $('#scroll-head-err').hide();
           }, 3000);
