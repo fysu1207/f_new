@@ -125,8 +125,8 @@ export class HomeComponent implements OnInit {
             } else {
               // Add to user's address if he is logged in
               this.locationEntry = this.address;
-              //this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality.';
-              $('.location-warning-div').show();
+              this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality.';
+              //$('.location-warning-div').show();
               $('#scroll-head-err').css({'display' : 'flex'});
               setTimeout(() => {
                 $('#scroll-head-err').hide();
@@ -211,8 +211,8 @@ export class HomeComponent implements OnInit {
           }
         } else {
           this.locationEntry = this.address;
-          //this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality';
-          $('.location-warning-div').show();
+          this.display_error = 'Thank you for stopping by, We unfortunately do not serve your locality';
+          //$('.location-warning-div').show();
           $('#scroll-head-err').css({'display' : 'flex'});
           setTimeout(() => {
             $('#scroll-head-err').hide();
