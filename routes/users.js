@@ -365,9 +365,21 @@ router.get('/send-otp/:mobile', function(a, b) {
         })
     })
 }), router.post('/post-order', function(a, b) {
-    order = a.body.order_dets;
+    // order = a.body.order_dets;
+    let c = a.body;
     var d = new Order({
-        order: order
+        order: {user_id: c.user_id,
+            user_name:c.user_name,
+            user_mobile:c.user_mobile,
+            order_id:c.order_id,
+            delivery_notes:c.delivery_notes,
+            order_time: moment(),
+            delivery_address:c.delivery_address,
+            payment_method:c.payment_method,
+            order:c.order,
+            total_price:c.total_price,
+            order: c.order}
+    
     });
     d.save(function(f, g) {
         f ? b.json({
