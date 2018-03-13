@@ -10,6 +10,7 @@ var express = require('express'),
     bcrypt = require('bcryptjs'),
     SendOtp = require('sendotp'),
     Razorpay = require('razorpay'),
+    moment = require('moment');
     rzp = new Razorpay({
         key_id: ' rzp_live_qNI6V5maLBak44',
         key_secret: 'lM0HT7rLLHAIguyJIFv0jQ8y'
