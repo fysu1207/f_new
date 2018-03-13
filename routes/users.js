@@ -368,14 +368,13 @@ router.get('/send-otp/:mobile', function(a, b) {
 }), router.post('/post-order', function(a, b) {
     // order = a.body.order_dets;
     let c = a.body;
-    console.log(c);
     var d = new Order({
         order: {user_id: c.user_id,
             user_name:c.user_name,
             user_mobile:c.user_mobile,
             order_id:c.order_id,
             delivery_notes:c.delivery_notes,
-            order_time: moment(),
+            order_time: moment().format('MMMM Do YYYY, h:mm:ss a'),
             delivery_address:c.delivery_address,
             payment_method:c.payment_method,
             order:c.order,
