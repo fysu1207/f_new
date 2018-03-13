@@ -339,6 +339,7 @@ export class MenuComponent implements OnInit {
     if (this.authService.loggedIn() === true) {
       const user = this.authService.getUserFromLocal();
       const user_parsed = JSON.parse(user);
+      console.log(user_parsed);
       this.userEmail = user_parsed.email;
       this.fullName = user_parsed.name;
       this.userMobile = user_parsed.mobile;
