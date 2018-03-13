@@ -368,6 +368,7 @@ router.get('/send-otp/:mobile', function(a, b) {
 }), router.post('/post-order', function(a, b) {
     // order = a.body.order_dets;
     let c = a.body;
+    console.log(c);
     var d = new Order({
         order: {user_id: c.user_id,
             user_name:c.user_name,

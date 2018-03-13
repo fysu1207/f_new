@@ -552,7 +552,7 @@ export class CheckoutComponent implements OnInit {
                 'description': 'Purchase Description',
                 'image': '../../assets/logo/logo_black.png',
                 'handler':  (response) => {
-                  this.postOrder(response, json, order_id);
+                  this.postOrder(response, main_order, order_id);
               },
                 'prefill': {
                     'name': this.userName,
@@ -575,7 +575,7 @@ export class CheckoutComponent implements OnInit {
                 'description': 'Purchase Description',
                 'image': '../../assets/logo/logo_black.png',
                 'handler': (response) => {
-                    this.postOrder(response, json, order_id);
+                    this.postOrder(response, main_order, order_id);
                 },
                 'prefill': {
                     'name': this.userName,
@@ -593,7 +593,7 @@ export class CheckoutComponent implements OnInit {
           this.rzp1 = new this.winRef.nativeWindow.Razorpay(this.options);
           this.rzp1.open();
           }else {
-            this.postOrder('Cash On Delivery', json, order_id);
+            this.postOrder('Cash On Delivery', main_order, order_id);
           }
         }
       }
@@ -614,12 +614,12 @@ export class CheckoutComponent implements OnInit {
         break;
     }
   }
-  postOrder(resp, json, order_id) {
+  postOrder(resp, main_order, order_id) {
     const ret = this.addRewardPoints();
     if (!ret) {
         this.addRewardPoints();
     }
-    this.authService.postOrder(json).subscribe(res => {
+    this.authService.postOrder(main_order).subscribe(res => {
       if (res.success) {
         const dIjson = { dateItem: this.date_and_item_array };
           // this.addRewardPoints();
