@@ -145,10 +145,10 @@ router.use(bodyParser.json()), router.use(bodyParser.urlencoded({
 }), router.get('/post-rewards/:email/:points', function(a, b) {
     mobile = a.params.email, points = a.params.points, user.find({
         mobile: mobile
-    }, function(e, f) {
-        if (e) b.json({
-            success: !1,
-            msg: e
+    }, function(err, f) {
+        if (err) b.json({
+            success: false,
+            msg: err
         });
         else {
             var g = isNaN(f[0].rewardPoints) ? 0 : f[0].rewardPoints;
@@ -172,8 +172,8 @@ router.use(bodyParser.json()), router.use(bodyParser.urlencoded({
         }
     })
 }); 
-router.get('/rep-rewards/:email/:points', function(a, b) {
-    mobile = a.params.email, points = a.params.points, user.find({
+router.get('/rep-rewards/:mobile/:points', function(a, b) {
+    mobile = a.params.mobile, points = a.params.points, user.find({
         mobile: mobile
     }, function(e, f) {
         if (e) b.json({

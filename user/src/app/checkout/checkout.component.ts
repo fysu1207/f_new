@@ -169,6 +169,196 @@ export class CheckoutComponent implements OnInit {
   date_and_item_array = [];
 
   ngOnInit() {
+    let today_orders = JSON.parse(localStorage.getItem('today_orders'));
+    let basket_number = JSON.parse(localStorage.getItem('basket_number'));
+    if(today_orders !== undefined && today_orders !== null){
+      if(today_orders.date === moment().format('dddd, MMMM D, YYYY')){
+        if(today_orders.tab_one !== undefined && today_orders.tab_one !== null){
+          switch (today_orders.tab_one.time_slot) {
+            case "slot_one":
+              let slot_one_end_time = moment('12:44pm', 'h:mma');
+              if(slot_one_end_time.isBefore(moment())){
+                today_orders.tab_one === null;
+                console.log(today_orders);
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+  
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_two":
+              let slot_two_end_time = moment('1:30pm', 'h:mma');
+              if(slot_two_end_time.isBefore(moment())){
+                today_orders.tab_one === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_three":
+              let slot_three_end_time = moment('2:15pm', 'h:mma');
+              if(slot_three_end_time.isBefore(moment())){
+                today_orders.tab_one === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+          
+            default:
+              break;
+          }
+        }
+  
+        if(today_orders.tab_two !== undefined && today_orders.tab_two !== null){
+          switch (today_orders.tab_two.time_slot) {
+            case "slot_one":
+              let slot_one_end_time = moment('12:44pm', 'h:mma');
+              if(slot_one_end_time.isBefore(moment())){
+                today_orders.tab_two = null;
+                localStorage.removeItem('today_orders');
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_two":
+              let slot_two_end_time = moment('1:30pm', 'h:mma');
+              if(slot_two_end_time.isBefore(moment())){
+                today_orders.tab_two === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_three":
+              let slot_three_end_time = moment('2:15pm', 'h:mma');
+              if(slot_three_end_time.isBefore(moment())){
+                today_orders.tab_two === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+          
+            default:
+              break;
+          }
+        }
+  
+        if(today_orders.tab_three !== undefined && today_orders.tab_three !== null){
+          switch (today_orders.tab_three.time_slot) {
+            case "slot_one":
+              let slot_one_end_time = moment('12:44pm', 'h:mma');
+              if(slot_one_end_time.isAfter(moment())){
+                today_orders.tab_three === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_two":
+              let slot_two_end_time = moment('1:30pm', 'h:mma');
+              if(slot_two_end_time.isBefore(moment())){
+                today_orders.tab_three === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+            case "slot_three":
+              let slot_three_end_time = moment('2:15pm', 'h:mma');
+              if(slot_three_end_time.isBefore(moment())){
+                today_orders.tab_three === null;
+                localStorage.setItem('today_orders',JSON.stringify(today_orders));
+                localStorage.setItem('basket_number',JSON.stringify(basket_number-1));
+              }
+              if(JSON.parse(localStorage.getItem('basket_number')) === 0){
+                localStorage.removeItem('today_orders');
+                localStorage.removeItem('order_id');
+                this.router.navigate(['/menu']);
+              }
+              break;
+          
+            default:
+              break;
+          }
+        }
+      }
+    }
+    // next four days orders
+    let all_orders = JSON.parse(localStorage.getItem('all_orders'));
+    let one_end = moment('12:44pm', 'h:mma');
+    let two_end = moment('1:29pm', 'h:mma');
+    let three_end = moment('2:14pm', 'h:mma');
+    if(all_orders.day_one !== null && all_orders.day_one !== undefined){
+      if(all_orders.day_one.date === moment().format('dddd, MMMM D, YYYY') || moment(all_orders.day_one.date).isAfter(moment())){
+        all_orders.day_one = null;
+        localStorage.removeItem('all_orders');
+        localStorage.setItem('all_orders',JSON.stringify(all_orders));
+      }
+    }
+    if(all_orders.day_two !== null && all_orders.day_two !== undefined){
+      if(all_orders.day_two.date === moment().format('dddd, MMMM D, YYYY') || moment(all_orders.day_two.date).isBefore(moment())){
+        all_orders.day_two = null;
+        localStorage.removeItem('all_orders');
+        localStorage.setItem('all_orders',JSON.stringify(all_orders));
+      }
+    }
+    if(all_orders.day_three !== null && all_orders.day_three !== undefined){
+      if(all_orders.day_three.date === moment().format('dddd, MMMM D, YYYY') || moment(all_orders.day_three.date).isBefore(moment())){
+        all_orders.day_three = null;
+        localStorage.removeItem('all_orders');
+        localStorage.setItem('all_orders',JSON.stringify(all_orders));
+      }
+    }
+    if(all_orders.day_four !== null && all_orders.day_four !== undefined){
+      if(all_orders.day_four.date === moment().format('dddd, MMMM D, YYYY') || moment(all_orders.day_four.date).isBefore(moment())){
+        all_orders.day_four = null;
+        localStorage.removeItem('all_orders');
+        localStorage.setItem('all_orders',JSON.stringify(all_orders));
+      }
+    }
+    if(all_orders.day_five !== null && all_orders.day_five !== undefined){
+      if(all_orders.day_five.date === moment().format('dddd, MMMM D, YYYY') || moment(all_orders.day_five.date).isBefore(moment())){
+        all_orders.day_five = null;
+        localStorage.removeItem('all_orders');
+        localStorage.setItem('all_orders',JSON.stringify(all_orders));
+      }
+    }
+
     // Getting orders
     this.title.setTitle('Fysu - Checkout');
     this.dateForHeader = this.datePipe.transform(this.today_one, 'EEE, MMM d');
@@ -448,6 +638,7 @@ export class CheckoutComponent implements OnInit {
   }
   addRewardPoints() {
     this.deduct_points = +this.remainingPoints + +this.points_earned;
+    alert(this.deduct_points);
     this.getMenu.repRewards(this.userMobile, this.deduct_points).subscribe(res => {
       if (res.success) {
         return true;
