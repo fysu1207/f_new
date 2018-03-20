@@ -21,36 +21,43 @@ export class AuthService {
     updateUser(user) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3700/users/update-user', user, { headers: header }).map(res => res.json());
+        return this.http.post('users/update-user', user, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/users/update-user', user, { headers: header }).map(res => res.json());
     }
     updatePassword(pwd) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3700/users/update-pwd', pwd, { headers: header }).map(res => res.json());
+        return this.http.post('users/update-pwd', pwd, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/users/update-pwd', pwd, { headers: header }).map(res => res.json());
     }
     sendOtp(mobile) {
-        return this.http.get('http://localhost:3700/users/send-otp/' + mobile).map(res => res.json());
+        return this.http.get('users/send-otp/' + mobile).map(res => res.json());
+        // return this.http.get('http://localhost:3700/users/send-otp/' + mobile).map(res => res.json());
     }
     registerUser(user) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3700/users/register', user, { headers: header }).map(res => res.json());
+        return this.http.post('users/register', user, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/users/register', user, { headers: header }).map(res => res.json());
     }
     authenticateMobile(mobile: string) {
-        return this.http.get('http://localhost:3700/users/find-mobile/' + mobile).map(res => res.json());
+        return this.http.get('users/find-mobile/' + mobile).map(res => res.json());
+        // return this.http.get('http://localhost:3700/users/find-mobile/' + mobile).map(res => res.json());
     }
     // Delete cateogry
     authenticateEmail(email: string) {
-        return this.http.get('http://localhost:3700/users/find-email/' + email).map(res => res.json());
+        return this.http.get('users/find-email/' + email).map(res => res.json());
+        // return this.http.get('http://localhost:3700/users/find-email/' + email).map(res => res.json());
     }
     authenticateUser(user) {
         const header = new Headers();
         header.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3700/users/authenticate', user, { headers: header }).map(res => res.json());
+        return this.http.post('users/authenticate', user, { headers: header }).map(res => res.json());
+        // return this.http.post('http://localhost:3700/users/authenticate', user, { headers: header }).map(res => res.json());
     }
     storeUserData(token, user) {
         localStorage.setItem('id_token', token);
-        localStorage.setItem('http://localhost:3700/user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(user));
         this.authToken = token;
         this.user = user;
     }
